@@ -11,7 +11,6 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		4DED8ABF6BC7D21DB2D42D38 /* libPods-RNCodeBase-RNCodeBaseTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4CC5C811B18E1C6AFA173EE /* libPods-RNCodeBase-RNCodeBaseTests.a */; };
 		60C7D7B7264BE6F600C1F006 /* swiftWebKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C7D7B6264BE6F600C1F006 /* swiftWebKit.swift */; };
 		60C7D7B8264BE6F600C1F006 /* swiftWebKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C7D7B6264BE6F600C1F006 /* swiftWebKit.swift */; };
 		7E9CA9793DD333BB9ACFC837 /* libPods-RNCodeBase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F083E8BB56AA3930CFFC1AC6 /* libPods-RNCodeBase.a */; };
@@ -32,7 +31,6 @@
 		00E356EE1AD99517003FC87E /* RNCodeBaseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RNCodeBaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* RNCodeBaseTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNCodeBaseTests.m; sourceTree = "<group>"; };
-		08136F56F8B4F387A99E9D56 /* Pods-RNCodeBase-RNCodeBaseTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNCodeBase-RNCodeBaseTests.release.xcconfig"; path = "Target Support Files/Pods-RNCodeBase-RNCodeBaseTests/Pods-RNCodeBase-RNCodeBaseTests.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* RNCodeBase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RNCodeBase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = RNCodeBase/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = RNCodeBase/AppDelegate.m; sourceTree = "<group>"; };
@@ -45,8 +43,6 @@
 		60C7D7B5264BE6F600C1F006 /* RNCodeBaseTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RNCodeBaseTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		60C7D7B6264BE6F600C1F006 /* swiftWebKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swiftWebKit.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = RNCodeBase/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		B575C7B40B2170593CA85AB7 /* Pods-RNCodeBase-RNCodeBaseTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNCodeBase-RNCodeBaseTests.debug.xcconfig"; path = "Target Support Files/Pods-RNCodeBase-RNCodeBaseTests/Pods-RNCodeBase-RNCodeBaseTests.debug.xcconfig"; sourceTree = "<group>"; };
-		D4CC5C811B18E1C6AFA173EE /* libPods-RNCodeBase-RNCodeBaseTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RNCodeBase-RNCodeBaseTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F083E8BB56AA3930CFFC1AC6 /* libPods-RNCodeBase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RNCodeBase.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -56,7 +52,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4DED8ABF6BC7D21DB2D42D38 /* libPods-RNCodeBase-RNCodeBaseTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,7 +101,6 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				F083E8BB56AA3930CFFC1AC6 /* libPods-RNCodeBase.a */,
-				D4CC5C811B18E1C6AFA173EE /* libPods-RNCodeBase-RNCodeBaseTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -150,8 +144,6 @@
 			children = (
 				22BC34C388866D7B671C94CA /* Pods-RNCodeBase.debug.xcconfig */,
 				414889F643109C53DE48A6C6 /* Pods-RNCodeBase.release.xcconfig */,
-				B575C7B40B2170593CA85AB7 /* Pods-RNCodeBase-RNCodeBaseTests.debug.xcconfig */,
-				08136F56F8B4F387A99E9D56 /* Pods-RNCodeBase-RNCodeBaseTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -163,12 +155,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "RNCodeBaseTests" */;
 			buildPhases = (
-				5DB843A30A54F2DDFD0CE7E6 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				B8DAD19168ECC410AB339609 /* [CP] Embed Pods Frameworks */,
-				9DF38FB504A44364CE5A4123 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -190,7 +179,6 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				D043F58804E44A4087E996B7 /* [CP] Embed Pods Frameworks */,
 				5BA01CE03DD25408494987AD /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -312,79 +300,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RNCodeBase/Pods-RNCodeBase-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5DB843A30A54F2DDFD0CE7E6 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-RNCodeBase-RNCodeBaseTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9DF38FB504A44364CE5A4123 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RNCodeBase-RNCodeBaseTests/Pods-RNCodeBase-RNCodeBaseTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RNCodeBase-RNCodeBaseTests/Pods-RNCodeBase-RNCodeBaseTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RNCodeBase-RNCodeBaseTests/Pods-RNCodeBase-RNCodeBaseTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B8DAD19168ECC410AB339609 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RNCodeBase-RNCodeBaseTests/Pods-RNCodeBase-RNCodeBaseTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RNCodeBase-RNCodeBaseTests/Pods-RNCodeBase-RNCodeBaseTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RNCodeBase-RNCodeBaseTests/Pods-RNCodeBase-RNCodeBaseTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D043F58804E44A4087E996B7 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RNCodeBase/Pods-RNCodeBase-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RNCodeBase/Pods-RNCodeBase-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RNCodeBase/Pods-RNCodeBase-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -439,7 +354,6 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B575C7B40B2170593CA85AB7 /* Pods-RNCodeBase-RNCodeBaseTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -471,7 +385,6 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 08136F56F8B4F387A99E9D56 /* Pods-RNCodeBase-RNCodeBaseTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
