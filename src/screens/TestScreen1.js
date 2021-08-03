@@ -1,12 +1,19 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, NativeModules } from 'react-native';
 import { TestScreen2 } from './index';
 import { useSelector, keySelector, useDispatch, actions } from '../context';
 import LottieView from 'lottie-react-native';
+const { TestModule } = NativeModules;
 
 const TestScreen1 = ({ navigation }) => {
     const dispatch = useDispatch();
     const testVariable = useSelector(keySelector.testVariable);
+
+    React.useEffect(() => {
+        TestModule.add(1, 2, res => {
+            console.log(res);
+        });
+    }, []);
 
     return (
         <View
