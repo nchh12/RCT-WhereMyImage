@@ -12,5 +12,9 @@
 RCT_EXTERN_METHOD(add: (int*)a
                   b: (int*)b
                   callback: (RCTResponseSenderBlock)callback)
+
+RCT_EXTERN_METHOD(labelImage: (NSString*) urlString
+                  callback: (RCTResponseSenderBlock)callback)
+
 @end
 
