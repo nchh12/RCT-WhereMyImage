@@ -26,16 +26,17 @@ class ImageLabel: NSObject{
     
     let image = ImageUtils.getFromAsset(asset: self.asset!)
     
-    
-    
-    label(image: image){ res in
+    print("start process")
+
+    label(image: image){ mapResult in
       
       let info = NSMutableDictionary()
       info.setValue(self.getUriImage(image: image), forKey: "uri")
       info.setValue(self.asset!.pixelHeight, forKey: "pixelHeight")
       info.setValue(self.asset!.pixelWidth, forKey: "pixelWidth")
+      info.setValue(mapResult, forKey: "labels")
       
-      
+      print("start callback...")
       callback(info)
 //      callback(res.first ?? NSMutableDictionary())
     }
@@ -51,7 +52,7 @@ class ImageLabel: NSObject{
     return ""
   }
   
-  private func label(image: UIImage, callback:@escaping ([NSMutableDictionary]) -> Void ){
+  private func label(image: UIImage, callback:@escaping ([String:Any]) -> Void ){
     let options = ImageLabelerOptions()
     options.confidenceThreshold = 0.5
     
@@ -61,14 +62,15 @@ class ImageLabel: NSObject{
       guard error == nil, let labels = labels else {
         return
       }
-      var res = [NSMutableDictionary]()
+      var res = [String:Any]()
       for label in labels{
-        print("label: \(label.index): \(label.confidence) - \(label.text)")
-        let tmp = NSMutableDictionary()
-        tmp.setValue(label.text, forKey: "text")
-        tmp.setValue(label.confidence, forKey: "confidence")
-        tmp.setValue(label.index, forKey: "index")
-        res.append(tmp)
+//        print("label: \(label.index): \(label.confidence) - \(label.text)")
+//        let tmp = NSMutableDictionary()
+//        tmp.setValue(label.text, forKey: "text")
+//        tmp.setValue(label.confidence, forKey: "confidence")
+//        tmp.setValue(label.index, forKey: "index")
+//        res.append(tmp)
+        res[label.text] = label.confidence
       }
       callback(res)
     }

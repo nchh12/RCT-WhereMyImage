@@ -16,6 +16,7 @@ const TestScreen1 = ({ navigation }) => {
     React.useEffect(() => {
         Listener.listen({ event: Listener.EVENTS.ON_IMAGE_LABELING }, res => {
             cnt.current = cnt.current + 1;
+            console.log(JSON.stringify(res, null, 2));
             setImage(image => [...image, ...[res]]);
         });
 
