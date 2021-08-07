@@ -16,10 +16,7 @@ const TestScreen1 = ({ navigation }) => {
     React.useEffect(() => {
         Listener.listen({ event: Listener.EVENTS.ON_IMAGE_LABELING }, res => {
             cnt.current = cnt.current + 1;
-            const newList = [...[res], ...image];
-            console.log(res, image.length + ' ' + newList.length);
-
-            setImage(image => [...[res], ...image]);
+            setImage(image => [...image, ...[res]]);
         });
 
         ImageLabelingModule.startScaningWithFilter([]);
@@ -44,7 +41,8 @@ const TestScreen1 = ({ navigation }) => {
                         key={`key_${item?.uri} ${item?.pixelWidth}`}
                         source={{ uri: item?.uri }}
                         style={{
-                            width: '100%',
+                            alignSelf: 'center',
+                            width: '80%',
                             height: 'auto',
                             aspectRatio: item?.pixelWidth / item?.pixelHeight,
                             marginTop: 100,

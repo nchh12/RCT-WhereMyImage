@@ -34,21 +34,11 @@ class ImageLabelingModule: RCTEventEmitter{
     for index in 0..<allPhotos.count {
       let asset = allPhotos.object(at: index)
       
-      let imageName = "\(index).png"
-      let image = ImageUtils.getAssetThumbnail(asset: asset)
-      let dir =  ImageUtils.saveImage(image: image, fileName: imageName)
-      print("@@asset.description \(asset.description)")
-      
-      let res = NSMutableDictionary()
-      if (dir?.absoluteString != nil) {
-        res.setValue(((dir?.absoluteString)!)  + imageName, forKey: "uri")
+      let imageLabel = ImageLabel(asset: asset, criterion: filters)
+      imageLabel.process{ res in
+        self.sendEvent(withName: ImageLabelingModule.IMAGE_LABELING_LISTENER_KEY, body: res)
       }
-      res.setValue(asset.pixelHeight, forKey: "pixelHeight")
-      res.setValue(asset.pixelWidth, forKey: "pixelWidth")
-      
-      self.sendEvent(withName: ImageLabelingModule.IMAGE_LABELING_LISTENER_KEY, body: res)
     }
-    
     
   }
   

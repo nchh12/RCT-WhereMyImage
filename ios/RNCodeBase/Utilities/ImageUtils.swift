@@ -8,15 +8,15 @@ import UIKit
 import Photos
 
 class ImageUtils {
-  static func getAssetThumbnail(asset: PHAsset) -> UIImage {
+  static func getFromAsset(asset: PHAsset) -> UIImage {
     let manager = PHImageManager.default()
     let option = PHImageRequestOptions()
-    var thumbnail = UIImage()
+    var image = UIImage()
     option.isSynchronous = true
-    manager.requestImage(for: asset, targetSize: CGSize(width: 100.0, height: 100.0), contentMode: .aspectFit, options: option, resultHandler: {(result, info)->Void in
-      thumbnail = result!
+    manager.requestImage(for: asset, targetSize: CGSize(width: asset.pixelWidth, height: asset.pixelHeight), contentMode: .aspectFit, options: option, resultHandler: {(result, info)->Void in
+      image = result!
     })
-    return thumbnail
+    return image
   }
   
   static func cacheImageLocal(from url: URL?){
@@ -61,5 +61,10 @@ class ImageUtils {
   
   static func getImageNameFrom(url: URL?) -> String{
     return url?.lastPathComponent ?? ""
+  }
+  
+  static func getRandomName() -> String{
+    let date = Date()
+    return "\(date.currentTimeMillis())_\(Int.random(in: 0...1000)).png"
   }
 }

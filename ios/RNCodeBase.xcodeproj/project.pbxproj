@@ -18,6 +18,8 @@
 		89A92D9F26BE777000A6714F /* PermissionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A92D9E26BE777000A6714F /* PermissionRequest.swift */; };
 		89A92DA626BE79A500A6714F /* ImageLabelingModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A92DA526BE79A500A6714F /* ImageLabelingModule.m */; };
 		89A92DAA26BE79CF00A6714F /* ImageLabelingModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A92DA926BE79CF00A6714F /* ImageLabelingModule.swift */; };
+		89A92DAE26BE971700A6714F /* ImageLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A92DAD26BE971700A6714F /* ImageLabel.swift */; };
+		89A92DB426BE99E700A6714F /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A92DB326BE99E700A6714F /* Date+Extension.swift */; };
 		89B9EC8D26B97F7B000B8677 /* TestModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B9EC8C26B97F7B000B8677 /* TestModule.m */; };
 		89B9EC9426B98311000B8677 /* TestModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B9EC9326B98311000B8677 /* TestModule.swift */; };
 		89B9ECED26B9A131000B8677 /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B9ECEC26B9A131000B8677 /* ImageUtils.swift */; };
@@ -51,6 +53,8 @@
 		89A92D9E26BE777000A6714F /* PermissionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionRequest.swift; sourceTree = "<group>"; };
 		89A92DA526BE79A500A6714F /* ImageLabelingModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageLabelingModule.m; sourceTree = "<group>"; };
 		89A92DA926BE79CF00A6714F /* ImageLabelingModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLabelingModule.swift; sourceTree = "<group>"; };
+		89A92DAD26BE971700A6714F /* ImageLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLabel.swift; sourceTree = "<group>"; };
+		89A92DB326BE99E700A6714F /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		89B9EC8C26B97F7B000B8677 /* TestModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestModule.m; sourceTree = "<group>"; };
 		89B9EC9326B98311000B8677 /* TestModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModule.swift; sourceTree = "<group>"; };
 		89B9ECEC26B9A131000B8677 /* ImageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtils.swift; sourceTree = "<group>"; };
@@ -164,6 +168,7 @@
 			children = (
 				89A92DA526BE79A500A6714F /* ImageLabelingModule.m */,
 				89A92DA926BE79CF00A6714F /* ImageLabelingModule.swift */,
+				89A92DAD26BE971700A6714F /* ImageLabel.swift */,
 			);
 			path = ImageLabelingModule;
 			sourceTree = "<group>";
@@ -191,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				89B9ECEC26B9A131000B8677 /* ImageUtils.swift */,
+				89A92DB326BE99E700A6714F /* Date+Extension.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -392,9 +398,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				89A92DAA26BE79CF00A6714F /* ImageLabelingModule.swift in Sources */,
+				89A92DB426BE99E700A6714F /* Date+Extension.swift in Sources */,
 				60C7D7B7264BE6F600C1F006 /* swiftWebKit.swift in Sources */,
 				89B9EC8D26B97F7B000B8677 /* TestModule.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				89A92DAE26BE971700A6714F /* ImageLabel.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				89B9EC9426B98311000B8677 /* TestModule.swift in Sources */,
 				89B9ECED26B9A131000B8677 /* ImageUtils.swift in Sources */,
