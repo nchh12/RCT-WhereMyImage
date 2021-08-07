@@ -44,18 +44,18 @@ class ImageUtils {
     URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
   }
   
-  static func saveImage(image: UIImage, fileName: String) -> Bool {
+  static func saveImage(image: UIImage, fileName: String) -> NSURL? {
     guard let data = image.pngData() ?? image.jpegData(compressionQuality: 1) else {
-      return false
+      return nil
     }
     guard let directory = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false) as NSURL else {
-      return false
+      return nil
     }
     do {
       try data.write(to: directory.appendingPathComponent(fileName)!)
-      return true
+      return directory
     } catch {
-      return false
+      return nil
     }
   }
   
