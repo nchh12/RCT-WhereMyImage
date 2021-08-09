@@ -23,7 +23,7 @@ const TestScreen1 = ({ navigation }) => {
     React.useEffect(() => {
         console.log(TestModule);
         TestEmitter.addListener('TEST_MODULE_KEY', res => {
-            console.log(res);
+            console.log(JSON.stringify(res, null, 2));
             setImage(image => [...[res], ...image]);
         });
 

@@ -1,6 +1,7 @@
 package com.rncodebase.nativemodules.test;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,6 +13,11 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
+import com.google.mlkit.vision.common.InputImage;
+import com.google.mlkit.vision.label.ImageLabel;
+import com.google.mlkit.vision.label.ImageLabeler;
+import com.google.mlkit.vision.label.ImageLabeling;
+import com.google.mlkit.vision.label.defaults.ImageLabelerOptions;
 import com.rncodebase.helpers.GalleryHelper;
 import com.rncodebase.utilities.BitmapUtils;
 
@@ -56,16 +62,26 @@ public class TestModule extends ReactContextBaseJavaModule {
     public void startNotify() {
 
         List<String> list = GalleryHelper.fetchGalleryImages(RCTContext.getCurrentActivity());
-        for (int i = list.size() - 20; i < list.size(); i++) {
+        for (int i = list.size() - 10; i < list.size(); i++) {
             String imageUrl = list.get(i);
 
             Bitmap bitmap = BitmapUtils.loadBitmap(imageUrl);
-
             WritableMap map = Arguments.createMap();
-            map.putString("uri", imageUrl);
-            map.putInt("pixelWidth", bitmap.getWidth());
-            map.putInt("pixelHeight", bitmap.getHeight());
-            sendEvent(map);
+
+            ImageLabeler labeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS);
+            labeler.process(InputImage.fromBitmap(bitmap, 0))
+                    .addOnSuccessListener((listLabels) -> {
+                        WritableMap mapLabel = Arguments.createMap();
+                        for (ImageLabel label : listLabels) {
+                            mapLabel.putDouble(label.getText(), label.getConfidence());
+                            Log.d("@@", label.getText());
+                        }
+                        map.putString("uri", imageUrl);
+                        map.putInt("pixelWidth", bitmap.getWidth());
+                        map.putInt("pixelHeight", bitmap.getHeight());
+                        map.putMap("label", mapLabel);
+                        sendEvent(map);
+                    });
         }
     }
 

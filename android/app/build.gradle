@@ -210,6 +210,8 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+
+    implementation 'com.google.mlkit:image-labeling:17.0.5' //MLKit
 }
 
 // Run this once to be able to run the application with BUCK
