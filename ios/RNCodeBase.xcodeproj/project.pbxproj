@@ -15,6 +15,9 @@
 		60C7D7B8264BE6F600C1F006 /* swiftWebKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C7D7B6264BE6F600C1F006 /* swiftWebKit.swift */; };
 		7E9CA9793DD333BB9ACFC837 /* libPods-RNCodeBase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F083E8BB56AA3930CFFC1AC6 /* libPods-RNCodeBase.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		8919A6D126C0100500234633 /* JSONSafeObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8919A6D026C0100500234633 /* JSONSafeObject.swift */; };
+		8919A6D626C0124D00234633 /* ImageMatching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8919A6D526C0124D00234633 /* ImageMatching.swift */; };
+		8919A6DE26C0E6FF00234633 /* PHAsset+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8919A6DD26C0E6FF00234633 /* PHAsset+Extension.swift */; };
 		89A92D9F26BE777000A6714F /* PermissionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A92D9E26BE777000A6714F /* PermissionRequest.swift */; };
 		89A92DA626BE79A500A6714F /* ImageLabelingModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A92DA526BE79A500A6714F /* ImageLabelingModule.m */; };
 		89A92DAA26BE79CF00A6714F /* ImageLabelingModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A92DA926BE79CF00A6714F /* ImageLabelingModule.swift */; };
@@ -50,6 +53,9 @@
 		60C7D7AE264BE64800C1F006 /* RNCodeBase-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RNCodeBase-Bridging-Header.h"; sourceTree = "<group>"; };
 		60C7D7B6264BE6F600C1F006 /* swiftWebKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swiftWebKit.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8919A6D026C0100500234633 /* JSONSafeObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONSafeObject.swift; sourceTree = "<group>"; };
+		8919A6D526C0124D00234633 /* ImageMatching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMatching.swift; sourceTree = "<group>"; };
+		8919A6DD26C0E6FF00234633 /* PHAsset+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PHAsset+Extension.swift"; sourceTree = "<group>"; };
 		89A92D9E26BE777000A6714F /* PermissionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionRequest.swift; sourceTree = "<group>"; };
 		89A92DA526BE79A500A6714F /* ImageLabelingModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageLabelingModule.m; sourceTree = "<group>"; };
 		89A92DA926BE79CF00A6714F /* ImageLabelingModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLabelingModule.swift; sourceTree = "<group>"; };
@@ -155,6 +161,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		8919A6D426C0122E00234633 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				89A92DAD26BE971700A6714F /* ImageLabel.swift */,
+				8919A6D526C0124D00234633 /* ImageMatching.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		89A92D9D26BE773300A6714F /* Permissions */ = {
 			isa = PBXGroup;
 			children = (
@@ -166,9 +181,9 @@
 		89A92DA426BE797B00A6714F /* ImageLabelingModule */ = {
 			isa = PBXGroup;
 			children = (
+				8919A6D426C0122E00234633 /* Utils */,
 				89A92DA526BE79A500A6714F /* ImageLabelingModule.m */,
 				89A92DA926BE79CF00A6714F /* ImageLabelingModule.swift */,
-				89A92DAD26BE971700A6714F /* ImageLabel.swift */,
 			);
 			path = ImageLabelingModule;
 			sourceTree = "<group>";
@@ -197,6 +212,8 @@
 			children = (
 				89B9ECEC26B9A131000B8677 /* ImageUtils.swift */,
 				89A92DB326BE99E700A6714F /* Date+Extension.swift */,
+				8919A6D026C0100500234633 /* JSONSafeObject.swift */,
+				8919A6DD26C0E6FF00234633 /* PHAsset+Extension.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -401,13 +418,16 @@
 				89A92DB426BE99E700A6714F /* Date+Extension.swift in Sources */,
 				60C7D7B7264BE6F600C1F006 /* swiftWebKit.swift in Sources */,
 				89B9EC8D26B97F7B000B8677 /* TestModule.m in Sources */,
+				8919A6D626C0124D00234633 /* ImageMatching.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				89A92DAE26BE971700A6714F /* ImageLabel.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				89B9EC9426B98311000B8677 /* TestModule.swift in Sources */,
 				89B9ECED26B9A131000B8677 /* ImageUtils.swift in Sources */,
+				8919A6DE26C0E6FF00234633 /* PHAsset+Extension.swift in Sources */,
 				89A92D9F26BE777000A6714F /* PermissionRequest.swift in Sources */,
 				89A92DA626BE79A500A6714F /* ImageLabelingModule.m in Sources */,
+				8919A6D126C0100500234633 /* JSONSafeObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

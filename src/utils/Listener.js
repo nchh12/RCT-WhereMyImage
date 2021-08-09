@@ -1,6 +1,5 @@
 import { DeviceEventEmitter, NativeEventEmitter, NativeModules } from 'react-native';
 
-/** Include MoMoChatModule */
 const { ImageLabelingModule } = NativeModules || {};
 const ImageLabelingEmitter = new NativeEventEmitter(ImageLabelingModule);
 
@@ -27,14 +26,7 @@ export default class Listener {
         });
     }
 
-    static listen(params, callback) {
-        console.log('add listener', params);
-        // Push call back
-        let event = params;
-        if (typeof params === 'object' && params.event) {
-            event = params.event;
-        }
-
+    static listen(event, callback) {
         const callbacks = this.listener[event] || [];
         callbacks.push(callback);
         this.listener[event] = callbacks;
@@ -76,7 +68,6 @@ export default class Listener {
     }
 
     static removeCallback(event, callback) {
-        console.log('remove listener', event);
         if (this.listener[event]) {
             this.listener[event] = this.listener[event].filter(item => item !== callback);
         }

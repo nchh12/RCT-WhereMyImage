@@ -1,5 +1,14 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, NativeModules, Image, ScrollView } from 'react-native';
+import {
+    View,
+    Text,
+    TouchableOpacity,
+    NativeModules,
+    Image,
+    ScrollView,
+    ActivityIndicator,
+    FlatList,
+} from 'react-native';
 import { TestScreen2 } from './index';
 import { useSelector, keySelector, useDispatch, actions } from '../context';
 import LottieView from 'lottie-react-native';
@@ -9,38 +18,66 @@ const { ImageLabelingModule } = NativeModules || {};
 const TestScreen1 = ({ navigation }) => {
     const dispatch = useDispatch();
     const testVariable = useSelector(keySelector.testVariable);
-    const cnt = React.useRef(1);
 
+    //still be blocked UI?
+
+    return (
+        <View
+            style={{
+                flex: 1,
+                backgroundColor: 'white',
+            }}
+        >
+            <LottieView
+                source={require('../assets/test.json')}
+                style={{
+                    width: '90%',
+                    height: 100,
+                }}
+                autoPlay={true}
+                loop={true}
+            />
+            <TouchableOpacity
+                onPress={() => {
+                    console.log('test here');
+                }}
+            >
+                <Text>test</Text>
+                <ActivityIndicator />
+            </TouchableOpacity>
+            <TestList />
+        </View>
+    );
+};
+
+const TestList = React.memo(() => {
     const [image, setImage] = React.useState([]);
 
     React.useEffect(() => {
-        Listener.listen({ event: Listener.EVENTS.ON_IMAGE_LABELING }, res => {
-            cnt.current = cnt.current + 1;
+        Listener.listen(Listener.EVENTS.ON_IMAGE_LABELING, res => {
             console.log(JSON.stringify(res, null, 2));
-            setImage(image => [...image, ...[res]]);
+            setImage(image => [...[res], ...image]);
         });
 
-        ImageLabelingModule.startScaningWithFilter([]);
+        startScan();
 
         return () => {
             Listener.removeCallback(Listener.EVENTS.ON_IMAGE_LABELING);
         };
     }, []);
 
-    console.log(image.length);
+    const startScan = async () => {
+        ImageLabelingModule.startScaningWithFilter(['cat']);
+    };
 
     return (
-        <ScrollView
-            style={{
-                flex: 1,
-                backgroundColor: 'white',
-            }}
-        >
-            {image.map(item => {
+        <FlatList
+            data={image}
+            keyExtractor={(item, index) => `key_${item?.uri} ${item?.pixelWidth} ${index}`}
+            renderItem={({ item }) => {
                 return (
                     <Image
-                        key={`key_${item?.uri} ${item?.pixelWidth}`}
-                        source={{ uri: item?.uri }}
+                        source={{ uri: item?.uriThumnail }}
                         style={{
                             alignSelf: 'center',
                             width: '80%',
@@ -50,9 +87,9 @@ const TestScreen1 = ({ navigation }) => {
                         }}
                     />
                 );
-            })}
-        </ScrollView>
+            }}
+        />
     );
-};
+});
 
 export default TestScreen1;

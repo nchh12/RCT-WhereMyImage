@@ -13,5 +13,10 @@ RCT_EXTERN_METHOD(test: (int*)a)
 
 RCT_EXTERN_METHOD(startScaningWithFilter: (NSArray*)filters)
 
+RCT_EXPORT_METHOD(asyncStartScaningWithFilter: (NSArray*)filters{
+  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+  });
+})
+
 @end
 

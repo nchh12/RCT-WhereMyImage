@@ -27,9 +27,9 @@ class ImageLabelingModule: RCTEventEmitter{
   }
   
   @objc func startScaningWithFilter(_ filters: [String]){
+
     let fetchOptions = PHFetchOptions()
     let allPhotos = PHAsset.fetchAssets(with: .image, options: fetchOptions)
-    print("Found \(allPhotos.count) assets")
     
     for index in 0..<allPhotos.count {
       let asset = allPhotos.object(at: index)
@@ -39,7 +39,5 @@ class ImageLabelingModule: RCTEventEmitter{
         self.sendEvent(withName: ImageLabelingModule.IMAGE_LABELING_LISTENER_KEY, body: res)
       }
     }
-    
   }
-  
 }

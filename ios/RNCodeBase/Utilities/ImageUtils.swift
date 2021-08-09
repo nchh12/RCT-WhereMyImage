@@ -8,15 +8,11 @@ import UIKit
 import Photos
 
 class ImageUtils {
-  static func getFromAsset(asset: PHAsset) -> UIImage {
-    let manager = PHImageManager.default()
-    let option = PHImageRequestOptions()
-    var image = UIImage()
-    option.isSynchronous = true
-    manager.requestImage(for: asset, targetSize: CGSize(width: asset.pixelWidth, height: asset.pixelHeight), contentMode: .aspectFit, options: option, resultHandler: {(result, info)->Void in
-      image = result!
-    })
-    return image
+  static func getThumnailSize(asset: PHAsset) -> CGSize {
+    let assetHeight = CGFloat(asset.pixelHeight)
+    let assetWidth = CGFloat(asset.pixelWidth)
+    let compressRatio = 100 / assetWidth
+    return CGSize(width: Int(assetWidth * compressRatio), height: Int(assetHeight * compressRatio))
   }
   
   static func cacheImageLocal(from url: URL?){
