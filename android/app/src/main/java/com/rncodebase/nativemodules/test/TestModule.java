@@ -52,6 +52,7 @@ public class TestModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void startNotify(){
+        Log.d("@@", "start delay");
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -63,7 +64,7 @@ public class TestModule extends ReactContextBaseJavaModule {
                     }
                 });
             }
-        }, 1000);
+        }, 6000);
     }
 
     void sendEvent(@Nullable WritableMap params) {
