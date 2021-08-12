@@ -11,6 +11,7 @@ import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.google.mlkit.vision.common.InputImage;
@@ -21,8 +22,15 @@ import com.google.mlkit.vision.label.defaults.ImageLabelerOptions;
 import com.rncodebase.helpers.GalleryHelper;
 import com.rncodebase.utilities.BitmapUtils;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class TestModule extends ReactContextBaseJavaModule {
     public static String EVENT_NAME = "TEST_MODULE_KEY";
@@ -58,31 +66,65 @@ public class TestModule extends ReactContextBaseJavaModule {
         callback.invoke(map);
     }
 
+    Test buffer = new Test();
+
+
+    @ReactMethod
+    public void stopNotify(){
+        buffer.flagStop = true;
+    }
+
     @ReactMethod
     public void startNotify() {
 
         List<String> list = GalleryHelper.fetchGalleryImages(RCTContext.getCurrentActivity());
-        for (int i = list.size() - 10; i < list.size(); i++) {
-            String imageUrl = list.get(i);
+        buffer.flagStop = false;
 
-            Bitmap bitmap = BitmapUtils.loadBitmap(imageUrl);
-            WritableMap map = Arguments.createMap();
 
-            ImageLabeler labeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS);
-            labeler.process(InputImage.fromBitmap(bitmap, 0))
-                    .addOnSuccessListener((listLabels) -> {
-                        WritableMap mapLabel = Arguments.createMap();
-                        for (ImageLabel label : listLabels) {
-                            mapLabel.putDouble(label.getText(), label.getConfidence());
-                            Log.d("@@", label.getText());
+        Observable.just(1)
+                .subscribeOn(Schedulers.newThread())
+                .subscribe(item -> {
+                    int index = 0;
+
+                    while (true){
+//                        Log.d("@@@ new loop", index +"");
+                        if (index >= list.size() || buffer.flagStop){
+                            break;
                         }
-                        map.putString("uri", imageUrl);
-                        map.putInt("pixelWidth", bitmap.getWidth());
-                        map.putInt("pixelHeight", bitmap.getHeight());
-                        map.putMap("label", mapLabel);
-                        sendEvent(map);
-                    });
-        }
+                        if (buffer.isProcessing) {
+                            continue;
+                        }
+
+                        buffer.isProcessing = true;
+
+                        buffer.imageUrl = list.get(index++);
+                        Log.d("@@@ start process", buffer.imageUrl);
+                        buffer.bitmap = BitmapUtils.loadBitmap(buffer.imageUrl);
+                        if (buffer.bitmap == null) {
+                            buffer.isProcessing = false;
+                            continue;
+                        }
+
+                        ImageLabeler labeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS);
+                        labeler.process(InputImage.fromBitmap(buffer.bitmap, 0))
+                                .addOnSuccessListener((listLabels) -> {
+                                    WritableMap mapLabel = Arguments.createMap();
+                                    for (ImageLabel label : listLabels) {
+                                        mapLabel.putDouble(label.getText(), label.getConfidence());
+                                        Log.d("@@", label.getText());
+                                    }
+                                    WritableMap map = Arguments.createMap();
+                                    map.putString("uri", buffer.imageUrl);
+                                    map.putInt("pixelWidth", buffer.bitmap.getWidth());
+                                    map.putInt("pixelHeight", buffer.bitmap.getHeight());
+                                    map.putMap("label", mapLabel);
+                                    sendEvent(map);
+                                    Log.d("@@@ end process", buffer.imageUrl);
+                                    buffer.isProcessing = false;
+                                });
+
+                    }
+                });
     }
 
 
@@ -90,4 +132,12 @@ public class TestModule extends ReactContextBaseJavaModule {
         RCTContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
                 .emit(TestModule.EVENT_NAME, params);
     }
+}
+
+class Test{
+    int cnt = 0;
+    Bitmap bitmap;
+    String imageUrl;
+    boolean isProcessing;
+    boolean flagStop = false;
 }

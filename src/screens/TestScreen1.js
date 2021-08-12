@@ -27,7 +27,7 @@ const TestScreen1 = ({ navigation }) => {
             setImage(image => [...[res], ...image]);
         });
 
-        TestModule?.startNotify();
+        //
     }, []);
 
     return (
@@ -39,12 +39,26 @@ const TestScreen1 = ({ navigation }) => {
                 alignItems: 'center',
             }}
         >
+            <TouchableOpacity
+                onPress={() => {
+                    TestModule?.startNotify();
+                }}
+            >
+                <Text>test</Text>
+            </TouchableOpacity>
             <LottieView
                 source={require('../assets/test.json')}
                 autoPlay
                 loop
                 style={{ width: 100, height: 100 }}
             />
+            <TouchableOpacity
+                onPress={() => {
+                    TestModule?.stopNotify();
+                }}
+            >
+                <Text>stop</Text>
+            </TouchableOpacity>
             <FlatList
                 data={image}
                 keyExtractor={(item, index) => `key_${item}_${index}`}
