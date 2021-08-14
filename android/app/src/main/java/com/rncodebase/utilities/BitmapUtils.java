@@ -16,21 +16,13 @@ public class BitmapUtils {
 
     public static Bitmap loadBitmap(String url) {
         Bitmap bitmap = null;
-        InputStream in = null;
         try {
-            in = new java.net.URL(url).openStream();
+            InputStream in = new java.net.URL(url).openStream();
             bitmap = BitmapFactory.decodeStream(in);
+            if (in!= null) in.close();
         } catch (IOException e) {
             Log.d("@@@", "Could not load Bitmap from: " + url);
         }
-
-        try {
-            assert in != null;
-            in.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         return bitmap;
     }
 
@@ -48,8 +40,9 @@ public class BitmapUtils {
             e.printStackTrace();
         } finally {
             try {
-                assert fos != null;
-                fos.close();
+                if (fos != null) {
+                    fos.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -2,6 +2,6 @@ package com.rncodebase.nativemodules.imagelabeling.utils;
 
 import com.facebook.react.bridge.WritableMap;
 
-public interface ImageController {
-    void readyToSendImageLabel(WritableMap map);
+public interface EmitterInterface {
+    void emitToJs(WritableMap map, String event);
 }

@@ -23,8 +23,15 @@ const TestScreen1 = ({ navigation }) => {
     React.useEffect(() => {
         console.log(ImageLabelingModule);
         ImageLabelingEmitter.addListener('IMAGE_LABELING_LISTENER_KEY', res => {
-            console.log(JSON.stringify(res, null, 2));
-            setImage(image => [...[res], ...image]);
+            switch (res?.event) {
+                case 'onResult':
+                    console.log(JSON.stringify(res, null, 2));
+                    setImage(image => [...[res], ...image]);
+                    break;
+                case 'onStatus':
+                    console.log('DONEEEE');
+                    break;
+            }
         });
 
         //
@@ -41,10 +48,20 @@ const TestScreen1 = ({ navigation }) => {
         >
             <TouchableOpacity
                 onPress={() => {
-                    ImageLabelingModule?.startScanningOnFilters(['Hand']);
+                    ImageLabelingModule?.startScanningOnFilters(['Laugh']);
+                    setImage([]);
                 }}
             >
                 <Text>test</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+                onPress={() => {
+                    ImageLabelingModule?.startScanningOnFilters(['Food']);
+                    setImage([]);
+                }}
+            >
+                <Text>teaegaegraegeaegegaergagagrraeeagegaest</Text>
             </TouchableOpacity>
             <LottieView
                 source={require('../assets/test.json')}

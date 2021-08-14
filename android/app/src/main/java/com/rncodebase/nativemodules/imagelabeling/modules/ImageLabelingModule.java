@@ -1,7 +1,5 @@
 package com.rncodebase.nativemodules.imagelabeling.modules;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -11,7 +9,7 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
-import com.rncodebase.nativemodules.imagelabeling.utils.ImageController;
+import com.rncodebase.nativemodules.imagelabeling.utils.EmitterInterface;
 import com.rncodebase.nativemodules.imagelabeling.utils.ImageProcessor;
 
 import java.util.ArrayList;
@@ -26,9 +24,10 @@ public class ImageLabelingModule extends ReactContextBaseJavaModule {
     public ImageLabelingModule(@Nullable ReactApplicationContext reactContext) {
         super(reactContext);
         RCTContext = reactContext;
-        this.imageProcessor = new ImageProcessor(new ImageController() {
+        this.imageProcessor = new ImageProcessor(new EmitterInterface() {
             @Override
-            public void readyToSendImageLabel(WritableMap map) {
+            public void emitToJs(WritableMap map, String event) {
+                map.putString("event", event);
                 sendEvent(map);
             }
         });

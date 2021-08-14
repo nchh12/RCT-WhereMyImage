@@ -23,15 +23,14 @@ public class ImageProcessor {
 
     final private ImageLabeler labeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS);
     private List<String> listGalleryImagesUrls = null;
-    final private ImageController imageController;
+    final private EmitterInterface imageEmitter;
     private Bitmap currentBufferBitmap = null;
     private List<String> listFilters = null;
     private int currentBufferIndex = 0;
     private boolean isCanceling = true;
-    private Integer integer;
 
-    public ImageProcessor(ImageController imageController) {
-        this.imageController = imageController;
+    public ImageProcessor(EmitterInterface imageEmitter) {
+        this.imageEmitter = imageEmitter;
     }
 
     public void addFilters(List<String> listFilter) {
@@ -40,6 +39,7 @@ public class ImageProcessor {
 
     public void stopProcessing() {
         this.isCanceling = true;
+        emitStopProcessing();
     }
 
     public void startProcessing(Activity currentActivity, boolean isReset) {
@@ -63,7 +63,6 @@ public class ImageProcessor {
             if (isInOtherProgress()) { //other image is in progress
                 continue;
             }
-            //next image is in turn
             String imageUrl = listGalleryImagesUrls.get(this.currentBufferIndex);
             this.currentBufferBitmap = BitmapUtils.loadBitmap(imageUrl);
             if (this.currentBufferBitmap == null) {
@@ -75,7 +74,7 @@ public class ImageProcessor {
                     .addOnFailureListener(this::onLabelFail);
 
         }
-        this.isCanceling = true;
+        stopProcessing();
     }
 
     private void onLabelFail(Exception e) {
@@ -85,10 +84,25 @@ public class ImageProcessor {
     private void onLabelSuccess(List<ImageLabel> listLabels) {
         WritableMap mapLabels = packagingLabels(listLabels);
         if (isMatching(mapLabels)) {
-            imageController.readyToSendImageLabel(packagingData(mapLabels));
+            emitterImageData(mapLabels);
         }
         onNext();
         Log.d("@@@ end process", this.currentBufferIndex + "");
+    }
+
+    private void emitterImageData(WritableMap mapLabels) {
+        WritableMap map = Arguments.createMap();
+        map.putString("uri", listGalleryImagesUrls.get(this.currentBufferIndex));
+        map.putInt("pixelHeight", this.currentBufferBitmap.getHeight());
+        map.putInt("pixelWidth", this.currentBufferBitmap.getWidth());
+        map.putMap("label", mapLabels);
+        imageEmitter.emitToJs(map,"onResult");
+    }
+
+    private void emitStopProcessing(){
+        WritableMap map = Arguments.createMap();
+        map.putString("status", "done");
+        imageEmitter.emitToJs(map, "onStatus");
     }
 
     private boolean isMatching(WritableMap mapLabels) {
@@ -110,7 +124,7 @@ public class ImageProcessor {
     private boolean isInterruptedProgress() {
         return this.currentBufferIndex >= listGalleryImagesUrls.size() ||
                 this.listGalleryImagesUrls == null ||
-                this.imageController == null ||
+                this.imageEmitter == null ||
                 this.isCanceling;
     }
 
@@ -122,15 +136,4 @@ public class ImageProcessor {
         }
         return mapLabel;
     }
-
-    private WritableMap packagingData(WritableMap mapLabel) {
-        WritableMap map = Arguments.createMap();
-        map.putString("uri", listGalleryImagesUrls.get(this.currentBufferIndex));
-        map.putInt("pixelHeight", this.currentBufferBitmap.getHeight());
-        map.putInt("pixelWidth", this.currentBufferBitmap.getWidth());
-        map.putMap("label", mapLabel);
-        return map;
-    }
-
-
 }
