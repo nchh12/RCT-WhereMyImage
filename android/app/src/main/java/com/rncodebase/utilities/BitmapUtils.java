@@ -1,4 +1,5 @@
 package com.rncodebase.utilities;
+
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.graphics.Bitmap;
@@ -18,8 +19,10 @@ public class BitmapUtils {
         Bitmap bitmap = null;
         try {
             InputStream in = new java.net.URL(url).openStream();
-            bitmap = BitmapFactory.decodeStream(in);
-            if (in!= null) in.close();
+            if (in != null) {
+                bitmap = BitmapFactory.decodeStream(in);
+                in.close();
+            }
         } catch (IOException e) {
             Log.d("@@@", "Could not load Bitmap from: " + url);
         }
@@ -31,21 +34,15 @@ public class BitmapUtils {
         File directory = cw.getDir("imageDirect", Context.MODE_PRIVATE);
         // Create imageDir
         File myPath = new File(directory, fileName);
-
-        FileOutputStream fos = null;
         try {
-            fos = new FileOutputStream(myPath);
-            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+            FileOutputStream fos = new FileOutputStream(myPath);
+            if (fos != null) {
+
+                bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+                fos.close();
+            }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (fos != null) {
-                    fos.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
 
         return directory.getAbsolutePath();

@@ -66,6 +66,7 @@ public class ImageProcessor {
             String imageUrl = listGalleryImagesUrls.get(this.currentBufferIndex);
             this.currentBufferBitmap = BitmapUtils.loadBitmap(imageUrl);
             if (this.currentBufferBitmap == null) {
+                onNext();
                 continue;
             }
 //                        Log.d("@@@ start process", this.currentBufferIndex + "");

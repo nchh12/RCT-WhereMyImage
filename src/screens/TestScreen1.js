@@ -57,7 +57,7 @@ const TestScreen1 = ({ navigation }) => {
 
             <TouchableOpacity
                 onPress={() => {
-                    ImageLabelingModule?.startScanningOnFilters(['Food']);
+                    ImageLabelingModule?.startScanningOnFilters(['Sunglasses']);
                     setImage([]);
                 }}
             >
