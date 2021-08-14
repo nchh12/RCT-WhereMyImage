@@ -5,7 +5,6 @@ import {
     TouchableOpacity,
     NativeModules,
     Image,
-    ScrollView,
     ActivityIndicator,
     FlatList,
 } from 'react-native';
@@ -16,16 +15,12 @@ import Listener from '@utils/Listener';
 const { ImageLabelingModule } = NativeModules || {};
 
 const TestScreen1 = ({ navigation }) => {
-    const dispatch = useDispatch();
-    const testVariable = useSelector(keySelector.testVariable);
-
-    //still be blocked UI?
-
     return (
         <View
             style={{
                 flex: 1,
                 backgroundColor: 'white',
+                alignItems: 'center',
             }}
         >
             <LottieView
@@ -37,14 +32,31 @@ const TestScreen1 = ({ navigation }) => {
                 autoPlay={true}
                 loop={true}
             />
-            <TouchableOpacity
-                onPress={() => {
-                    console.log('test here');
+            <View
+                style={{
+                    width: '100%',
+                    justifyContent: 'space-around',
+                    flexDirection: 'row',
                 }}
             >
-                <Text>test</Text>
-                <ActivityIndicator />
-            </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => {
+                        ImageLabelingModule.startScaningWithFilter(['screenshot']);
+                    }}
+                >
+                    <Text>test</Text>
+                    <ActivityIndicator />
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    onPress={() => {
+                        ImageLabelingModule.stopScanning();
+                    }}
+                >
+                    <Text>stop</Text>
+                    <ActivityIndicator />
+                </TouchableOpacity>
+            </View>
             <TestList />
         </View>
     );
@@ -55,20 +67,21 @@ const TestList = React.memo(() => {
 
     React.useEffect(() => {
         Listener.listen(Listener.EVENTS.ON_IMAGE_LABELING, res => {
-            console.log(JSON.stringify(res, null, 2));
-            setImage(image => [...[res], ...image]);
+            switch (res?.event) {
+                case 'onResult':
+                    console.log(JSON.stringify(res, null, 2));
+                    setImage(image => [...[res], ...image]);
+                    break;
+                case 'onStatus':
+                    console.log('DONEEEE');
+                    break;
+            }
         });
-
-        startScan();
 
         return () => {
             Listener.removeCallback(Listener.EVENTS.ON_IMAGE_LABELING);
         };
     }, []);
-
-    const startScan = async () => {
-        ImageLabelingModule.startScaningWithFilter(['cat']);
-    };
 
     return (
         <FlatList
@@ -77,7 +90,7 @@ const TestList = React.memo(() => {
             renderItem={({ item }) => {
                 return (
                     <Image
-                        source={{ uri: item?.uriThumnail }}
+                        source={{ uri: item?.uri }}
                         style={{
                             alignSelf: 'center',
                             width: '80%',
