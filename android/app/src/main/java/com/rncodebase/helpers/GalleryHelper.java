@@ -22,6 +22,7 @@ public class GalleryHelper {
         } else {
             return true;
         }
+
     }
 
     public static ArrayList<String> fetchGalleryImages(final Activity activity) {

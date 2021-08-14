@@ -81,9 +81,9 @@ public class TestModule extends ReactContextBaseJavaModule {
         buffer.flagStop = false;
 
 
-        Observable.just(1)
-                .subscribeOn(Schedulers.newThread())
-                .subscribe(item -> {
+         Observable.just(1)
+                 .subscribeOn(Schedulers.newThread())
+                 .subscribe(item -> {
                     int index = 0;
 
                     while (true){
@@ -124,7 +124,7 @@ public class TestModule extends ReactContextBaseJavaModule {
                                 });
 
                     }
-                });
+                 });
     }
 
 

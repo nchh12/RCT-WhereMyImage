@@ -11,9 +11,9 @@ import {
 import { TestScreen2 } from './index';
 import { useSelector, keySelector, useDispatch, actions } from '../context';
 import LottieView from 'lottie-react-native';
-const { TestModule } = NativeModules;
+const { TestModule, ImageLabelingModule } = NativeModules;
 
-const TestEmitter = new NativeEventEmitter(TestModule);
+const ImageLabelingEmitter = new NativeEventEmitter(ImageLabelingModule);
 
 const TestScreen1 = ({ navigation }) => {
     const dispatch = useDispatch();
@@ -21,8 +21,8 @@ const TestScreen1 = ({ navigation }) => {
     const [image, setImage] = React.useState([]);
 
     React.useEffect(() => {
-        console.log(TestModule);
-        TestEmitter.addListener('TEST_MODULE_KEY', res => {
+        console.log(ImageLabelingModule);
+        ImageLabelingEmitter.addListener('IMAGE_LABELING_LISTENER_KEY', res => {
             console.log(JSON.stringify(res, null, 2));
             setImage(image => [...[res], ...image]);
         });
@@ -41,7 +41,7 @@ const TestScreen1 = ({ navigation }) => {
         >
             <TouchableOpacity
                 onPress={() => {
-                    TestModule?.startNotify();
+                    ImageLabelingModule?.startScanningOnFilters(['Fun']);
                 }}
             >
                 <Text>test</Text>
@@ -54,7 +54,7 @@ const TestScreen1 = ({ navigation }) => {
             />
             <TouchableOpacity
                 onPress={() => {
-                    TestModule?.stopNotify();
+                    ImageLabelingModule?.stopScanning();
                 }}
             >
                 <Text>stop</Text>
