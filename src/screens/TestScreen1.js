@@ -41,7 +41,7 @@ const TestScreen1 = ({ navigation }) => {
         >
             <TouchableOpacity
                 onPress={() => {
-                    ImageLabelingModule?.startScanningOnFilters(['Fun']);
+                    ImageLabelingModule?.startScanningOnFilters(['Hand']);
                 }}
             >
                 <Text>test</Text>
