@@ -18,6 +18,8 @@ class ImageMatching: NSObject{
   }
   
   public func isMatching() -> Bool {
+    return true
+    
     for index in 0..<(filters?.count ?? 0){
       let filter = filters![index].uppercased()
       guard filter != "" else {

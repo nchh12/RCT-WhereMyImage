@@ -24,7 +24,7 @@ const TestScreen1 = ({ navigation }) => {
             }}
         >
             <LottieView
-                source={require('../assets/test.json')}
+                source={require('../assets/searching.json')}
                 style={{
                     width: '90%',
                     height: 100,
@@ -87,16 +87,17 @@ const TestList = React.memo(() => {
         <FlatList
             data={image}
             keyExtractor={(item, index) => `key_${item?.uri} ${item?.pixelWidth} ${index}`}
+            horizontal
             renderItem={({ item }) => {
                 return (
                     <Image
                         source={{ uri: item?.uri }}
                         style={{
                             alignSelf: 'center',
-                            width: '80%',
-                            height: 'auto',
+                            width: 'auto',
+                            height: '50%',
                             aspectRatio: item?.pixelWidth / item?.pixelHeight,
-                            marginTop: 100,
+                            marginLeft: 100,
                         }}
                     />
                 );

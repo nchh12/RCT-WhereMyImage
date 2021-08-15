@@ -12,6 +12,15 @@ import Photos
 @objc(ImageLabelingModule)
 class ImageLabelingModule: RCTEventEmitter{
   public static let IMAGE_LABELING_LISTENER_KEY = "IMAGE_LABELING_LISTENER_KEY"
+  private var imageProcessor: ImageProcessor?
+  
+  override init() {
+    super.init()
+    self.imageProcessor = ImageProcessor()
+    self.imageProcessor?.setEmitter(emitter: {res in
+      self.sendEvent(withName: ImageLabelingModule.IMAGE_LABELING_LISTENER_KEY, body: res)
+    })
+  }
   
   override func supportedEvents() -> [String]! {
     return [ImageLabelingModule.IMAGE_LABELING_LISTENER_KEY];
@@ -27,17 +36,11 @@ class ImageLabelingModule: RCTEventEmitter{
   }
   
   @objc func startScaningWithFilter(_ filters: [String]){
-
-    let fetchOptions = PHFetchOptions()
-    let allPhotos = PHAsset.fetchAssets(with: .image, options: fetchOptions)
-    
-    for index in 0..<allPhotos.count {
-      let asset = allPhotos.object(at: index)
-      
-      let imageLabel = ImageLabel(asset: asset, criterion: filters)
-      imageLabel.process{ res in
-        self.sendEvent(withName: ImageLabelingModule.IMAGE_LABELING_LISTENER_KEY, body: res)
-      }
-    }
+    self.imageProcessor?.setFilters(listFilters: filters)
+    self.imageProcessor?.startProcessing(isReset: true)
+  }
+  
+  @objc func stopScanning(){
+    self.imageProcessor?.stopProcessing()
   }
 }

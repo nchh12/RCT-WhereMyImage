@@ -123,8 +123,8 @@ public class ImageProcessor {
     }
 
     private boolean isInterruptedProgress() {
-        return this.currentBufferIndex >= listGalleryImagesUrls.size() ||
-                this.listGalleryImagesUrls == null ||
+        return this.listGalleryImagesUrls == null ||
+                this.currentBufferIndex >= listGalleryImagesUrls.size() ||
                 this.imageEmitter == null ||
                 this.isCanceling;
     }
