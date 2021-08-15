@@ -97,13 +97,12 @@ public class ImageProcessor {
         map.putInt("pixelHeight", this.currentBufferBitmap.getHeight());
         map.putInt("pixelWidth", this.currentBufferBitmap.getWidth());
         map.putMap("label", mapLabels);
-        imageEmitter.emitToJs(map,"onResult");
+        imageEmitter.emitToJs(map,"onResponse");
     }
 
     private void emitStopProcessing(){
         WritableMap map = Arguments.createMap();
-        map.putString("status", "done");
-        imageEmitter.emitToJs(map, "onStatus");
+        imageEmitter.emitToJs(map, "onFinish");
     }
 
     private boolean isMatching(WritableMap mapLabels) {

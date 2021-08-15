@@ -27,7 +27,7 @@ public class ImageLabelingModule extends ReactContextBaseJavaModule {
         this.imageProcessor = new ImageProcessor(new EmitterInterface() {
             @Override
             public void emitToJs(WritableMap map, String event) {
-                map.putString("event", event);
+                map.putString("status", event);
                 sendEvent(map);
             }
         });
