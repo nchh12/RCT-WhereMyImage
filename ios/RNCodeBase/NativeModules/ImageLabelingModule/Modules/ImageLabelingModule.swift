@@ -17,8 +17,9 @@ class ImageLabelingModule: RCTEventEmitter{
   override init() {
     super.init()
     self.imageProcessor = ImageProcessor()
-    self.imageProcessor?.setEmitter(emitter: {res in
-      self.sendEvent(withName: ImageLabelingModule.IMAGE_LABELING_LISTENER_KEY, body: res)
+    self.imageProcessor?.setEmitter(emitter: {res, status in
+      res.setValueSafely(field: "status", value: status)
+      self.sendEvent(withName: ImageLabelingModule.IMAGE_LABELING_LISTENER_KEY, body: res.getInstance())
     })
   }
   

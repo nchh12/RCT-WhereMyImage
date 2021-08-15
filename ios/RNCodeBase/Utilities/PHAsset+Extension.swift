@@ -30,4 +30,11 @@ extension PHAsset{
     })
     return image
   }
+  
+  func getFullImageUri(completion: @escaping(String) -> Void) {
+    self.requestContentEditingInput(with: PHContentEditingInputRequestOptions()){ (input, _) in
+      let url = input?.fullSizeImageURL?.absoluteString ?? ""
+      completion(url)
+    }
+  }
 }

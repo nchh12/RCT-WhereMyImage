@@ -67,12 +67,12 @@ const TestList = React.memo(() => {
 
     React.useEffect(() => {
         Listener.listen(Listener.EVENTS.ON_IMAGE_LABELING, res => {
-            switch (res?.event) {
-                case 'onResult':
+            switch (res?.status) {
+                case 'onResponse':
                     console.log(JSON.stringify(res, null, 2));
                     setImage(image => [...[res], ...image]);
                     break;
-                case 'onStatus':
+                case 'onFinish':
                     console.log('DONEEEE');
                     break;
             }

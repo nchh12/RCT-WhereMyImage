@@ -16,7 +16,7 @@ class ImageProcessor: NSObject{
   private var isCanceling: Bool = true
   private var listFilters: [String]?
   private var labeler: ImageLabeler?
-  private var emitter: ([String:Any]) -> () = {_ in
+  private var emitter: (JSONSafeObject, String) -> () = {_,_  in
   }
   
   override init() {
@@ -31,19 +31,24 @@ class ImageProcessor: NSObject{
     self.listFilters = listFilters
   }
   
-  public func setEmitter(emitter: @escaping ([String:Any]) -> ()){
+  public func setEmitter(emitter: @escaping (JSONSafeObject, String) -> ()){
     self.emitter = emitter
   }
   
   public func stopProcessing(){
     self.isCanceling = true
     //emit
+    let responseToJS = JSONSafeObject()
+    self.emitter(responseToJS, "onFinish")
   }
-  
+
   public func startProcessing(isReset: Bool){
     if (!self.isCanceling){
       return
     }
+    
+    let responseToJS = JSONSafeObject()
+    self.emitter(responseToJS, "onStart")
     
     if (isReset || self.listGalleryAssets == nil){
       self.listGalleryAssets = PHAsset.fetchAssets(with: .image, options: PHFetchOptions())
@@ -61,52 +66,40 @@ class ImageProcessor: NSObject{
       if (isInOtherProgress()){
         continue
       }
+      print("@@@ start process \(self.currentBufferIndex)     \(self.listGalleryAssets!.count)")
       self.currentBufferAsset = listGalleryAssets?.object(at: self.currentBufferIndex)
       
-      guard let image = self.currentBufferAsset?.getFullImage(), let thumnailImage = self.currentBufferAsset?.getThumnailImage() else{
+      guard let thumnailImage = self.currentBufferAsset?.getThumnailImage() else{
         onNext()
         continue
       }
-      print("@@@ start process \(self.currentBufferIndex)")
       
       self.labeler?.process(VisionImage(image: thumnailImage)){ labels, error in
-        self.onNext()
         guard error == nil, let labels = labels else {
+          self.onNext()
           return
         }
         let mapLabels = self.packagingLabels(listLabels: labels)
         let imageMatching = ImageMatching(filters: self.listFilters, labels: mapLabels)
         if (imageMatching.isMatching()){
-          self.emitterImageData(labels: mapLabels, image:thumnailImage)
+          self.emitterImageData(labels: mapLabels)
           print("@@@ End process \(self.currentBufferIndex)    \(self.listGalleryAssets!.count)")
         }
+        self.onNext()
       }
     }
     stopProcessing()
   }
   
-  private func emitterImageData(labels: JSONSafeObject, image: UIImage){
-    let responseToJS = JSONSafeObject()
-    responseToJS.setValueSafely(field: "uri", value: self.getUriImage(image: image))
-    //    responseToJS.setValueSafely(field: "uriThumnail", value: self.getUriImage(image: thumnailImage))
-    responseToJS.setValueSafely(field: "pixelHeight", value: self.currentBufferAsset?.pixelHeight ?? 1)
-    responseToJS.setValueSafely(field: "pixelWidth", value: self.currentBufferAsset?.pixelWidth ?? 1)
-    responseToJS.setValueSafely(field: "labels", value: labels.getInstance())
-    responseToJS.setValueSafely(field: "event", value: "onResult")
-    
-      self.emitter(responseToJS.getInstance())
-//    DispatchQueue.main.async {
-//    }
-  }
-  
-  private func getUriImage(image: UIImage) -> String{
-    let imageName = ImageUtils.getRandomName()
-    let dir =  ImageUtils.saveImage(image: image, fileName: imageName)
-    
-    if (dir?.absoluteString != nil){
-      return (dir?.absoluteString)! + imageName
+  private func emitterImageData(labels: JSONSafeObject){
+    self.currentBufferAsset?.getFullImageUri(){ imageUri in
+      let responseToJS = JSONSafeObject()
+      responseToJS.setValueSafely(field: "uri", value: imageUri)
+      responseToJS.setValueSafely(field: "pixelHeight", value: self.currentBufferAsset?.pixelHeight ?? 1)
+      responseToJS.setValueSafely(field: "pixelWidth", value: self.currentBufferAsset?.pixelWidth ?? 1)
+      responseToJS.setValueSafely(field: "labels", value: labels.getInstance())
+      self.emitter(responseToJS, "onResponse")
     }
-    return ""
   }
   
   private func packagingLabels(listLabels: [ImageLabel]) -> JSONSafeObject{
