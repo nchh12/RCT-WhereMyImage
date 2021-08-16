@@ -28,11 +28,10 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.gradient_peach,
     },
     cell: {
-        backgroundColor: [Colors.apricot, Colors.apricot],
-        borderRadius: DefaultSize.XL,
-        paddingHorizontal: DefaultSize.XL,
+        backgroundColor: Colors.gradient_peach,
+        paddingHorizontal: DefaultSize.L,
         paddingVertical: DefaultSize.XS,
-        justifyContent: 'center',
+        borderRadius: DefaultSize.XL,
         alignItems: 'center',
     },
 });
