@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import { View, TextInput, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
-import { useSelector, keySelector, useDispatch, actions } from '../context';
 import LottieView from 'lottie-react-native';
 import Colors from '@utils/Colors';
 import SharedStyles from '@utils/SharedStyles';
 import { CustomizedText, CustomizedContainer, FilterItem } from '@components';
 import Strings from '@utils/Strings';
-import assets from '../assets';
+import assets from '@assets';
 import { DefaultSize } from '@utils/Constants';
 import { isLetters } from '@utils/StringUtils';
+import { useFilters } from '@hooks';
 
 const FilterInputScreen = props => {
     const { navigation } = props;
-    const [filters, setFilters] = useState([]);
+    const { addFilter } = useFilters();
     const [textFilter, setTextFilter] = useState('');
 
     useEffect(() => {
@@ -28,40 +28,11 @@ const FilterInputScreen = props => {
         !isLetters(text) && setTextFilter(text);
     };
 
-    const removeItem = _index => {
-        setFilters(filters.filter((item, index) => index !== _index));
-    };
-
     const _renderTitle = () => (
         <CustomizedText type="title" textStyle={styles.text_title}>
             {Strings.title_input}
         </CustomizedText>
     );
-
-    const _renderListFilters = () => {
-        return (
-            <View>
-                <FlatList
-                    style={styles.container_filter}
-                    data={filters}
-                    keyExtractor={(item, index) => `key_filter_${item}_${index}`}
-                    renderItem={({ index, item }) => {
-                        return (
-                            <FilterItem
-                                text={`${item}`}
-                                disable={index % 2 === 0}
-                                onPress={() => {
-                                    removeItem(index);
-                                }}
-                            />
-                        );
-                    }}
-                    showsHorizontalScrollIndicator={false}
-                    horizontal
-                />
-            </View>
-        );
-    };
 
     const _renderInputFilter = () => (
         <View style={styles.container_bar}>
@@ -81,8 +52,9 @@ const FilterInputScreen = props => {
             <TouchableOpacity
                 activeOpacity={0.7}
                 onPress={() => {
-                    setFilters([`#${textFilter}`, ...filters]);
+                    addFilter(textFilter);
                     setTextFilter('');
+                    // navigation.push('ProcessingScreen');
                 }}
             >
                 <CustomizedContainer type="cell" containerStyle={styles.bar}>
@@ -104,13 +76,44 @@ const FilterInputScreen = props => {
             />
             <View style={styles.container_overlay}>
                 {_renderTitle()}
-                {_renderListFilters()}
+                <ListFilters />
                 {_renderInputFilter()}
                 {_renderButtonAdd()}
             </View>
         </CustomizedContainer>
     );
 };
+
+const ListFilters = memo(() => {
+    const { getListFilters, enableFilter, removeFilter } = useFilters();
+    return (
+        <View>
+            <FlatList
+                style={styles.container_filter}
+                data={getListFilters() || []}
+                keyExtractor={(item, index) => `key_filter_${item?.label}_${index}`}
+                renderItem={({ index, item }) => {
+                    const { label, disable } = item || {};
+                    return (
+                        <FilterItem
+                            text={`#${label}`}
+                            disable={disable}
+                            onPress={() => {
+                                if (disable) {
+                                    enableFilter(index);
+                                } else {
+                                    removeFilter(index);
+                                }
+                            }}
+                        />
+                    );
+                }}
+                showsHorizontalScrollIndicator={false}
+                horizontal
+            />
+        </View>
+    );
+});
 
 const styles = StyleSheet.create({
     foreground: {
@@ -147,4 +150,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default FilterInputScreen;
+export default memo(FilterInputScreen);

@@ -14,7 +14,7 @@ import Listener from '@utils/Listener';
 import LinearGradient from 'react-native-linear-gradient';
 const { ImageLabelingModule } = NativeModules || {};
 
-const FilterInputScreen = ({ navigation }) => {
+const ProcessingScreen = ({ navigation }) => {
     useEffect(() => {
         navigation.setOptions({
             headerShown: false,
@@ -33,15 +33,6 @@ const FilterInputScreen = ({ navigation }) => {
             colors={['#f1eab9', '#ff8c8c']}
             locations={[0, 0.5]}
         >
-            <LottieView
-                source={require('../assets/searching.json')}
-                style={{
-                    width: '90%',
-                    height: 100,
-                }}
-                autoPlay={true}
-                loop={true}
-            />
             <View
                 style={{
                     width: '100%',
@@ -105,9 +96,9 @@ const TestList = React.memo(() => {
                         style={{
                             alignSelf: 'center',
                             width: 'auto',
-                            height: '50%',
+                            height: '30%',
                             aspectRatio: item?.pixelWidth / item?.pixelHeight,
-                            marginLeft: 100,
+                            marginLeft: 20,
                         }}
                     />
                 );
@@ -116,4 +107,4 @@ const TestList = React.memo(() => {
     );
 });
 
-export default FilterInputScreen;
+export default ProcessingScreen;

@@ -15,7 +15,10 @@ const FilterItem = ({ text = '', disable = false, onPress = () => {} }) => {
                 containerStyle={[styles.container, disable ? styles.disable_color : {}]}
                 angle={90}
             >
-                <Image source={assets.ic_close_circle} style={styles.ic_close} />
+                <Image
+                    source={disable ? assets.ic_add : assets.ic_close_circle}
+                    style={styles.ic_close}
+                />
                 <CustomizedText type="item" textStyle={disable ? styles.disable_text : {}}>
                     {text}
                 </CustomizedText>

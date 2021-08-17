@@ -1,3 +1,4 @@
 import FilterInputScreen from './FilterInputScreen';
+import ProcessingScreen from './ProcessingScreen';
 
-export { FilterInputScreen };
+export { FilterInputScreen, ProcessingScreen };
