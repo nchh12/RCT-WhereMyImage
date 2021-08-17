@@ -49,6 +49,7 @@ const FilterInputScreen = props => {
                         return (
                             <FilterItem
                                 text={`${item}`}
+                                disable={index % 2 === 0}
                                 onPress={() => {
                                     removeItem(index);
                                 }}

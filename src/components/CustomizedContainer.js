@@ -7,11 +7,15 @@ import LinearGradient from 'react-native-linear-gradient';
 
 const CustomizedContainer = ({ type = null, containerStyle = {}, children, angle = 45 }) => {
     const appliedType = styles[type] || {};
-    const colors = appliedType?.backgroundColor?.length > 1 && appliedType?.backgroundColor;
     containerStyle = Array.isArray(containerStyle) ? containerStyle : [containerStyle];
+    const combinedStyle = [appliedType, ...containerStyle].reduce((finalStyle, currentStyle) => ({
+        ...finalStyle,
+        ...currentStyle,
+    }));
+    const colors = combinedStyle?.backgroundColor?.length > 1 && combinedStyle?.backgroundColor;
     return (
         <LinearGradient
-            style={[appliedType, ...containerStyle]}
+            style={combinedStyle}
             colors={colors || [Colors.white, Colors.white]}
             useAngle={true}
             angle={angle}
