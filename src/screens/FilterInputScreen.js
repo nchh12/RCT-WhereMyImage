@@ -1,22 +1,36 @@
-import React, { useEffect, useRef } from 'react';
-import { View, TextInput, FlatList, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, TextInput, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { useSelector, keySelector, useDispatch, actions } from '../context';
 import LottieView from 'lottie-react-native';
-import LinearGradient from 'react-native-linear-gradient';
 import Colors from '@utils/Colors';
 import SharedStyles from '@utils/SharedStyles';
 import { CustomizedText, CustomizedContainer, FilterItem } from '@components';
 import Strings from '@utils/Strings';
 import assets from '../assets';
 import { DefaultSize } from '@utils/Constants';
+import { isLetters } from '@utils/StringUtils';
 
 const FilterInputScreen = props => {
     const { navigation } = props;
+    const [filters, setFilters] = useState([]);
+    const [textFilter, setTextFilter] = useState('');
+
     useEffect(() => {
         navigation.setOptions({
             headerShown: false,
         });
     }, []);
+
+    const onChangeText = text => {
+        if (text.length && isLetters(text.slice(-1))) {
+            return;
+        }
+        !isLetters(text) && setTextFilter(text);
+    };
+
+    const removeItem = _index => {
+        setFilters(filters.filter((item, index) => index !== _index));
+    };
 
     const _renderTitle = () => (
         <CustomizedText type="title" textStyle={styles.text_title}>
@@ -29,10 +43,17 @@ const FilterInputScreen = props => {
             <View>
                 <FlatList
                     style={styles.container_filter}
-                    data={['tess', 'tess', 'tess', 'tess', 'tess', 'tess', 'tess']}
+                    data={filters}
                     keyExtractor={(item, index) => `key_filter_${item}_${index}`}
                     renderItem={({ index, item }) => {
-                        return <FilterItem text={`${index} ${item}`} />;
+                        return (
+                            <FilterItem
+                                text={`${item}`}
+                                onPress={() => {
+                                    removeItem(index);
+                                }}
+                            />
+                        );
                     }}
                     showsHorizontalScrollIndicator={false}
                     horizontal
@@ -42,13 +63,34 @@ const FilterInputScreen = props => {
     };
 
     const _renderInputFilter = () => (
-        <TextInput
-            style={styles.input}
-            // onChangeText={onChangeNumber}
-            placeholder="Cat..."
-            numberOfLines={1}
-            keyboardType={'default'}
-        />
+        <View style={styles.container_bar}>
+            <TextInput
+                style={styles.bar}
+                onChangeText={onChangeText}
+                value={textFilter}
+                placeholder={Strings.input_filter_placeholder}
+                numberOfLines={1}
+                keyboardType={'default'}
+            />
+        </View>
+    );
+
+    const _renderButtonAdd = () => (
+        <View style={styles.container_bar}>
+            <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={() => {
+                    setFilters([`#${textFilter}`, ...filters]);
+                    setTextFilter('');
+                }}
+            >
+                <CustomizedContainer type="cell" containerStyle={styles.bar}>
+                    <CustomizedText type="item" size={18}>
+                        {Strings.add_filter}
+                    </CustomizedText>
+                </CustomizedContainer>
+            </TouchableOpacity>
+        </View>
     );
 
     return (
@@ -63,6 +105,7 @@ const FilterInputScreen = props => {
                 {_renderTitle()}
                 {_renderListFilters()}
                 {_renderInputFilter()}
+                {_renderButtonAdd()}
             </View>
         </CustomizedContainer>
     );
@@ -84,16 +127,19 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: DefaultSize.XL,
         borderTopRightRadius: DefaultSize.XL,
     },
-    input: {
-        width: '100%',
-        height: 'auto',
-        borderRadius: DefaultSize.S,
+    container_bar: {
+        marginTop: DefaultSize.S,
+        paddingHorizontal: DefaultSize.M,
+    },
+    bar: {
+        // ...SharedStyles.shadow,
+        ...SharedStyles.bar,
     },
     text_title: {
         marginHorizontal: DefaultSize.L,
     },
     container_filter: {
-        marginTop: DefaultSize.L,
+        marginTop: DefaultSize.S,
         paddingHorizontal: DefaultSize.S,
         width: '100%',
         height: 'auto',

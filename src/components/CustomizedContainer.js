@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.gradient_peach,
     },
     cell: {
+        ...SharedStyles.shadow,
         backgroundColor: Colors.gradient_peach,
         paddingHorizontal: DefaultSize.L,
         paddingVertical: DefaultSize.XS,

@@ -4,14 +4,14 @@ import { DefaultSize } from '@utils/Constants';
 
 export default StyleSheet.create({
     shadow: {
-        shadowColor: Colors.black_07,
+        shadowColor: Colors.dark,
         shadowOffset: {
             width: 0,
             height: 1,
         },
         shadowRadius: DefaultSize.XXS,
-        shadowOpacity: 10,
-        elevation: 5,
+        shadowOpacity: 1,
+        elevation: 2,
     },
     center: {
         justifyContent: 'center',
@@ -24,5 +24,13 @@ export default StyleSheet.create({
     full_white: {
         flex: 1,
         backgroundColor: Colors.white,
+    },
+    bar: {
+        width: '100%',
+        height: 'auto',
+        borderRadius: DefaultSize.S,
+        paddingVertical: DefaultSize.S,
+        paddingHorizontal: DefaultSize.M,
+        borderRadius: DefaultSize.S,
     },
 });
