@@ -51,8 +51,13 @@ const useFilters = () => {
         _setListFilters(list);
     };
 
+    const getListLabels = () => {
+        return listFilters.filter(item => !item?.disable).map(item => item?.label);
+    };
+
     return {
         getListFilters,
+        getListLabels,
         enableFilter,
         removeFilter,
         addFilter,

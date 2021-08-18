@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useLayoutEffect, memo } from 'react';
 import {
     View,
     Text,
@@ -8,16 +8,29 @@ import {
     ActivityIndicator,
     FlatList,
 } from 'react-native';
-import { useSelector, keySelector, useDispatch, actions } from '../context';
 import LottieView from 'lottie-react-native';
+import { useFilters } from '@hooks';
 import Listener from '@utils/Listener';
 import LinearGradient from 'react-native-linear-gradient';
+import Strings from '@utils/Strings';
+import { refAppOverlay } from '@navigation/AppOverlay';
+import assets from '@assets';
+import { CustomizedText, CustomizedContainer } from '@components';
+import SharedStyles from '@utils/SharedStyles';
+
 const { ImageLabelingModule } = NativeModules || {};
 
 const ProcessingScreen = ({ navigation }) => {
-    useEffect(() => {
+    const { getListLabels } = useFilters();
+
+    useLayoutEffect(() => {
         navigation.setOptions({
-            headerShown: false,
+            headerShown: true,
+            headerTitle: Strings.processing_header,
+            headerStyle: {
+                backgroundColor: '#F1EAB9',
+                elevation: 1,
+            },
         });
     }, []);
 
@@ -42,7 +55,10 @@ const ProcessingScreen = ({ navigation }) => {
             >
                 <TouchableOpacity
                     onPress={() => {
-                        ImageLabelingModule.startScaningWithFilter(['screenshot']);
+                        // ImageLabelingModules.startScaningWithFilter(['screenshot']);
+                        refAppOverlay.current?.show({
+                            component: Loading,
+                        });
                     }}
                 >
                     <Text>test</Text>
@@ -58,12 +74,37 @@ const ProcessingScreen = ({ navigation }) => {
                     <ActivityIndicator />
                 </TouchableOpacity>
             </View>
-            <TestList />
+            <ListResult />
         </LinearGradient>
     );
 };
 
-const TestList = React.memo(() => {
+const Loading = () => (
+    <>
+        <LottieView
+            source={assets.load_seeking}
+            style={{
+                width: '100%',
+                height: 'auto',
+            }}
+            autoPlay={true}
+            loop={true}
+        />
+        <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => {
+                ImageLabelingModule.stopScanning();
+                refAppOverlay.current?.hide();
+            }}
+        >
+            <CustomizedContainer type={'gray'} containerStyle={SharedStyles.bar}>
+                <CustomizedText type="title">{Strings.cancel}</CustomizedText>
+            </CustomizedContainer>
+        </TouchableOpacity>
+    </>
+);
+
+const ListResult = React.memo(() => {
     const [image, setImage] = React.useState([]);
 
     React.useEffect(() => {
@@ -107,4 +148,4 @@ const TestList = React.memo(() => {
     );
 });
 
-export default ProcessingScreen;
+export default memo(ProcessingScreen);
