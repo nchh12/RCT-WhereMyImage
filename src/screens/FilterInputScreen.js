@@ -9,11 +9,10 @@ import assets from '@assets';
 import { DefaultSize } from '@utils/Constants';
 import { isLetters } from '@utils/StringUtils';
 import { useFilters } from '@hooks';
+import DeviceConfigs from '@utils/DeviceConfigs';
 
 const FilterInputScreen = props => {
     const { navigation } = props;
-    const { addFilter } = useFilters();
-    const [textFilter, setTextFilter] = useState('');
 
     useEffect(() => {
         navigation.setOptions({
@@ -21,45 +20,23 @@ const FilterInputScreen = props => {
         });
     }, []);
 
-    const onChangeText = text => {
-        if (text.length && isLetters(text.slice(-1))) {
-            return;
-        }
-        !isLetters(text) && setTextFilter(text);
-    };
-
     const _renderTitle = () => (
         <CustomizedText type="title" textStyle={styles.text_title}>
             {Strings.title_input}
         </CustomizedText>
     );
 
-    const _renderInputFilter = () => (
-        <View style={styles.container_bar}>
-            <TextInput
-                style={styles.bar}
-                onChangeText={onChangeText}
-                value={textFilter}
-                placeholder={Strings.input_filter_placeholder}
-                numberOfLines={1}
-                keyboardType={'default'}
-            />
-        </View>
-    );
-
-    const _renderButtonAdd = () => (
-        <View style={styles.container_bar}>
+    const _renderStartButton = () => (
+        <View style={[styles.container_bar, styles.container_start]}>
             <TouchableOpacity
                 activeOpacity={0.7}
                 onPress={() => {
-                    addFilter(textFilter);
-                    setTextFilter('');
-                    // navigation.push('ProcessingScreen');
+                    navigation.push('ProcessingScreen');
                 }}
             >
-                <CustomizedContainer type="cell" containerStyle={styles.bar}>
-                    <CustomizedText type="item" size={18}>
-                        {Strings.add_filter}
+                <CustomizedContainer type="peach" containerStyle={SharedStyles.bar}>
+                    <CustomizedText type="item" size={16}>
+                        {Strings.start_processing}
                     </CustomizedText>
                 </CustomizedContainer>
             </TouchableOpacity>
@@ -77,12 +54,53 @@ const FilterInputScreen = props => {
             <View style={styles.container_overlay}>
                 {_renderTitle()}
                 <ListFilters />
-                {_renderInputFilter()}
-                {_renderButtonAdd()}
+                <InputFilters />
+                {_renderStartButton()}
             </View>
         </CustomizedContainer>
     );
 };
+
+const InputFilters = memo(() => {
+    const { addFilter } = useFilters();
+    const [textFilter, setTextFilter] = useState('');
+
+    const onChangeText = text => {
+        if (text.length && isLetters(text.slice(-1))) {
+            return;
+        }
+        !isLetters(text) && setTextFilter(text);
+    };
+
+    const onPressAdd = () => {
+        addFilter(textFilter);
+        setTextFilter('');
+    };
+
+    const isTyping = textFilter !== '';
+    return (
+        <View style={[styles.container_bar, styles.container_input]}>
+            <TextInput
+                style={[SharedStyles.bar, styles.input]}
+                onChangeText={onChangeText}
+                value={textFilter}
+                placeholder={Strings.input_filter_placeholder}
+                numberOfLines={1}
+                keyboardType={'default'}
+            />
+            <TouchableOpacity activeOpacity={0.7} onPress={isTyping ? onPressAdd : null}>
+                <CustomizedContainer
+                    type={isTyping ? 'peach' : 'gray'}
+                    containerStyle={SharedStyles.bar}
+                >
+                    <CustomizedText type="item" size={20}>
+                        +
+                    </CustomizedText>
+                </CustomizedContainer>
+            </TouchableOpacity>
+        </View>
+    );
+});
 
 const ListFilters = memo(() => {
     const { getListFilters, enableFilter, removeFilter } = useFilters();
@@ -135,9 +153,30 @@ const styles = StyleSheet.create({
         marginTop: DefaultSize.S,
         paddingHorizontal: DefaultSize.M,
     },
-    bar: {
-        // ...SharedStyles.shadow,
-        ...SharedStyles.bar,
+    container_start: {
+        width: '100%',
+        position: 'absolute',
+        bottom: (DeviceConfigs.isIphoneX() ? DefaultSize.L : 0) + DefaultSize.XL,
+    },
+    container_input: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    },
+    input: {
+        ...SharedStyles.shadow,
+        width: '80%',
+        backgroundColor: Colors.black_05,
+    },
+    position_bt_add: {
+        position: 'absolute',
+        width: '30%',
+        bottom: DefaultSize.M,
+        right: DefaultSize.M,
+    },
+    container_bt_add: {
+        borderRadius: DefaultSize.S,
+        backgroundColor: [Colors.black_09, Colors.black_05],
     },
     text_title: {
         marginHorizontal: DefaultSize.L,
@@ -148,6 +187,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 'auto',
     },
+    bt_add: {},
 });
 
 export default memo(FilterInputScreen);

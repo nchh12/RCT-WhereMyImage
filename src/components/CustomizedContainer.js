@@ -31,9 +31,17 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: Colors.gradient_peach,
     },
-    cell: {
+    peach: {
         ...SharedStyles.shadow,
         backgroundColor: Colors.gradient_peach,
+        paddingHorizontal: DefaultSize.L,
+        paddingVertical: DefaultSize.XS,
+        borderRadius: DefaultSize.XL,
+        alignItems: 'center',
+    },
+    gray: {
+        ...SharedStyles.shadow,
+        backgroundColor: [Colors.black_05, Colors.black_05],
         paddingHorizontal: DefaultSize.L,
         paddingVertical: DefaultSize.XS,
         borderRadius: DefaultSize.XL,

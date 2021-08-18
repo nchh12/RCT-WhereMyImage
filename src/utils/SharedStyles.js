@@ -30,7 +30,7 @@ export default StyleSheet.create({
         height: 'auto',
         borderRadius: DefaultSize.S,
         paddingVertical: DefaultSize.S,
-        paddingHorizontal: DefaultSize.M,
+        paddingHorizontal: DefaultSize.L,
         borderRadius: DefaultSize.S,
     },
 });

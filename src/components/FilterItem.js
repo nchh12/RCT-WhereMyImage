@@ -11,7 +11,7 @@ const FilterItem = ({ text = '', disable = false, onPress = () => {} }) => {
     return (
         <TouchableOpacity activeOpacity={0.8} style={styles.container} onPress={onPress}>
             <CustomizedContainer
-                type="cell"
+                type="peach"
                 containerStyle={[styles.container, disable ? styles.disable_color : {}]}
                 angle={90}
             >
