@@ -34,14 +34,8 @@ const ListResults = () => {
     const _renderItem = ({ item }) => <ItemResult item={item} />;
 
     const _renderFooter = () => {
-        return (
-            <View style={styles.item_img}>
-                <Text>aregarg</Text>
-            </View>
-        );
+        return <View style={styles.item_img}></View>;
     };
-
-    if (!image?.length) return _renderFooter();
 
     return (
         <View style={styles.container_list}>

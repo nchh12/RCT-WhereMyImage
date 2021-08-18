@@ -4,4 +4,6 @@ export default {
     ic_add: require('./ic_add.png'),
     recommended_labels: require('./labels.json'),
     load_seeking: require('./seek_loading.json'),
+    image_processing: require('./image_processing.json'),
+    analyzing: require('./analyzing.json'),
 };

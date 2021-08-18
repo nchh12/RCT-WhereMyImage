@@ -294,7 +294,7 @@ const Colors = {
     white_three: '#fcfcfc',
     white_two: '#f4f4f4',
     dark: '#2f2f2f',
-    background_dark: '#2f2f2fbb',
+    background_dark: '#2f2f2fcc',
     // gradient
     gradient_peach: ['#F1EAB9', '#FF8c8c'],
     gradient_gray: ['#ffffff', '#ffffff'],

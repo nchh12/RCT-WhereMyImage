@@ -37,9 +37,12 @@ const ProcessingScreen = ({ navigation }) => {
                 scrollEventThrottle={16}
                 showsVerticalScrollIndicator={false}
             >
-                <CustomizedText type="title">{Strings.cancel}</CustomizedText>
-                <CustomizedText type="title">{Strings.cancel}</CustomizedText>
-                <CustomizedText type="title">{Strings.cancel}</CustomizedText>
+                <LottieView
+                    source={assets.analyzing}
+                    style={styles.img_header}
+                    autoPlay={true}
+                    loop={true}
+                />
                 <View style={styles.container_result}>
                     <CustomizedText type="title">{Strings.cancel}</CustomizedText>
 
@@ -53,7 +56,7 @@ const ProcessingScreen = ({ navigation }) => {
 const Loading = () => (
     <>
         <LottieView
-            source={assets.load_seeking}
+            source={assets.image_processing}
             style={{
                 width: '100%',
                 height: 'auto',
@@ -68,7 +71,7 @@ const Loading = () => (
                 refAppOverlay.current?.hide();
             }}
         >
-            <CustomizedContainer type={'gray'} containerStyle={SharedStyles.bar}>
+            <CustomizedContainer type={'peach'} containerStyle={SharedStyles.bar}>
                 <CustomizedText type="title">{Strings.cancel}</CustomizedText>
             </CustomizedContainer>
         </TouchableOpacity>
@@ -80,8 +83,12 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
     },
+    img_header: {
+        width: '90%',
+        height: 'auto',
+        alignSelf: 'center',
+    },
     container_result: {
-        marginTop: '10%',
         height: DeviceConfigs.height,
         paddingTop: DefaultSize.XL,
         borderTopRightRadius: DefaultSize.XL,
