@@ -114,7 +114,7 @@ const ListFilters = memo(() => {
                     const { label, disable } = item || {};
                     return (
                         <FilterItem
-                            text={`#${label}`}
+                            text={`#${label?.toLowerCase()}`}
                             disable={disable}
                             onPress={() => {
                                 if (disable) {

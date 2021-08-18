@@ -1,49 +1,51 @@
-import React, { useLayoutEffect, memo } from 'react';
-import { View, Text, TouchableOpacity, Image, ActivityIndicator, FlatList } from 'react-native';
+import React, { memo, useEffect, useRef } from 'react';
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { useFilters } from '@hooks';
 import Strings from '@utils/Strings';
 import { refAppOverlay } from '@navigation/AppOverlay';
 import assets from '@assets';
-import { CustomizedText, CustomizedContainer, AnimatedHeader } from '@components';
+import { CustomizedText, CustomizedContainer, AnimatedHeader, ListResults } from '@components';
 import SharedStyles from '@utils/SharedStyles';
 import ImageLabeling from '../core/nativemodules/ImageLabeling';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { DefaultSize } from '@utils/Constants';
+import DeviceConfigs from '@utils/DeviceConfigs';
 
 const ProcessingScreen = ({ navigation }) => {
     const { getListLabels } = useFilters();
+    const refHeader = useRef(null);
+
+    useEffect(() => {
+        ImageLabeling.startScaningWithFilter(getListLabels() || []);
+        refAppOverlay.current?.show({
+            component: Loading,
+        });
+    }, []);
+
+    const onScroll = e => {
+        const offsetY = e.nativeEvent.contentOffset.y;
+        refHeader.current?.setOpacity(Math.min(1, offsetY / (DeviceConfigs.height * 0.1)));
+    };
 
     return (
         <CustomizedContainer type="main_screen">
-            <AnimatedHeader navigation={navigation} />
-            <View
-                style={{
-                    width: '100%',
-                    justifyContent: 'space-around',
-                    flexDirection: 'row',
-                }}
+            <AnimatedHeader ref={refHeader} navigation={navigation} />
+            <ScrollView
+                style={styles.container}
+                onScroll={onScroll}
+                scrollEventThrottle={16}
+                showsVerticalScrollIndicator={false}
             >
-                <TouchableOpacity
-                    onPress={() => {
-                        ImageLabeling.startScaningWithFilter(['FUN']);
-                        refAppOverlay.current?.show({
-                            component: Loading,
-                        });
-                    }}
-                >
-                    <Text>test</Text>
-                    <ActivityIndicator />
-                </TouchableOpacity>
+                <CustomizedText type="title">{Strings.cancel}</CustomizedText>
+                <CustomizedText type="title">{Strings.cancel}</CustomizedText>
+                <CustomizedText type="title">{Strings.cancel}</CustomizedText>
+                <View style={styles.container_result}>
+                    <CustomizedText type="title">{Strings.cancel}</CustomizedText>
 
-                <TouchableOpacity
-                    onPress={() => {
-                        ImageLabeling.stopScanning();
-                    }}
-                >
-                    <Text>stop</Text>
-                    <ActivityIndicator />
-                </TouchableOpacity>
-            </View>
-            <ListResult />
+                    <ListResults />
+                </View>
+            </ScrollView>
         </CustomizedContainer>
     );
 };
@@ -73,49 +75,19 @@ const Loading = () => (
     </>
 );
 
-const ListResult = React.memo(() => {
-    const [image, setImage] = React.useState([]);
-
-    React.useEffect(() => {
-        const listener = ImageLabeling.listen(res => {
-            switch (res?.status) {
-                case 'onResponse':
-                    console.log(JSON.stringify(res, null, 2));
-                    setImage(image => [...[res], ...image]);
-                    break;
-                case 'onFinish':
-                    console.log('DONEEEE');
-                    refAppOverlay?.current?.hide();
-                    break;
-            }
-        });
-
-        return () => {
-            listener.remove();
-        };
-    }, []);
-
-    return (
-        <FlatList
-            data={image}
-            keyExtractor={(item, index) => `key_${item?.uri} ${item?.pixelWidth} ${index}`}
-            horizontal
-            renderItem={({ item }) => {
-                return (
-                    <Image
-                        source={{ uri: item?.uri }}
-                        style={{
-                            alignSelf: 'center',
-                            width: 'auto',
-                            height: '30%',
-                            aspectRatio: item?.pixelWidth / item?.pixelHeight,
-                            marginLeft: 20,
-                        }}
-                    />
-                );
-            }}
-        />
-    );
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        width: '100%',
+    },
+    container_result: {
+        marginTop: '10%',
+        height: DeviceConfigs.height,
+        paddingTop: DefaultSize.XL,
+        borderTopRightRadius: DefaultSize.XL,
+        borderTopLeftRadius: DefaultSize.XL,
+        backgroundColor: Colors.white,
+    },
 });
 
 export default memo(ProcessingScreen);

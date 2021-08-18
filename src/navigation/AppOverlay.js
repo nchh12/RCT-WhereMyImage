@@ -1,5 +1,5 @@
-import React, { memo, forwardRef, useImperativeHandle, useState, useRef } from 'react';
-import { View, StyleSheet, Animated } from 'react-native';
+import React, { useEffect, memo, forwardRef, useImperativeHandle, useState, useRef } from 'react';
+import { BackHandler, StyleSheet, Animated } from 'react-native';
 import Colors from '@utils/Colors';
 
 export const refAppOverlay = React.createRef(null);
@@ -9,6 +9,15 @@ const DURATION = 500;
 const AppOverlay = forwardRef((props, ref) => {
     const [component, setComponent] = useState(false);
     const opacityAnimated = useRef(new Animated.Value(0));
+
+    useEffect(() => {
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+            hide();
+        });
+        return () => {
+            backHandler?.remove?.();
+        };
+    }, []);
 
     const show = ({ component }) => {
         setComponent(component);
