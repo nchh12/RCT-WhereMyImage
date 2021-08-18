@@ -1,51 +1,20 @@
 import React, { useLayoutEffect, memo } from 'react';
-import {
-    View,
-    Text,
-    TouchableOpacity,
-    NativeModules,
-    Image,
-    ActivityIndicator,
-    FlatList,
-} from 'react-native';
+import { View, Text, TouchableOpacity, Image, ActivityIndicator, FlatList } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { useFilters } from '@hooks';
-import Listener from '@utils/Listener';
-import LinearGradient from 'react-native-linear-gradient';
 import Strings from '@utils/Strings';
 import { refAppOverlay } from '@navigation/AppOverlay';
 import assets from '@assets';
-import { CustomizedText, CustomizedContainer } from '@components';
+import { CustomizedText, CustomizedContainer, AnimatedHeader } from '@components';
 import SharedStyles from '@utils/SharedStyles';
-
-const { ImageLabelingModule } = NativeModules || {};
+import ImageLabeling from '../core/nativemodules/ImageLabeling';
 
 const ProcessingScreen = ({ navigation }) => {
     const { getListLabels } = useFilters();
 
-    useLayoutEffect(() => {
-        navigation.setOptions({
-            headerShown: true,
-            headerTitle: Strings.processing_header,
-            headerStyle: {
-                backgroundColor: '#F1EAB9',
-                elevation: 1,
-            },
-        });
-    }, []);
-
     return (
-        <LinearGradient
-            style={[
-                {
-                    flex: 1,
-                    backgroundColor: 'white',
-                    alignItems: 'center',
-                },
-            ]}
-            colors={['#f1eab9', '#ff8c8c']}
-            locations={[0, 0.5]}
-        >
+        <CustomizedContainer type="main_screen">
+            <AnimatedHeader navigation={navigation} />
             <View
                 style={{
                     width: '100%',
@@ -55,7 +24,7 @@ const ProcessingScreen = ({ navigation }) => {
             >
                 <TouchableOpacity
                     onPress={() => {
-                        // ImageLabelingModules.startScaningWithFilter(['screenshot']);
+                        ImageLabeling.startScaningWithFilter(['FUN']);
                         refAppOverlay.current?.show({
                             component: Loading,
                         });
@@ -67,7 +36,7 @@ const ProcessingScreen = ({ navigation }) => {
 
                 <TouchableOpacity
                     onPress={() => {
-                        ImageLabelingModule.stopScanning();
+                        ImageLabeling.stopScanning();
                     }}
                 >
                     <Text>stop</Text>
@@ -75,7 +44,7 @@ const ProcessingScreen = ({ navigation }) => {
                 </TouchableOpacity>
             </View>
             <ListResult />
-        </LinearGradient>
+        </CustomizedContainer>
     );
 };
 
@@ -93,7 +62,7 @@ const Loading = () => (
         <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => {
-                ImageLabelingModule.stopScanning();
+                ImageLabeling.stopScanning();
                 refAppOverlay.current?.hide();
             }}
         >
@@ -108,7 +77,7 @@ const ListResult = React.memo(() => {
     const [image, setImage] = React.useState([]);
 
     React.useEffect(() => {
-        Listener.listen(Listener.EVENTS.ON_IMAGE_LABELING, res => {
+        const listener = ImageLabeling.listen(res => {
             switch (res?.status) {
                 case 'onResponse':
                     console.log(JSON.stringify(res, null, 2));
@@ -116,12 +85,13 @@ const ListResult = React.memo(() => {
                     break;
                 case 'onFinish':
                     console.log('DONEEEE');
+                    refAppOverlay?.current?.hide();
                     break;
             }
         });
 
         return () => {
-            Listener.removeCallback(Listener.EVENTS.ON_IMAGE_LABELING);
+            listener.remove();
         };
     }, []);
 

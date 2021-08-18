@@ -11,6 +11,7 @@
                     "@components": "./src/components",
                     "@screens": "./src/screens",
                     "@hooks": "./src/hooks",
+                    "@core": "./src/core",
                     "@navigation": "./src/navigation",
                     "@context": "./src/context",
                     "@utils": "./src/utils"
