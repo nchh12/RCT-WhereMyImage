@@ -295,8 +295,14 @@ const Colors = {
     white_two: '#f4f4f4',
     dark: '#2f2f2f',
     background_dark: '#2f2f2fcc',
+    //theme
+    base_1: '#F8B195',
+    base_2: '#F67280',
+    base_3: '#C06C84',
+    base_4: '#6C5B7B',
+    base_5: '#355C7D',
     // gradient
-    gradient_peach: ['#1faf98', '#d8b5ff'],
+    gradient_peach: ['#F8B195', '#F67280'],
     gradient_gray: ['#ffffff', '#ffffff'],
 };
 

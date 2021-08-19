@@ -71,6 +71,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
+        borderBottomLeftRadius: DefaultSize.XS,
+        borderBottomRightRadius: DefaultSize.XS,
     },
     transparent_container: {
         width: '100%',

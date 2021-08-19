@@ -19,7 +19,7 @@ const useFilters = () => {
 
     const _generateListTmp = () => {
         const baseLabels = assets?.recommended_labels?.list || [];
-        const RECOMMENDED_LABELS = [0, 1];
+        const RECOMMENDED_LABELS = [0, 1, 2, 3];
         const tmpList = [];
         RECOMMENDED_LABELS.forEach(_ => {
             const label = baseLabels?.[parseInt(Math.random() * baseLabels.length)];

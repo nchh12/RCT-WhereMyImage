@@ -15,7 +15,7 @@ const CustomizedText = ({ type = null, textStyle = {}, children, size = null }) 
 const styles = StyleSheet.create({
     header: {
         fontWeight: 'bold',
-        fontSize: TextSize.H1,
+        fontSize: TextSize.H3,
     },
     title: {
         fontWeight: 'bold',
@@ -26,6 +26,11 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: TextSize.title,
         color: Colors.white,
+    },
+    place_holder: {
+        fontWeight: 'bold',
+        fontSize: TextSize.title,
+        color: Colors.black_10,
     },
 });
 

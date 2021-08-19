@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useRef } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
+import { View, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { useFilters } from '@hooks';
 import Strings from '@utils/Strings';
@@ -19,7 +19,7 @@ const ProcessingScreen = ({ navigation }) => {
     useEffect(() => {
         ImageLabeling.startScaningWithFilter(getListLabels() || []);
         refAppOverlay.current?.show({
-            component: Loading,
+            component: <Loading />,
         });
     }, []);
 
@@ -27,6 +27,12 @@ const ProcessingScreen = ({ navigation }) => {
         const offsetY = e.nativeEvent.contentOffset.y;
         refHeader.current?.setOpacity(Math.min(1, offsetY / (DeviceConfigs.height * 0.1)));
     };
+
+    const _renderFooter = () => (
+        <View style={styles.container_footer}>
+            <CustomizedText type={'place_holder'}>{Strings.footer}</CustomizedText>
+        </View>
+    );
 
     return (
         <CustomizedContainer type="main_screen">
@@ -40,6 +46,7 @@ const ProcessingScreen = ({ navigation }) => {
                 onScroll={onScroll}
                 scrollEventThrottle={16}
                 showsVerticalScrollIndicator={false}
+                scrollEnabled
             >
                 <LottieView
                     source={assets.analyzing}
@@ -48,16 +55,15 @@ const ProcessingScreen = ({ navigation }) => {
                     loop={true}
                 />
                 <View style={styles.container_result}>
-                    <CustomizedText type="title">{Strings.cancel}</CustomizedText>
-
                     <ListResults />
+                    {_renderFooter()}
                 </View>
             </ScrollView>
         </CustomizedContainer>
     );
 };
 
-const Loading = () => (
+const Loading = memo(() => (
     <>
         <LottieView
             source={assets.image_processing}
@@ -71,21 +77,23 @@ const Loading = () => (
         <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => {
+                console.log('stop here');
                 ImageLabeling.stopScanning();
                 refAppOverlay.current?.hide();
             }}
         >
             <CustomizedContainer type={'peach'} containerStyle={SharedStyles.bar}>
-                <CustomizedText type="title">{Strings.cancel}</CustomizedText>
+                <CustomizedText type="item">{Strings.cancel}</CustomizedText>
             </CustomizedContainer>
         </TouchableOpacity>
     </>
-);
+));
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         width: '100%',
+        // backgroundColor: Colors.white,
     },
     img_header: {
         width: '90%',
@@ -93,11 +101,15 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     container_result: {
-        height: DeviceConfigs.height,
+        minHeight: DeviceConfigs.height * 0.7,
         paddingTop: DefaultSize.XL,
         borderTopRightRadius: DefaultSize.XL,
         borderTopLeftRadius: DefaultSize.XL,
         backgroundColor: Colors.white,
+    },
+    container_footer: {
+        alignItems: 'center',
+        marginBottom: DefaultSize.XL,
     },
 });
 

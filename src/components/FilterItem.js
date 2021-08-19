@@ -21,7 +21,7 @@ const FilterItem = ({ text = '', disable = false, onPress = null }) => {
                         style={styles.ic_close}
                     />
                 )}
-                <CustomizedText type="item" textStyle={disable ? styles.disable_text : {}}>
+                <CustomizedText type="item" textStyle={disable ? styles.disable_text : styles.text}>
                     {text}
                 </CustomizedText>
             </CustomizedContainer>
@@ -38,6 +38,9 @@ const styles = StyleSheet.create({
     },
     disable_color: {
         backgroundColor: [Colors.black_01, Colors.black_05],
+    },
+    text: {
+        color: Colors.black_01,
     },
     disable_text: {
         color: Colors.black_12,

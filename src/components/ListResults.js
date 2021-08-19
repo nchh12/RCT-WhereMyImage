@@ -1,5 +1,6 @@
 import React, { useEffect, memo } from 'react';
-import { View, Text, TouchableOpacity, Image, StyleSheet, FlatList } from 'react-native';
+import { View, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
 import { useFilters } from '@hooks';
 import Strings from '@utils/Strings';
 import { refAppOverlay } from '@navigation/AppOverlay';
@@ -31,16 +32,20 @@ const ListResults = () => {
         };
     }, []);
 
-    const _renderItem = ({ item }) => <ItemResult item={item} />;
+    const _renderItem = ({ item, index }) => <ItemResult item={item} index={index} />;
 
     const _renderFooter = () => {
         return <View style={styles.item_img}></View>;
     };
 
     return (
-        <View style={styles.container_list}>
+        <View style={styles.container}>
+            <CustomizedText type="header" textStyle={styles.result_text}>
+                Found {image?.length || 0} image{image?.length > 1 ? 's' : ''} matched!
+            </CustomizedText>
             <FlatList
                 horizontal
+                style={styles.container_list}
                 data={image}
                 renderItem={_renderItem}
                 ListFooterComponent={_renderFooter}
@@ -54,48 +59,89 @@ const ListResults = () => {
 const ItemResult = memo(({ item }) => {
     const { uri = '', pixelWidth = 0, pixelHeight = 1, label = {} } = item || {};
     const aspectRatio = Math.max(0.8, pixelWidth / pixelHeight);
-    const listLabels = Object.keys(label) || [];
+    const listLabels = Object.keys(label)
+        .map(key => {
+            return {
+                label: key,
+                percent: parseInt((label[key] || 0) * 100),
+            };
+        })
+        .sort((a, b) => a.percent < b.percent);
+
     const _renderFooter = () => {
         return <View style={styles.item_img}></View>;
     };
+
+    const onPressItem = () => {
+        refAppOverlay.current?.show({
+            component: () => {
+                return <ItemResult item={item} />;
+            },
+        });
+    };
+
     return (
-        <TouchableOpacity style={styles.container_item} activeOpacity={0.7}>
+        <TouchableOpacity style={styles.container_item} activeOpacity={0.8} onPress={onPressItem}>
             <Image source={{ uri }} style={[styles.item_img, { aspectRatio }]} />
-            <FlatList
-                data={listLabels}
-                style={styles.container_filter}
-                keyExtractor={(item, index) => `key_filter_${uri}_${item?.label}_${index}`}
-                renderItem={({ item }) => {
-                    return <FilterItem text={`#${item.toLowerCase()}`} disable={false} />;
-                }}
-                showsVerticalScrollIndicator={false}
-                ListFooterComponent={_renderFooter}
-            />
+            <View style={styles.container_filter}>
+                <FlatList
+                    data={listLabels}
+                    keyExtractor={(item, index) => `key_filter_${uri}_${item?.label}_${index}`}
+                    renderItem={({ item }) => {
+                        const { label, percent } = item;
+                        return (
+                            <View style={styles.item_filter}>
+                                <FilterItem
+                                    text={`#${label?.toLowerCase()}: ${percent}%`}
+                                    disable={false}
+                                />
+                            </View>
+                        );
+                    }}
+                    scrollEnabled
+                    showsVerticalScrollIndicator={false}
+                    ListFooterComponent={_renderFooter}
+                />
+            </View>
         </TouchableOpacity>
     );
 });
 
 const styles = StyleSheet.create({
-    container_list: {
+    container: {
         flex: 1,
     },
+    container_list: {
+        paddingHorizontal: DefaultSize.L,
+    },
     container_item: {
+        marginTop: DefaultSize.L,
         ...SharedStyles.shadow,
-        height: '70%',
+        height: '90%',
         marginHorizontal: DefaultSize.S,
         backgroundColor: Colors.white,
         borderRadius: DefaultSize.M,
     },
     container_filter: {
+        flex: 1,
+        position: 'absolute',
+        top: '40%',
+        bottom: 0,
         width: '100%',
+    },
+    item_filter: {
+        alignSelf: 'flex-end',
     },
     item_img: {
         alignSelf: 'center',
         width: 'auto',
-        height: '60%',
+        height: '80%',
         borderTopRightRadius: DefaultSize.M,
         borderTopLeftRadius: DefaultSize.M,
-        // backgroundColor: 'red',
+    },
+    result_text: {
+        color: Colors.base_5,
+        marginHorizontal: DefaultSize.XL,
     },
 });
 

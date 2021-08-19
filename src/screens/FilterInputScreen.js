@@ -165,7 +165,8 @@ const styles = StyleSheet.create({
     },
     input: {
         ...SharedStyles.shadow,
-        backgroundColor: Colors.black_05,
+        backgroundColor: Colors.black_03,
+        color: Colors.base_5,
         width: '80%',
         fontWeight: 'bold',
     },
@@ -183,7 +184,6 @@ const styles = StyleSheet.create({
         marginHorizontal: DefaultSize.L,
     },
     container_filter: {
-        marginTop: DefaultSize.S,
         paddingHorizontal: DefaultSize.S,
         width: '100%',
         height: 'auto',

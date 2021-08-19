@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     },
     peach: {
         ...SharedStyles.shadow,
-        backgroundColor: Colors.gradient_peach,
+        backgroundColor: [Colors.base_2, Colors.base_2],
         paddingHorizontal: DefaultSize.L,
         paddingVertical: DefaultSize.XS,
         borderRadius: DefaultSize.XL,
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     },
     gray: {
         ...SharedStyles.shadow,
-        backgroundColor: [Colors.black_05, Colors.black_05],
+        backgroundColor: [Colors.black_03, Colors.black_03],
         paddingHorizontal: DefaultSize.L,
         paddingVertical: DefaultSize.XS,
         borderRadius: DefaultSize.XL,
