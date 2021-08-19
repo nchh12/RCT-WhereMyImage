@@ -165,8 +165,9 @@ const styles = StyleSheet.create({
     },
     input: {
         ...SharedStyles.shadow,
-        width: '80%',
         backgroundColor: Colors.black_05,
+        width: '80%',
+        fontWeight: 'bold',
     },
     position_bt_add: {
         position: 'absolute',

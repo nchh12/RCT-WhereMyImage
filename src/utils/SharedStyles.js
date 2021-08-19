@@ -10,7 +10,7 @@ export default StyleSheet.create({
             height: 1,
         },
         shadowRadius: DefaultSize.XXS,
-        shadowOpacity: 1,
+        shadowOpacity: 0.3,
         elevation: 2,
     },
     center: {
