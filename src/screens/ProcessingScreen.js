@@ -30,7 +30,11 @@ const ProcessingScreen = ({ navigation }) => {
 
     return (
         <CustomizedContainer type="main_screen">
-            <AnimatedHeader ref={refHeader} navigation={navigation} />
+            <AnimatedHeader
+                ref={refHeader}
+                navigation={navigation}
+                title={Strings.processing_header}
+            />
             <ScrollView
                 style={styles.container}
                 onScroll={onScroll}

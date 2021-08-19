@@ -296,7 +296,7 @@ const Colors = {
     dark: '#2f2f2f',
     background_dark: '#2f2f2fcc',
     // gradient
-    gradient_peach: ['#F1EAB9', '#FF8c8c'],
+    gradient_peach: ['#1faf98', '#d8b5ff'],
     gradient_gray: ['#ffffff', '#ffffff'],
 };
 

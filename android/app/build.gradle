@@ -211,7 +211,8 @@ dependencies {
         implementation jscFlavor
     }
 
-    implementation 'com.google.mlkit:image-labeling:17.0.5' //MLKit
+    //MLKit
+    implementation 'com.google.mlkit:image-labeling:17.0.5'
 
     //Reactive Programming
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'

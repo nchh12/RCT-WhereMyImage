@@ -42,7 +42,7 @@ const AnimatedHeader = forwardRef((props, ref) => {
         </TouchableOpacity>
     );
 
-    const _renderTitle = () => <CustomizedText type="title">title</CustomizedText>;
+    const _renderTitle = () => <CustomizedText type="title">{title}</CustomizedText>;
 
     return (
         <>
