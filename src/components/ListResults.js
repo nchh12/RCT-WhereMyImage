@@ -57,13 +57,13 @@ const ListResults = () => {
 };
 
 const ItemResult = memo(({ item }) => {
-    const { uri = '', pixelWidth = 0, pixelHeight = 1, label = {} } = item || {};
+    const { uri = '', pixelWidth = 0, pixelHeight = 1, labels = {} } = item || {};
     const aspectRatio = Math.max(0.8, pixelWidth / pixelHeight);
-    const listLabels = Object.keys(label)
+    const listLabels = Object.keys(labels)
         .map(key => {
             return {
                 label: key,
-                percent: parseInt((label[key] || 0) * 100),
+                percent: parseInt((labels[key] || 0) * 100),
             };
         })
         .sort((a, b) => a.percent < b.percent);

@@ -96,7 +96,7 @@ public class ImageProcessor {
         map.putString("uri", listGalleryImagesUrls.get(this.currentBufferIndex));
         map.putInt("pixelHeight", this.currentBufferBitmap.getHeight());
         map.putInt("pixelWidth", this.currentBufferBitmap.getWidth());
-        map.putMap("label", mapLabels);
+        map.putMap("labels", mapLabels);
         imageEmitter.emitToJs(map,"onResponse");
     }
 

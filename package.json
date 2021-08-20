@@ -5,12 +5,15 @@
     "scripts": {
         "android": "npx react-native run-android",
         "ios": "npx react-native run-ios",
+        "simulator": "open -a Simulator.app",
         "pod": "cd ios && pod install && cd ..",
         "test": "jest",
         "lint": "eslint .",
         "all": "watchman watch-del-all && rm -rf package-lock.json && rm -rf node_modules/ && rm -fr $TMPDIR/metro* && npm install && cd ios && rm -rf Pods && rm -rf Podfile.lock && pod install && cd .. && yarn start --reset-cache && rm -fr $TMPDIR/metro*",
         "start": "qrcode-terminal \"max://?action=startFeature&args=[{\\\"config\\\":\\\"{\\\\\\\"debugHost\\\\\\\":\\\\\\\"http://$(ipconfig getifaddr en0):8081\\\\\\\",\\\\\\\"development\\\\\\\":true}\\\",\\\"param\\\":\\\"{}\\\",\\\"appId\\\":\\\"vn.momo.demo\\\"},{}]\" && react-native start --port=8081",
-        "parseLabels": "node scripts/parseLabels.js"
+        "parseLabels": "node scripts/parseLabels.js",
+        "adb": "adb reverse tcp:8081 tcp:8081 && adb reverse tcp:8181 tcp:8181",
+        "visualize": "./node_modules/.bin/react-native-bundle-visualizer"
     },
     "dependencies": {
         "@react-native-community/masked-view": "^0.1.11",
@@ -38,7 +41,8 @@
         "metro-react-native-babel-preset": "^0.64.0",
         "qrcode-terminal": "^0.12.0",
         "react-scripts": "^4.0.3",
-        "react-test-renderer": "17.0.1"
+        "react-test-renderer": "17.0.1",
+        "react-native-bundle-visualizer": "2.2.1"
     },
     "jest": {
         "preset": "react-native"
