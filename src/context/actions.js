@@ -1,10 +1,10 @@
 const types = {
-    SET_TEST_VARIABLE: 'SET_TEST_VARIABLE',
+    SET_LIST_FILTERS: 'SET_LIST_FILTERS',
 };
 
 const actions = {
-    setTestVariable: ({ dispatch, payload }) => {
-        dispatch({ type: types.SET_TEST_VARIABLE, payload });
+    setListFilters: ({ dispatch, payload }) => {
+        dispatch({ type: types.SET_LIST_FILTERS, payload });
     },
 };
 

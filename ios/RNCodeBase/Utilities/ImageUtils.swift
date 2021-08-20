@@ -8,15 +8,11 @@ import UIKit
 import Photos
 
 class ImageUtils {
-  static func getAssetThumbnail(asset: PHAsset) -> UIImage {
-    let manager = PHImageManager.default()
-    let option = PHImageRequestOptions()
-    var thumbnail = UIImage()
-    option.isSynchronous = true
-    manager.requestImage(for: asset, targetSize: CGSize(width: 100.0, height: 100.0), contentMode: .aspectFit, options: option, resultHandler: {(result, info)->Void in
-      thumbnail = result!
-    })
-    return thumbnail
+  static func getThumnailSize(asset: PHAsset) -> CGSize {
+    let assetHeight = CGFloat(asset.pixelHeight)
+    let assetWidth = CGFloat(asset.pixelWidth)
+    let compressRatio = 100 / assetWidth
+    return CGSize(width: Int(assetWidth * compressRatio), height: Int(assetHeight * compressRatio))
   }
   
   static func cacheImageLocal(from url: URL?){
@@ -44,22 +40,27 @@ class ImageUtils {
     URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
   }
   
-  static func saveImage(image: UIImage, fileName: String) -> Bool {
+  static func saveImage(image: UIImage, fileName: String) -> NSURL? {
     guard let data = image.pngData() ?? image.jpegData(compressionQuality: 1) else {
-      return false
+      return nil
     }
     guard let directory = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false) as NSURL else {
-      return false
+      return nil
     }
     do {
       try data.write(to: directory.appendingPathComponent(fileName)!)
-      return true
+      return directory
     } catch {
-      return false
+      return nil
     }
   }
   
   static func getImageNameFrom(url: URL?) -> String{
     return url?.lastPathComponent ?? ""
+  }
+  
+  static func getRandomName() -> String{
+    let date = Date()
+    return "\(date.currentTimeMillis())_\(Int.random(in: 0...1000)).png"
   }
 }

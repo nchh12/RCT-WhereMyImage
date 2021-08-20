@@ -1,9 +1,9 @@
 const state = {
-    testVariable: 0,
+    listFilters: [],
 };
 
 const keySelector = {
-    testVariable: 'testVariable',
+    listFilters: 'listFilters',
 };
 
 export { state, keySelector };

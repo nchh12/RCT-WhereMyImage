@@ -8,6 +8,7 @@
 import Foundation
 import React
 import MLKit
+import Photos
 
 @objc(TestModule)
 class TestModule: NSObject{
@@ -54,11 +55,11 @@ class TestModule: NSObject{
           
           res.append(item)
         }
-        
-        callback([res])
-        
       }
-      
     }
+    
+    
+        
+
   }
 }
