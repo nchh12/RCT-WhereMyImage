@@ -8,13 +8,13 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animationView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
         app:lottie_rawRes="@raw/lottie_splash"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="150dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -23,8 +23,8 @@
         android:layout_centerHorizontal="true"
         android:text="WhereMyImage"
         android:textColor="@color/white"
+        android:textSize="35dp"
         android:textStyle="bold"
-        android:textSize="40dp"
-        android:layout_marginTop="-30dp"></TextView>
+        android:layout_marginTop="20dp"></TextView>
 
 </RelativeLayout>

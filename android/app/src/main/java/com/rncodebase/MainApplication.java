@@ -10,6 +10,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.rncodebase.nativemodules.imagelabeling.modules.ImageLabelingPackage;
+import com.rncodebase.nativemodules.splash.SplashPackage;
 import com.rncodebase.nativemodules.test.TestPackage;
 
 import java.lang.reflect.InvocationTargetException;
@@ -32,6 +33,7 @@ public class MainApplication extends Application implements ReactApplication {
                     // packages.add(new MyReactNativePackage());
                     packages.add(new TestPackage());
                     packages.add(new ImageLabelingPackage());
+                    packages.add(new SplashPackage());
                     return packages;
                 }
 

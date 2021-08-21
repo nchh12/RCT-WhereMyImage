@@ -5,13 +5,34 @@ import * as SCREENS from '@screens';
 
 const Stack = createStackNavigator();
 
+const STACK_SCREEN = {
+    FilterInputScreen: {
+        component: SCREENS?.FilterInputScreen,
+        options: { headerShown: false },
+    },
+    ProcessingScreen: {
+        component: SCREENS?.ProcessingScreen,
+        options: { headerShown: true, headerBackground: null },
+    },
+};
+
+export const push = ({ navigation = null, screen = '' }) => {
+    if (STACK_SCREEN[screen]) {
+        navigation?.push(screen);
+    }
+};
+
 const StackNavigator = () => {
     const getStackScreens = () =>
-        Object.keys(SCREENS)?.map(key => (
-            <Stack.Screen key={`${key}Screen`} name={key} component={SCREENS?.[key]} />
+        Object.keys(STACK_SCREEN).map(key => (
+            <Stack.Screen key={`key_screen_${key}`} name={key} {...STACK_SCREEN[key]} />
         ));
 
-    return <Stack.Navigator>{getStackScreens()}</Stack.Navigator>;
+    return (
+        <Stack.Navigator initialRouteName={Object.keys(STACK_SCREEN)?.[0]}>
+            {getStackScreens()}
+        </Stack.Navigator>
+    );
 };
 
 const AppNavigation = () => {
