@@ -35,6 +35,16 @@ const ProcessingScreen = ({ navigation }) => {
         </View>
     );
 
+    const _renderResetButton = () => (
+        <TouchableOpacity activeOpacity={0.7} onPress={() => {}}>
+            <CustomizedContainer type="peach" containerStyle={SharedStyles.bar}>
+                <CustomizedText type="item" size={16}>
+                    Restart
+                </CustomizedText>
+            </CustomizedContainer>
+        </TouchableOpacity>
+    );
+
     return (
         <CustomizedContainer type="main_screen">
             <AnimatedHeader
@@ -57,6 +67,7 @@ const ProcessingScreen = ({ navigation }) => {
                 />
                 <View style={styles.container_result}>
                     <ListResults />
+                    {/* {_renderResetButton()} */}
                     {_renderFooter()}
                 </View>
             </ScrollView>

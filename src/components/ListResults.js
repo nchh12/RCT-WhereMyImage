@@ -47,11 +47,13 @@ const ListResults = () => {
             <FlatList
                 horizontal
                 style={styles.container_list}
-                data={image.slice(0, 5)} //need optimize here
+                data={image} //need optimize here
                 renderItem={_renderItem}
                 ListFooterComponent={_renderFooter}
                 showsHorizontalScrollIndicator={false}
-                keyExtractor={(item, index) => `key_${item?.uri} ${item?.pixelWidth} ${index}`}
+                keyExtractor={(item, index) =>
+                    `key_${item?.uri} ${item?.pixelWidth} ${image?.length - index}`
+                }
             />
         </View>
     );
@@ -75,11 +77,11 @@ const ItemResult = deepMemo(({ item }) => {
     };
 
     const onPressItem = () => {
-        refAppOverlay.current?.show({
-            component: () => {
-                return <ItemResult item={item} />;
-            },
-        });
+        // refAppOverlay.current?.show({
+        //     component: () => {
+        //         return <ItemResult item={item} />;
+        //     },
+        // });
     };
 
     return (
