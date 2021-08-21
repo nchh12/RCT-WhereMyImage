@@ -53,6 +53,7 @@ public class ImageProcessor {
         }
         this.isCanceling = false;
 
+
         Observable.just(1)
                 .subscribeOn(Schedulers.newThread())
                 .subscribe(this::onNewThreadProgress);
@@ -69,7 +70,7 @@ public class ImageProcessor {
                 onNext();
                 continue;
             }
-//                        Log.d("@@@ start process", this.currentBufferIndex + "");
+//                        Log.d("@@@ start process", this.currentBufferIndex + " " + this.listGalleryImagesUrls.size());
             labeler.process(InputImage.fromBitmap(this.currentBufferBitmap, 0))
                     .addOnSuccessListener(this::onLabelSuccess)
                     .addOnFailureListener(this::onLabelFail);
@@ -84,11 +85,11 @@ public class ImageProcessor {
 
     private void onLabelSuccess(List<ImageLabel> listLabels) {
         WritableMap mapLabels = packagingLabels(listLabels);
+//        Log.d("@@@ end process", this.currentBufferIndex + " " + this.listGalleryImagesUrls.size());
         if (isMatching(mapLabels)) {
             emitterImageData(mapLabels);
         }
         onNext();
-        Log.d("@@@ end process", this.currentBufferIndex + "");
     }
 
     private void emitterImageData(WritableMap mapLabels) {
@@ -97,10 +98,10 @@ public class ImageProcessor {
         map.putInt("pixelHeight", this.currentBufferBitmap.getHeight());
         map.putInt("pixelWidth", this.currentBufferBitmap.getWidth());
         map.putMap("labels", mapLabels);
-        imageEmitter.emitToJs(map,"onResponse");
+        imageEmitter.emitToJs(map, "onResponse");
     }
 
-    private void emitStopProcessing(){
+    private void emitStopProcessing() {
         WritableMap map = Arguments.createMap();
         imageEmitter.emitToJs(map, "onFinish");
     }
@@ -113,8 +114,8 @@ public class ImageProcessor {
     }
 
     private void onNext() {
-        this.currentBufferBitmap = null;
         this.currentBufferIndex++;
+        this.currentBufferBitmap = null;
     }
 
     private boolean isInOtherProgress() {
@@ -123,7 +124,7 @@ public class ImageProcessor {
 
     private boolean isInterruptedProgress() {
         return this.listGalleryImagesUrls == null ||
-                this.currentBufferIndex >= listGalleryImagesUrls.size() ||
+                this.currentBufferIndex >= this.listGalleryImagesUrls.size() ||
                 this.imageEmitter == null ||
                 this.isCanceling;
     }
@@ -132,7 +133,7 @@ public class ImageProcessor {
         WritableMap mapLabel = Arguments.createMap();
         for (ImageLabel label : listLabels) {
             mapLabel.putDouble(label.getText().toUpperCase(), label.getConfidence());
-            Log.d("@@           ", label.getText());
+//            Log.d("@@           ", label.getText());
         }
         return mapLabel;
     }

@@ -47,7 +47,7 @@ const ListResults = () => {
             <FlatList
                 horizontal
                 style={styles.container_list}
-                data={image}
+                data={image.slice(0, 5)} //need optimize here
                 renderItem={_renderItem}
                 ListFooterComponent={_renderFooter}
                 showsHorizontalScrollIndicator={false}
@@ -127,9 +127,11 @@ const styles = StyleSheet.create({
     container_filter: {
         flex: 1,
         position: 'absolute',
-        top: '40%',
+        top: 0,
         bottom: 0,
-        width: '100%',
+        alignSelf: 'flex-end',
+        borderRadius: DefaultSize.S,
+        backgroundColor: '#ffffff90',
     },
     item_filter: {
         alignSelf: 'flex-end',
