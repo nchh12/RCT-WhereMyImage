@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { View, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { useFilters } from '@hooks';
@@ -11,6 +11,7 @@ import ImageLabeling from '../core/nativemodules/ImageLabeling';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { DefaultSize } from '@utils/Constants';
 import DeviceConfigs from '@utils/DeviceConfigs';
+import { deepMemo } from 'use-hook-kits';
 
 const ProcessingScreen = ({ navigation }) => {
     const { getListLabels } = useFilters();
@@ -63,7 +64,7 @@ const ProcessingScreen = ({ navigation }) => {
     );
 };
 
-const Loading = memo(() => (
+const Loading = deepMemo(() => (
     <>
         <LottieView
             source={assets.image_processing}
@@ -113,4 +114,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default memo(ProcessingScreen);
+export default deepMemo(ProcessingScreen);

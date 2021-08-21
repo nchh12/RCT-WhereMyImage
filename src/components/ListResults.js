@@ -1,4 +1,4 @@
-import React, { useEffect, memo } from 'react';
+import React, { useEffect } from 'react';
 import { View, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { useFilters } from '@hooks';
@@ -10,6 +10,7 @@ import SharedStyles from '@utils/SharedStyles';
 import ImageLabeling from '@core/nativemodules/ImageLabeling';
 import { DefaultSize } from '@utils/Constants';
 import Colors from '@utils/Colors';
+import { deepMemo } from 'use-hook-kits';
 
 const ListResults = () => {
     const [image, setImage] = React.useState([]);
@@ -56,9 +57,10 @@ const ListResults = () => {
     );
 };
 
-const ItemResult = memo(({ item }) => {
+const ItemResult = deepMemo(({ item }) => {
     const { uri = '', pixelWidth = 0, pixelHeight = 1, labels = {} } = item || {};
-    const aspectRatio = Math.max(0.8, pixelWidth / pixelHeight);
+    const { isInEnableLabels } = useFilters();
+    const aspectRatio = 1; //Math.max(0.8, pixelWidth / pixelHeight);
     const listLabels = Object.keys(labels)
         .map(key => {
             return {
@@ -93,7 +95,7 @@ const ItemResult = memo(({ item }) => {
                             <View style={styles.item_filter}>
                                 <FilterItem
                                     text={`#${label?.toLowerCase()}: ${percent}%`}
-                                    disable={false}
+                                    disable={!isInEnableLabels(label.toLowerCase())}
                                 />
                             </View>
                         );
@@ -145,4 +147,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default memo(ListResults);
+export default deepMemo(ListResults);

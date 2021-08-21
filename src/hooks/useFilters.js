@@ -52,10 +52,16 @@ const useFilters = () => {
     };
 
     const getListLabels = () => {
-        return listFilters.filter(item => !item?.disable).map(item => item?.label);
+        return listFilters.filter(item => !item?.disable).map(item => item?.label.toLowerCase());
+    };
+
+    const isInEnableLabels = label => {
+        const list = getListLabels();
+        return list.includes(label);
     };
 
     return {
+        isInEnableLabels,
         getListFilters,
         getListLabels,
         enableFilter,

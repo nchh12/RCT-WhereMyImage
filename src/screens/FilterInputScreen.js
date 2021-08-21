@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useEffect, useState, memo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, TextInput, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import LottieView from 'lottie-react-native';
 import Colors from '@utils/Colors';
@@ -11,6 +11,7 @@ import { isLetters } from '@utils/StringUtils';
 import { useFilters } from '@hooks';
 import DeviceConfigs from '@utils/DeviceConfigs';
 import { Splash } from '@core/nativemodules';
+import { deepMemo } from 'use-hook-kits';
 
 const FilterInputScreen = props => {
     const { navigation } = props;
@@ -22,7 +23,9 @@ const FilterInputScreen = props => {
     // }, []);
 
     useEffect(() => {
-        Splash.hide();
+        setTimeout(() => {
+            Splash.hide();
+        }, 1000);
     }, []);
 
     const _renderTitle = () => (
@@ -66,7 +69,7 @@ const FilterInputScreen = props => {
     );
 };
 
-const InputFilters = memo(() => {
+const InputFilters = deepMemo(() => {
     const { addFilter } = useFilters();
     const [textFilter, setTextFilter] = useState('');
 
@@ -107,7 +110,7 @@ const InputFilters = memo(() => {
     );
 });
 
-const ListFilters = memo(() => {
+const ListFilters = deepMemo(() => {
     const { getListFilters, enableFilter, removeFilter } = useFilters();
     return (
         <View>
@@ -196,4 +199,4 @@ const styles = StyleSheet.create({
     bt_add: {},
 });
 
-export default memo(FilterInputScreen);
+export default deepMemo(FilterInputScreen);

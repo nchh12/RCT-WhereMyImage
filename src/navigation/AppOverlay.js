@@ -1,6 +1,7 @@
-import React, { useEffect, memo, forwardRef, useImperativeHandle, useState, useRef } from 'react';
+import React, { useEffect, forwardRef, useImperativeHandle, useState, useRef } from 'react';
 import { BackHandler, StyleSheet, Animated } from 'react-native';
 import Colors from '@utils/Colors';
+import { deepMemo } from 'use-hook-kits';
 
 export const refAppOverlay = React.createRef(null);
 
@@ -63,4 +64,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default memo(AppOverlay);
+export default deepMemo(AppOverlay);
