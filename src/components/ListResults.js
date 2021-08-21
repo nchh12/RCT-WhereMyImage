@@ -24,11 +24,12 @@ const ListResults = () => {
                     break;
                 case 'onFinish':
                     console.log('DONEEEE');
-                    refAppOverlay?.current?.hide();
+                    // refAppOverlay?.current?.hide();
                     break;
             }
         });
         return () => {
+            ImageLabeling.stopScanning();
             listener.remove();
         };
     }, []);
@@ -54,6 +55,14 @@ const ListResults = () => {
                 keyExtractor={(item, index) =>
                     `key_${item?.uri} ${item?.pixelWidth} ${image?.length - index}`
                 }
+                onEndReached={({ distanceFromEnd }) => {
+                    console.log(distanceFromEnd);
+                    if (distanceFromEnd < 0) return;
+                }}
+                onEndReachedThreshold={0.5}
+                // onScroll={e => {
+                //     console.log(e);
+                // }}
             />
         </View>
     );

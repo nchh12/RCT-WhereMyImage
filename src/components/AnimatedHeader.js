@@ -12,8 +12,6 @@ const AnimatedHeader = forwardRef((props, ref) => {
     const headerHeight = useRef(useHeaderHeight()).current;
     const opacityAnimated = useRef(new Animated.Value(0)).current;
 
-    console.log(headerHeight);
-
     useLayoutEffect(() => {
         navigation?.setOptions?.({
             headerShown: false,

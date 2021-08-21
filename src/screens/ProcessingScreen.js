@@ -91,7 +91,7 @@ const Loading = deepMemo(() => (
             onPress={() => {
                 console.log('stop here');
                 ImageLabeling.stopScanning();
-                refAppOverlay.current?.hide();
+                refAppOverlay?.current?.hide();
             }}
         >
             <CustomizedContainer type={'peach'} containerStyle={SharedStyles.bar}>

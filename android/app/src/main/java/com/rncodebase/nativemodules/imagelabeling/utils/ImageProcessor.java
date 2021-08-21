@@ -39,7 +39,6 @@ public class ImageProcessor {
 
     public void stopProcessing() {
         this.isCanceling = true;
-        emitStopProcessing();
     }
 
     public void startProcessing(Activity currentActivity, boolean isReset) {
