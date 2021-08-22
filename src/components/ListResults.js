@@ -57,9 +57,9 @@ const ListResults = () => {
                 }
                 onEndReached={({ distanceFromEnd }) => {
                     console.log(distanceFromEnd);
-                    if (distanceFromEnd < 0) return;
+                    // if (distanceFromEnd < 0) return;
                 }}
-                onEndReachedThreshold={0.5}
+                onEndReachedThreshold={1}
                 // onScroll={e => {
                 //     console.log(e);
                 // }}

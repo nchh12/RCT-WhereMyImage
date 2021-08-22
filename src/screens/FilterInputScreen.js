@@ -24,7 +24,7 @@ const FilterInputScreen = props => {
 
     useEffect(() => {
         setTimeout(() => {
-            Splash.hide();
+            Splash?.hide?.();
         }, 1000);
     }, []);
 
