@@ -9,7 +9,7 @@
         "pod": "cd ios && pod install && cd ..",
         "test": "jest",
         "lint": "eslint .",
-        "all": "watchman watch-del-all && rm -rf package-lock.json && rm -rf node_modules/ && rm -fr $TMPDIR/metro* && npm install && cd ios && rm -rf Pods && rm -rf Podfile.lock && pod install && cd .. && yarn start --reset-cache && rm -fr $TMPDIR/metro*",
+        "all": "watchman watch-del-all && rm -rf package-lock.json && rm -rf node_modules/ && rm -fr $TMPDIR/metro* && npm install ; cd ios && rm -rf Pods ; rm -rf Podfile.lock ; pod install ; cd .. ; yarn start --reset-cache && rm -fr $TMPDIR/metro*",
         "start": "qrcode-terminal \"max://?action=startFeature&args=[{\\\"config\\\":\\\"{\\\\\\\"debugHost\\\\\\\":\\\\\\\"http://$(ipconfig getifaddr en0):8081\\\\\\\",\\\\\\\"development\\\\\\\":true}\\\",\\\"param\\\":\\\"{}\\\",\\\"appId\\\":\\\"vn.momo.demo\\\"},{}]\" && react-native start --port=8081",
         "parseLabels": "node scripts/parseLabels.js",
         "adb": "adb reverse tcp:8081 tcp:8081 && adb reverse tcp:8181 tcp:8181",
