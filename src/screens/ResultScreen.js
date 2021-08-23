@@ -24,6 +24,7 @@ const ResultScreen = ({ navigation }) => {
     const _renderBelowView = () => (
         <View style={styles.container_below}>
             <CustomizedText type={'giant'}>
+                <CustomizedText type={'header'}>scanned </CustomizedText>
                 {getProgressEmitted()?.percent || 0}%
                 <CustomizedText type={'header'}> of album</CustomizedText>
             </CustomizedText>
