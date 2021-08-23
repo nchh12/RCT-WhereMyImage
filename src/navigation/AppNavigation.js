@@ -9,8 +9,8 @@ const STACK_SCREEN = {
     RootApp: {
         component: SCREENS?.RootApp,
     },
-    FilterInputScreen: {
-        component: SCREENS?.FilterInputScreen,
+    InputScreen: {
+        component: SCREENS?.InputScreen,
     },
     ResultScreen: {
         component: SCREENS?.ResultScreen,

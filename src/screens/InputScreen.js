@@ -7,13 +7,12 @@ import { CustomizedText, CustomizedContainer, FilterItem } from '@components';
 import Strings from '@utils/Strings';
 import assets from '@assets';
 import { DefaultSize } from '@utils/Constants';
-import { isLetters } from '@utils/StringUtils';
-import { useFilters, useLabelmages } from '@hooks';
+import { useFilters } from '@hooks';
 import DeviceConfigs from '@utils/DeviceConfigs';
 import { push } from '@navigation/AppNavigation';
 import { deepMemo } from 'use-hook-kits';
 
-const FilterInputScreen = props => {
+const InputScreen = props => {
     const { navigation } = props;
 
     const _renderTitle = () => (
@@ -62,10 +61,7 @@ const InputFilters = deepMemo(() => {
     const [textFilter, setTextFilter] = useState('');
 
     const onChangeText = text => {
-        if (text.length && isLetters(text.slice(-1))) {
-            return;
-        }
-        !isLetters(text) && setTextFilter(text);
+        setTextFilter(text);
     };
 
     const onPressAdd = () => {
@@ -162,7 +158,7 @@ const styles = StyleSheet.create({
     input: {
         ...SharedStyles.shadow,
         backgroundColor: Colors.black_03,
-        color: Colors.base_5,
+        color: Colors.dark,
         width: '80%',
         fontWeight: 'bold',
     },
@@ -187,4 +183,4 @@ const styles = StyleSheet.create({
     bt_add: {},
 });
 
-export default deepMemo(FilterInputScreen);
+export default deepMemo(InputScreen);

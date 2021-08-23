@@ -1,5 +1,5 @@
-import FilterInputScreen from './FilterInputScreen';
+import InputScreen from './InputScreen';
 import ResultScreen from './ResultScreen';
 import RootApp from './RootApp';
 
-export { FilterInputScreen, ResultScreen, RootApp };
+export { InputScreen, ResultScreen, RootApp };

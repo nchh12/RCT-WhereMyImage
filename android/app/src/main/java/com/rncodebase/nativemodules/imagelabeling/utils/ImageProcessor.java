@@ -39,7 +39,6 @@ public class ImageProcessor {
 
     public void stopProcessing() {
         this.isCanceling = true;
-        emitStopProcessing();
     }
 
     public void startProcessing(Activity currentActivity, boolean isReset) {
@@ -77,6 +76,8 @@ public class ImageProcessor {
 
         }
         stopProcessing();
+        emitProgress();
+        emitStopSignal();
     }
 
     private void onLabelFail(Exception e) {
@@ -102,7 +103,7 @@ public class ImageProcessor {
         imageEmitter.emitToJs(map, "onResponse");
     }
 
-    private void emitStopProcessing() {
+    private void emitStopSignal() {
         WritableMap map = Arguments.createMap();
         imageEmitter.emitToJs(map, "onFinish");
     }

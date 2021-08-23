@@ -38,16 +38,15 @@ const useLabelmages = () => {
 
     const addListenerEmitting = () => {
         listener.current = ImageLabeling.listen(res => {
+            console.log(JSON.stringify(res, null, 2));
             switch (res?.status) {
                 case 'onResponse':
-                    console.log(JSON.stringify(res, null, 2));
                     _addImagesEmitted(res);
                     break;
                 case 'onFinish':
-                    console.log('DONEEEE');
+                    refAppOverlay?.current?.hide();
                     break;
                 case 'onProgress':
-                    console.log('onProgress', res);
                     _setProgressEmitted(res);
                     break;
             }
@@ -59,7 +58,13 @@ const useLabelmages = () => {
         listener.current?.remove();
     };
 
+    const clearResults = () => {
+        _setImagesEmitted([]);
+        _setProgressEmitted({});
+    };
+
     return {
+        clearResults,
         startScaning,
         getImagesEmitted,
         getProgressEmitted,

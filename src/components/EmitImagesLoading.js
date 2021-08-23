@@ -2,11 +2,11 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import LottieView from 'lottie-react-native';
 import Strings from '@utils/Strings';
-import { refAppOverlay } from '@navigation/AppOverlay';
 import assets from '@assets';
 import { CustomizedText, CustomizedContainer } from '@components';
-import SharedStyles from '@utils/SharedStyles';
 import { deepMemo } from 'use-hook-kits';
+import ImageLabeling from '@core/nativemodules/ImageLabeling';
+import { DefaultSize } from '@utils/Constants';
 
 const EmitImagesLoading = deepMemo(() => (
     <>
@@ -19,10 +19,10 @@ const EmitImagesLoading = deepMemo(() => (
         <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => {
-                refAppOverlay?.current?.hide();
+                ImageLabeling.stopScanning();
             }}
         >
-            <CustomizedContainer type={'peach'} containerStyle={SharedStyles.bar}>
+            <CustomizedContainer type={'peach'} containerStyle={styles.cta}>
                 <CustomizedText type="item">{Strings.cancel}</CustomizedText>
             </CustomizedContainer>
         </TouchableOpacity>
@@ -33,6 +33,11 @@ const styles = StyleSheet.create({
     img: {
         width: '100%',
         height: 'auto',
+    },
+    cta: {
+        paddingHorizontal: DefaultSize.XL,
+        paddingVertical: DefaultSize.M,
+        borderRadius: DefaultSize.S,
     },
 });
 

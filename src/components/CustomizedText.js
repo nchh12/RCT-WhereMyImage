@@ -13,6 +13,12 @@ const CustomizedText = ({ type = null, textStyle = {}, children, size = null }) 
 };
 
 const styles = StyleSheet.create({
+    giant: {
+        fontWeight: 'bold',
+        fontSize: TextSize.H0,
+        color: Colors.base_5,
+        backgroundColor: Colors.base_3,
+    },
     header: {
         fontWeight: 'bold',
         fontSize: TextSize.H3,

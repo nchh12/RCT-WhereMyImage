@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { View, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import LottieView from 'lottie-react-native';
-import { useLabelmages, useFilters } from '@hooks';
+import { useLabelmages } from '@hooks';
 import Strings from '@utils/Strings';
 import assets from '@assets';
 import { CustomizedText, CustomizedContainer, AnimatedHeader, ListResults } from '@components';
@@ -12,6 +12,7 @@ import { deepMemo } from 'use-hook-kits';
 
 const ResultScreen = ({ navigation }) => {
     const refHeader = useRef(null);
+    const { getProgressEmitted } = useLabelmages();
 
     useEffect(() => {}, []);
 
@@ -20,19 +21,13 @@ const ResultScreen = ({ navigation }) => {
         refHeader.current?.setOpacity(Math.min(1, offsetY / (DeviceConfigs.height * 0.1)));
     };
 
-    const _renderFooter = () => (
-        <View style={styles.container_footer}>
-            <CustomizedText type={'place_holder'}>{Strings.footer}</CustomizedText>
-        </View>
-    );
-
     const _renderBelowView = () => (
-        <LottieView
-            source={assets.analyzing}
-            style={styles.img_header}
-            autoPlay={true}
-            loop={true}
-        />
+        <View style={styles.container_below}>
+            <CustomizedText type={'giant'}>
+                {getProgressEmitted()?.percent || 0}%
+                <CustomizedText type={'header'}> of album</CustomizedText>
+            </CustomizedText>
+        </View>
     );
 
     const _renderOverlayScrollView = () => (
@@ -46,8 +41,8 @@ const ResultScreen = ({ navigation }) => {
             <View style={{ height: DeviceConfigs.height * 0.3 }} />
             <View style={styles.container_result}>
                 <ListResults />
-                {_renderFooter()}
             </View>
+            <Footer />
         </ScrollView>
     );
 
@@ -64,16 +59,27 @@ const ResultScreen = ({ navigation }) => {
     );
 };
 
+const Footer = deepMemo(() => (
+    <View style={styles.container_footer}>
+        <LottieView
+            source={assets.analyzing}
+            style={styles.img_footer}
+            autoPlay={true}
+            loop={true}
+        />
+        <CustomizedText type={'place_holder'}>{Strings.footer}</CustomizedText>
+    </View>
+));
+
 const styles = StyleSheet.create({
     container_scrollview: {
-        flex: 1,
         width: '100%',
     },
-    img_header: {
-        width: '90%',
+    img_footer: {
+        width: '80%',
         height: 'auto',
         alignSelf: 'center',
-        position: 'absolute',
+        marginBottom: -DefaultSize.XL * 1.5,
     },
     container_result: {
         minHeight: DeviceConfigs.height * 0.7,
@@ -84,7 +90,15 @@ const styles = StyleSheet.create({
     },
     container_footer: {
         alignItems: 'center',
-        marginBottom: DefaultSize.XL,
+        paddingVertical: DefaultSize.XL,
+        backgroundColor: Colors.white,
+    },
+    container_below: {
+        width: '100%',
+        height: '30%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'absolute',
     },
 });
 

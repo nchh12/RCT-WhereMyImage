@@ -3,5 +3,5 @@ export const isLetters = letter => {
 };
 
 export const getNameFromPath = str => {
-    return str?.slice(str?.indexOf('/'), -1);
+    return str?.slice(str?.lastIndexOf('/'), -1);
 };

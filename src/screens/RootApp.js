@@ -13,7 +13,7 @@ const RootApp = ({ navigation, screen }) => {
         };
     }, []);
 
-    const Component = getRoute(screen || 'FilterInputScreen');
+    const Component = getRoute(screen || 'InputScreen');
 
     return <Component navigation={navigation} />;
 };

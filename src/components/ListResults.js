@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { View, TouchableOpacity, Image, StyleSheet, ActivityIndicator } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { useFilters, useLabelmages } from '@hooks';
 import LottieView from 'lottie-react-native';
@@ -7,14 +7,19 @@ import Strings from '@utils/Strings';
 import assets from '@assets';
 import { CustomizedText, FilterItem } from '@components';
 import SharedStyles from '@utils/SharedStyles';
-import ImageLabeling from '@core/nativemodules/ImageLabeling';
-import { DefaultSize } from '@utils/Constants';
+import { DefaultSize, TextSize } from '@utils/Constants';
 import Colors from '@utils/Colors';
 import { deepMemo } from 'use-hook-kits';
+import { getNameFromPath } from '@utils/StringUtils';
 
 const ListResults = () => {
-    const { getImagesEmitted, removeListenerEmitting, addListenerEmitting, startScaning } =
-        useLabelmages();
+    const {
+        getImagesEmitted,
+        removeListenerEmitting,
+        addListenerEmitting,
+        startScaning,
+        clearResults,
+    } = useLabelmages();
     const { getListLabels } = useFilters();
     const [endIndex, setEndIndex] = useState(3);
     const imagesEmitted = getImagesEmitted();
@@ -24,6 +29,7 @@ const ListResults = () => {
         startScaning(getListLabels());
         return () => {
             removeListenerEmitting();
+            clearResults();
         };
     }, []);
 
@@ -117,6 +123,12 @@ const ItemResult = deepMemo(({ item, index }) => {
         return <View style={styles.item_img}></View>;
     };
 
+    const _renderHeader = () => (
+        <CustomizedText type="header" textStyle={styles.header_tag}>
+            {index + 1}
+        </CustomizedText>
+    );
+
     const onPressItem = () => {
         // refAppOverlay.current?.show({
         //     component: () => {
@@ -146,11 +158,12 @@ const ItemResult = deepMemo(({ item, index }) => {
                     scrollEnabled
                     showsVerticalScrollIndicator={false}
                     ListFooterComponent={_renderFooter}
+                    ListHeaderComponent={_renderHeader}
                 />
             </View>
-            <CustomizedText type="header" textStyle={styles.result_text}>
-                {index}
-            </CustomizedText>
+            {/* <CustomizedText type="item" textStyle={styles.result_text}>
+                {index}/{getNameFromPath(uri)}
+            </CustomizedText> */}
         </TouchableOpacity>
     );
 });
@@ -187,12 +200,16 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         width: 'auto',
         height: '80%',
-        borderTopRightRadius: DefaultSize.M,
-        borderTopLeftRadius: DefaultSize.M,
+        borderRadius: DefaultSize.M,
     },
     result_text: {
         color: Colors.dark,
         marginHorizontal: DefaultSize.XL,
+    },
+    header_tag: {
+        alignSelf: 'flex-end',
+        marginRight: DefaultSize.S,
+        fontSize: TextSize.H1,
     },
     footer_list_result: {
         width: 100,
