@@ -13,31 +13,17 @@ import Colors from '@utils/Colors';
 import { deepMemo } from 'use-hook-kits';
 
 const ListResults = () => {
-    const { getImagesEmitted, setImagesEmitted, setProgressEmitted, startScaning } =
+    const { getImagesEmitted, removeListenerEmitting, addListenerEmitting, startScaning } =
         useLabelmages();
     const { getListLabels } = useFilters();
     const [endIndex, setEndIndex] = useState(3);
     const imagesEmitted = getImagesEmitted();
 
     useEffect(() => {
-        const listener = ImageLabeling.listen(res => {
-            switch (res?.status) {
-                case 'onResponse':
-                    // console.log(JSON.stringify(res, null, 2));
-                    setImagesEmitted(imagesEmitted => [...[res], ...imagesEmitted]);
-                    break;
-                case 'onFinish':
-                    console.log('DONEEEE');
-                    break;
-                case 'onProgress':
-                    console.log('onProgress', res);
-                    setProgressEmitted(res);
-                    break;
-            }
-        });
+        addListenerEmitting();
+        startScaning(getListLabels());
         return () => {
-            ImageLabeling.stopScanning();
-            listener.remove();
+            removeListenerEmitting();
         };
     }, []);
 

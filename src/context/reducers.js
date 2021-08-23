@@ -7,6 +7,8 @@ const reducer = (state, action) => {
             return { ...state, listFilters: payload };
         case types.SET_IMAGES_EMITTED:
             return { ...state, imagesEmitted: payload };
+        case types.ADD_IMAGES_EMITTED:
+            return { ...state, imagesEmitted: [...[payload], ...state.imagesEmitted] };
         case types.SET_PROGRESS_EMITTED:
             return { ...state, progressEmitted: payload };
         default:

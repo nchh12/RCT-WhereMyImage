@@ -11,13 +11,9 @@ import DeviceConfigs from '@utils/DeviceConfigs';
 import { deepMemo } from 'use-hook-kits';
 
 const ResultScreen = ({ navigation }) => {
-    const { startScaning } = useLabelmages();
-    const { getListLabels } = useFilters();
     const refHeader = useRef(null);
 
-    useEffect(() => {
-        startScaning(getListLabels());
-    }, []);
+    useEffect(() => {}, []);
 
     const onScroll = e => {
         const offsetY = e.nativeEvent.contentOffset.y;

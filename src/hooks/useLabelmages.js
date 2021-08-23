@@ -1,18 +1,22 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useSelector, keySelector, useDispatch, actions } from '@context';
 import ImageLabeling from '@core/nativemodules/ImageLabeling';
 import { EmitImagesLoading } from '@components';
-import { useFilters } from '@hooks';
 import { refAppOverlay } from '@navigation/AppOverlay';
 
 const useLabelmages = () => {
     const dispatch = useDispatch();
+    const listener = useRef(null);
 
-    const setImagesEmitted = payload => {
-        actions.setImagesEmitted({ dispatch, payload });
+    const _setImagesEmitted = list => {
+        actions.setImagesEmitted({ dispatch, payload: list });
     };
 
-    const setProgressEmitted = payload => {
+    const _addImagesEmitted = item => {
+        actions.addImagesEmitted({ dispatch, payload: item });
+    };
+
+    const _setProgressEmitted = payload => {
         actions.setProgressEmitted({ dispatch, payload });
     };
 
@@ -32,12 +36,35 @@ const useLabelmages = () => {
         });
     };
 
+    const addListenerEmitting = () => {
+        listener.current = ImageLabeling.listen(res => {
+            switch (res?.status) {
+                case 'onResponse':
+                    console.log(JSON.stringify(res, null, 2));
+                    _addImagesEmitted(res);
+                    break;
+                case 'onFinish':
+                    console.log('DONEEEE');
+                    break;
+                case 'onProgress':
+                    console.log('onProgress', res);
+                    _setProgressEmitted(res);
+                    break;
+            }
+        });
+    };
+
+    const removeListenerEmitting = () => {
+        ImageLabeling.stopScanning();
+        listener.current?.remove();
+    };
+
     return {
         startScaning,
-        setImagesEmitted,
         getImagesEmitted,
-        setProgressEmitted,
         getProgressEmitted,
+        addListenerEmitting,
+        removeListenerEmitting,
     };
 };
 
