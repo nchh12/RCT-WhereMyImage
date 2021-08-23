@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View, TextInput, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import LottieView from 'lottie-react-native';
 import Colors from '@utils/Colors';
@@ -10,23 +10,11 @@ import { DefaultSize } from '@utils/Constants';
 import { isLetters } from '@utils/StringUtils';
 import { useFilters } from '@hooks';
 import DeviceConfigs from '@utils/DeviceConfigs';
-import { Splash } from '@core/nativemodules';
+import { push } from '@navigation/AppNavigation';
 import { deepMemo } from 'use-hook-kits';
 
 const FilterInputScreen = props => {
     const { navigation } = props;
-
-    // useLayoutEffect(() => {
-    //     navigation.setOptions({
-    //         headerShown: false,
-    //     });
-    // }, []);
-
-    useEffect(() => {
-        setTimeout(() => {
-            Splash?.hide?.();
-        }, 1000);
-    }, []);
 
     const _renderTitle = () => (
         <CustomizedText type="title" textStyle={styles.text_title}>
@@ -39,7 +27,7 @@ const FilterInputScreen = props => {
             <TouchableOpacity
                 activeOpacity={0.7}
                 onPress={() => {
-                    navigation.navigate('ProcessingScreen', {}, { headerShown: true });
+                    push({ screen: 'ProcessingScreen', navigation });
                 }}
             >
                 <CustomizedContainer type="peach" containerStyle={SharedStyles.bar}>

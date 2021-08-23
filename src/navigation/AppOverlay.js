@@ -1,5 +1,12 @@
-import React, { useEffect, forwardRef, useImperativeHandle, useState, useRef } from 'react';
-import { BackHandler, StyleSheet, Animated } from 'react-native';
+import React, {
+    useLayoutEffect,
+    forwardRef,
+    useImperativeHandle,
+    useState,
+    useRef,
+    useCallback,
+} from 'react';
+import { StyleSheet, Animated, BackHandler, TouchableOpacity } from 'react-native';
 import Colors from '@utils/Colors';
 import { deepMemo } from 'use-hook-kits';
 
@@ -11,14 +18,18 @@ const AppOverlay = forwardRef((props, ref) => {
     const [component, setComponent] = useState(false);
     const opacityAnimated = useRef(new Animated.Value(0));
 
-    useEffect(() => {
-        const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-            hide();
-        });
+    useLayoutEffect(() => {
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', _onBackPress);
         return () => {
             backHandler?.remove?.();
         };
-    }, []);
+    }, [component]);
+
+    const _onBackPress = useCallback(() => {
+        const isShowing = component !== null;
+        isShowing && hide();
+        return isShowing; //disable back of navigation
+    }, [component]);
 
     const show = ({ component }) => {
         setComponent(component);
@@ -48,6 +59,7 @@ const AppOverlay = forwardRef((props, ref) => {
 
     return (
         <Animated.View style={styles.container} opacity={opacityAnimated.current}>
+            <TouchableOpacity style={styles.touch_area} onPress={hide} />
             {component}
         </Animated.View>
     );
@@ -61,6 +73,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: Colors.background_dark,
+    },
+    touch_area: {
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
     },
 });
 

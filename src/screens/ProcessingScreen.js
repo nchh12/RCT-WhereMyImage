@@ -18,7 +18,7 @@ const ProcessingScreen = ({ navigation }) => {
     const refHeader = useRef(null);
 
     useEffect(() => {
-        // _startScan();
+        _startScan();
     }, []);
 
     const _startScan = () => {

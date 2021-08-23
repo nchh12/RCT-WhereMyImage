@@ -14,7 +14,7 @@ import Colors from '@utils/Colors';
 import { deepMemo } from 'use-hook-kits';
 
 const ListResults = () => {
-    const [image, setImage] = useState(mock);
+    const [imagesEmitted, setImagesEmitted] = useState([]);
     const [endIndex, setEndIndex] = useState(3);
 
     useEffect(() => {
@@ -22,7 +22,7 @@ const ListResults = () => {
             switch (res?.status) {
                 case 'onResponse':
                     console.log(JSON.stringify(res, null, 2));
-                    setImage(image => [...[res], ...image]);
+                    setImagesEmitted(imagesEmitted => [...[res], ...imagesEmitted]);
                     break;
                 case 'onFinish':
                     console.log('DONEEEE');
@@ -37,7 +37,7 @@ const ListResults = () => {
     }, []);
 
     const _isLoadedAll = () => {
-        return endIndex >= image?.length;
+        return endIndex >= imagesEmitted?.length;
     };
 
     const _renderItem = ({ item, index }) => <ItemResult item={item} index={index} />;
@@ -56,28 +56,51 @@ const ListResults = () => {
         );
     };
 
+    const _getTextHeader = () => {
+        const textResult =
+            Strings.foundNImages.replace(`%n`, `${imagesEmitted?.length || 0}`) +
+            (imagesEmitted?.length > 1 ? 's' : '');
+
+        return textResult + '\n' + Strings.wannaContinue;
+    };
+
+    const _renderHeader = () => (
+        <TouchableOpacity onPress={() => {}}>
+            <CustomizedText type="header" textStyle={styles.result_text}>
+                {_getTextHeader()}
+            </CustomizedText>
+        </TouchableOpacity>
+    );
+
+    const _renderListEmitted = () => {
+        if (!imagesEmitted?.length) return null;
+        return (
+            <>
+                <FlatList
+                    horizontal
+                    contentContainerStyle={styles.container_list}
+                    data={imagesEmitted.slice(0, endIndex)}
+                    renderItem={_renderItem}
+                    ListFooterComponent={_renderFooter}
+                    showsHorizontalScrollIndicator={false}
+                    keyExtractor={(item, index) =>
+                        `key_${item?.uri} ${item?.pixelWidth} ${imagesEmitted?.length - index}`
+                    }
+                    onEndReached={() => {
+                        if (!_isLoadedAll()) {
+                            setEndIndex(endIndex => endIndex + 5);
+                        }
+                    }}
+                    onEndReachedThreshold={0.2}
+                />
+            </>
+        );
+    };
+
     return (
         <View style={styles.container}>
-            <CustomizedText type="header" textStyle={styles.result_text}>
-                Found {image?.length || 0} image{image?.length > 1 ? 's' : ''} matched!
-            </CustomizedText>
-            <FlatList
-                horizontal
-                contentContainerStyle={styles.container_list}
-                data={image.slice(0, endIndex)}
-                renderItem={_renderItem}
-                ListFooterComponent={_renderFooter}
-                showsHorizontalScrollIndicator={false}
-                keyExtractor={(item, index) =>
-                    `key_${item?.uri} ${item?.pixelWidth} ${image?.length - index}`
-                }
-                onEndReached={() => {
-                    if (!_isLoadedAll()) {
-                        setEndIndex(endIndex => endIndex + 5);
-                    }
-                }}
-                onEndReachedThreshold={0.2}
-            />
+            {_renderHeader()}
+            {_renderListEmitted()}
         </View>
     );
 };
@@ -174,7 +197,7 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: DefaultSize.M,
     },
     result_text: {
-        color: Colors.base_5,
+        color: Colors.dark,
         marginHorizontal: DefaultSize.XL,
     },
     footer_list_result: {
