@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { View, TouchableOpacity, Image, StyleSheet, ActivityIndicator } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import { useFilters } from '@hooks';
+import { useFilters, useLabelmages } from '@hooks';
 import LottieView from 'lottie-react-native';
 import Strings from '@utils/Strings';
-import { refAppOverlay } from '@navigation/AppOverlay';
 import assets from '@assets';
 import { CustomizedText, FilterItem } from '@components';
 import SharedStyles from '@utils/SharedStyles';
@@ -14,19 +13,25 @@ import Colors from '@utils/Colors';
 import { deepMemo } from 'use-hook-kits';
 
 const ListResults = () => {
-    const [imagesEmitted, setImagesEmitted] = useState([]);
+    const { getImagesEmitted, setImagesEmitted, setProgressEmitted, startScaning } =
+        useLabelmages();
+    const { getListLabels } = useFilters();
     const [endIndex, setEndIndex] = useState(3);
+    const imagesEmitted = getImagesEmitted();
 
     useEffect(() => {
         const listener = ImageLabeling.listen(res => {
             switch (res?.status) {
                 case 'onResponse':
-                    console.log(JSON.stringify(res, null, 2));
+                    // console.log(JSON.stringify(res, null, 2));
                     setImagesEmitted(imagesEmitted => [...[res], ...imagesEmitted]);
                     break;
                 case 'onFinish':
                     console.log('DONEEEE');
-                    // refAppOverlay?.current?.hide();
+                    break;
+                case 'onProgress':
+                    console.log('onProgress', res);
+                    setProgressEmitted(res);
                     break;
             }
         });
@@ -65,7 +70,11 @@ const ListResults = () => {
     };
 
     const _renderHeader = () => (
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity
+            onPress={() => {
+                startScaning(getListLabels());
+            }}
+        >
             <CustomizedText type="header" textStyle={styles.result_text}>
                 {_getTextHeader()}
             </CustomizedText>

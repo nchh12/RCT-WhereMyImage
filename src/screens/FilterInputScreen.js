@@ -8,7 +8,7 @@ import Strings from '@utils/Strings';
 import assets from '@assets';
 import { DefaultSize } from '@utils/Constants';
 import { isLetters } from '@utils/StringUtils';
-import { useFilters } from '@hooks';
+import { useFilters, useLabelmages } from '@hooks';
 import DeviceConfigs from '@utils/DeviceConfigs';
 import { push } from '@navigation/AppNavigation';
 import { deepMemo } from 'use-hook-kits';
@@ -27,7 +27,7 @@ const FilterInputScreen = props => {
             <TouchableOpacity
                 activeOpacity={0.7}
                 onPress={() => {
-                    push({ screen: 'ProcessingScreen', navigation });
+                    push({ screen: 'ResultScreen', navigation });
                 }}
             >
                 <CustomizedContainer type="peach" containerStyle={SharedStyles.bar}>

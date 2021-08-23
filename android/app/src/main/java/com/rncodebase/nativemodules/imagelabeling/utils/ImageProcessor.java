@@ -39,6 +39,7 @@ public class ImageProcessor {
 
     public void stopProcessing() {
         this.isCanceling = true;
+        emitStopProcessing();
     }
 
     public void startProcessing(Activity currentActivity, boolean isReset) {
@@ -85,6 +86,7 @@ public class ImageProcessor {
     private void onLabelSuccess(List<ImageLabel> listLabels) {
         WritableMap mapLabels = packagingLabels(listLabels);
 //        Log.d("@@@ end process", this.currentBufferIndex + " " + this.listGalleryImagesUrls.size());
+        emitProgress();
         if (isMatching(mapLabels)) {
             emitterImageData(mapLabels);
         }
@@ -103,6 +105,17 @@ public class ImageProcessor {
     private void emitStopProcessing() {
         WritableMap map = Arguments.createMap();
         imageEmitter.emitToJs(map, "onFinish");
+    }
+
+    private void emitProgress() {
+        if (this.currentBufferIndex % 10 != 0) {
+            return;
+        }
+        WritableMap map = Arguments.createMap();
+        map.putInt("percent", this.currentBufferIndex * 100 / listGalleryImagesUrls.size());
+        map.putInt("currentIndex", this.currentBufferIndex);
+        map.putInt("total", listGalleryImagesUrls.size());
+        imageEmitter.emitToJs(map, "onProgress");
     }
 
     private boolean isMatching(WritableMap mapLabels) {

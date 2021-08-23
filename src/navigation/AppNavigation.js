@@ -12,8 +12,8 @@ const STACK_SCREEN = {
     FilterInputScreen: {
         component: SCREENS?.FilterInputScreen,
     },
-    ProcessingScreen: {
-        component: SCREENS?.ProcessingScreen,
+    ResultScreen: {
+        component: SCREENS?.ResultScreen,
         options: { headerShown: true, headerBackground: null },
     },
 };
