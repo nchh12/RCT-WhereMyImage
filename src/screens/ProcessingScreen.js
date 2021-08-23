@@ -18,11 +18,15 @@ const ProcessingScreen = ({ navigation }) => {
     const refHeader = useRef(null);
 
     useEffect(() => {
+        // _startScan();
+    }, []);
+
+    const _startScan = () => {
         ImageLabeling.startScaningWithFilter(getListLabels() || []);
         refAppOverlay.current?.show({
             component: <Loading />,
         });
-    }, []);
+    };
 
     const onScroll = e => {
         const offsetY = e.nativeEvent.contentOffset.y;
@@ -36,7 +40,12 @@ const ProcessingScreen = ({ navigation }) => {
     );
 
     const _renderResetButton = () => (
-        <TouchableOpacity activeOpacity={0.7} onPress={() => {}}>
+        <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => {
+                _startScan();
+            }}
+        >
             <CustomizedContainer type="peach" containerStyle={SharedStyles.bar}>
                 <CustomizedText type="item" size={16}>
                     Restart
@@ -52,22 +61,23 @@ const ProcessingScreen = ({ navigation }) => {
                 navigation={navigation}
                 title={Strings.processing_header}
             />
+            <LottieView
+                source={assets.analyzing}
+                style={styles.img_header}
+                autoPlay={true}
+                loop={true}
+            />
             <ScrollView
-                style={styles.container}
+                style={styles.container_scrollview}
                 onScroll={onScroll}
                 scrollEventThrottle={16}
                 showsVerticalScrollIndicator={false}
                 scrollEnabled
             >
-                <LottieView
-                    source={assets.analyzing}
-                    style={styles.img_header}
-                    autoPlay={true}
-                    loop={true}
-                />
+                <View style={{ height: DeviceConfigs.height * 0.3 }} />
                 <View style={styles.container_result}>
                     <ListResults />
-                    {/* {_renderResetButton()} */}
+                    {_renderResetButton()}
                     {_renderFooter()}
                 </View>
             </ScrollView>
@@ -102,15 +112,15 @@ const Loading = deepMemo(() => (
 ));
 
 const styles = StyleSheet.create({
-    container: {
+    container_scrollview: {
         flex: 1,
         width: '100%',
-        // backgroundColor: Colors.white,
     },
     img_header: {
         width: '90%',
         height: 'auto',
         alignSelf: 'center',
+        position: 'absolute',
     },
     container_result: {
         minHeight: DeviceConfigs.height * 0.7,
