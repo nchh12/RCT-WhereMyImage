@@ -106,7 +106,6 @@ const ListResults = () => {
 };
 
 const ItemResult = deepMemo(({ item, index }) => {
-    console.log('render', index);
     const { uri = '', pixelWidth = 0, pixelHeight = 1, labels = {} } = item || {};
     const { isInEnableLabels } = useFilters();
     const aspectRatio = 1; //Math.max(0.8, pixelWidth / pixelHeight);

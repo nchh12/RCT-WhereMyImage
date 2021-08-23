@@ -15,7 +15,7 @@ export const refAppOverlay = React.createRef(null);
 const DURATION = 500;
 
 const AppOverlay = forwardRef((props, ref) => {
-    const [component, setComponent] = useState(false);
+    const [pageState, setPageState] = useState(null);
     const opacityAnimated = useRef(new Animated.Value(0));
 
     useLayoutEffect(() => {
@@ -23,16 +23,19 @@ const AppOverlay = forwardRef((props, ref) => {
         return () => {
             backHandler?.remove?.();
         };
-    }, [component]);
+    }, [pageState?.component]);
 
     const _onBackPress = useCallback(() => {
-        const isShowing = component !== null;
+        const isShowing = !!pageState?.component;
         isShowing && hide();
         return isShowing; //disable back of navigation
-    }, [component]);
+    }, [pageState?.component]);
 
-    const show = ({ component }) => {
-        setComponent(component);
+    const show = ({ component, cancelHandler }) => {
+        setPageState({
+            component,
+            cancelHandler,
+        });
         Animated.timing(opacityAnimated.current, {
             toValue: 1,
             duration: DURATION,
@@ -46,7 +49,8 @@ const AppOverlay = forwardRef((props, ref) => {
             duration: DURATION,
             useNativeDriver: true,
         }).start(() => {
-            setComponent(null);
+            pageState?.cancelHandler?.();
+            setPageState(null);
         });
     };
 
@@ -55,12 +59,12 @@ const AppOverlay = forwardRef((props, ref) => {
         hide,
     }));
 
-    if (!component) return null;
+    if (!pageState?.component) return null;
 
     return (
         <Animated.View style={styles.container} opacity={opacityAnimated.current}>
             <TouchableOpacity style={styles.touch_area} onPress={hide} />
-            {component}
+            {pageState?.component}
         </Animated.View>
     );
 });

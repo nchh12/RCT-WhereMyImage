@@ -25,6 +25,7 @@ const ProcessingScreen = ({ navigation }) => {
         ImageLabeling.startScaningWithFilter(getListLabels() || []);
         refAppOverlay.current?.show({
             component: <Loading />,
+            cancelHandler: ImageLabeling.stopScanning,
         });
     };
 
@@ -77,7 +78,7 @@ const ProcessingScreen = ({ navigation }) => {
                 <View style={{ height: DeviceConfigs.height * 0.3 }} />
                 <View style={styles.container_result}>
                     <ListResults />
-                    {_renderResetButton()}
+                    {/* {_renderResetButton()} */}
                     {_renderFooter()}
                 </View>
             </ScrollView>
@@ -100,7 +101,7 @@ const Loading = deepMemo(() => (
             activeOpacity={0.7}
             onPress={() => {
                 console.log('stop here');
-                ImageLabeling.stopScanning();
+
                 refAppOverlay?.current?.hide();
             }}
         >
