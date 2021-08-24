@@ -14,9 +14,9 @@ import { getNameFromPath } from '@utils/StringUtils';
 
 const ListResults = () => {
     const {
-        getImagesEmitted,
         removeListenerEmitting,
         addListenerEmitting,
+        getImagesEmitted,
         startScaning,
         clearResults,
     } = useLabelmages();

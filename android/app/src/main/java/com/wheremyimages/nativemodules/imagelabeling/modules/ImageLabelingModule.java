@@ -1,8 +1,11 @@
 package com.wheremyimages.nativemodules.imagelabeling.modules;
 
+import android.Manifest;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -11,6 +14,8 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.wheremyimages.nativemodules.imagelabeling.utils.EmitterInterface;
 import com.wheremyimages.nativemodules.imagelabeling.utils.ImageProcessor;
+import com.wheremyimages.nativemodules.permission.utils.PermissionConstants;
+import com.wheremyimages.nativemodules.permission.utils.PermissionHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +59,29 @@ public class ImageLabelingModule extends ReactContextBaseJavaModule {
         imageProcessor.stopProcessing();
     }
 
+
+    @ReactMethod
+    public void requestPermission(Promise promise) {
+        PermissionHelper.requestPermission(getCurrentActivity(), Manifest.permission.READ_EXTERNAL_STORAGE, promise);
+    }
+
+    @ReactMethod
+    public void checkPermission(Promise promise) {
+        PermissionHelper.checkPermission(getCurrentActivity(), Manifest.permission.READ_EXTERNAL_STORAGE, promise);
+    }
+
+    @ReactMethod
+    public void grantPermission(Promise promise) {
+        String result = PermissionHelper.checkPermission(
+                getCurrentActivity(),
+                Manifest.permission.READ_EXTERNAL_STORAGE
+        );
+        if (result != PermissionConstants.GRANTED) {
+            PermissionHelper.requestPermission(getCurrentActivity(), Manifest.permission.READ_EXTERNAL_STORAGE, promise);
+        } else {
+            promise.resolve(result);
+        }
+    }
 
     void sendEvent(@Nullable WritableMap params) {
         RCTContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)

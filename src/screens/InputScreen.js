@@ -7,13 +7,20 @@ import { CustomizedText, CustomizedContainer, FilterItem } from '@components';
 import Strings from '@utils/Strings';
 import assets from '@assets';
 import { DefaultSize } from '@utils/Constants';
-import { useFilters } from '@hooks';
+import { useFilters, useLabelmages } from '@hooks';
 import DeviceConfigs from '@utils/DeviceConfigs';
 import { push } from '@navigation/AppNavigation';
 import { deepMemo } from 'use-hook-kits';
 
 const InputScreen = props => {
     const { navigation } = props;
+    const { grantPermission } = useLabelmages();
+
+    const onPressStart = () => {
+        grantPermission(() => {
+            push({ screen: 'ResultScreen', navigation });
+        });
+    };
 
     const _renderTitle = () => (
         <CustomizedText type="title" textStyle={styles.text_title}>
@@ -23,12 +30,7 @@ const InputScreen = props => {
 
     const _renderStartButton = () => (
         <View style={[styles.container_bar, styles.container_start]}>
-            <TouchableOpacity
-                activeOpacity={0.7}
-                onPress={() => {
-                    push({ screen: 'ResultScreen', navigation });
-                }}
-            >
+            <TouchableOpacity activeOpacity={0.7} onPress={onPressStart}>
                 <CustomizedContainer type="peach" containerStyle={SharedStyles.bar}>
                     <CustomizedText type="item" size={16}>
                         {Strings.start_processing}
