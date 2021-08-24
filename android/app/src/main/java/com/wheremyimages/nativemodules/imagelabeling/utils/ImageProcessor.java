@@ -112,7 +112,7 @@ public class ImageProcessor {
             return;
         }
         WritableMap map = Arguments.createMap();
-        map.putInt("percent", this.currentBufferIndex * 100 / listGalleryImagesUrls.size());
+        map.putInt("percent", (this.currentBufferIndex + 1) * 100 / (listGalleryImagesUrls.size() + 1));
         map.putInt("currentIndex", this.currentBufferIndex);
         map.putInt("total", listGalleryImagesUrls.size());
         imageEmitter.emitToJs(map, "onProgress");

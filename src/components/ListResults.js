@@ -22,6 +22,8 @@ const ListResults = () => {
     } = useLabelmages();
     const { getListLabels } = useFilters();
     const [endIndex, setEndIndex] = useState(3);
+
+    // const imagesEmitted = mock;
     const imagesEmitted = getImagesEmitted();
 
     useEffect(() => {

@@ -98,7 +98,7 @@ class ImageProcessor: NSObject{
     let responseToJS = JSONSafeObject()
     responseToJS.setValueSafely(field: "currentIndex", value: self.currentBufferIndex)
     responseToJS.setValueSafely(field: "total", value: self.listGalleryAssets?.count ?? 0)
-    responseToJS.setValueSafely(field: "percent", value: self.currentBufferIndex * 100 / (self.listGalleryAssets?.count ?? 1))
+    responseToJS.setValueSafely(field: "percent", value: (self.currentBufferIndex + 1) * 100 / ((self.listGalleryAssets?.count ?? 0) + 1))
     self.emitter(responseToJS, "onProgress")
   }
   
