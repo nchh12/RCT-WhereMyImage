@@ -80,6 +80,7 @@ const styles = StyleSheet.create({
         width: '80%',
         height: 'auto',
         alignSelf: 'center',
+        alignItems: 'center',
         marginBottom: -DefaultSize.XL * 1.5,
     },
     container_result: {

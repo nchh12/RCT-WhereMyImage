@@ -37,9 +37,6 @@ class ImageProcessor: NSObject{
   
   public func stopProcessing(){
     self.isCanceling = true
-    //emit
-    let responseToJS = JSONSafeObject()
-    self.emitter(responseToJS, "onFinish")
   }
 
   public func startProcessing(isReset: Bool){
@@ -67,6 +64,9 @@ class ImageProcessor: NSObject{
         continue
       }
       print("@@@ start process \(self.currentBufferIndex)     \(self.listGalleryAssets!.count)")
+      guard !isInterruptedProgress() else{
+        break
+      }
       self.currentBufferAsset = listGalleryAssets?.object(at: self.currentBufferIndex)
       
       guard let thumnailImage = self.currentBufferAsset?.getThumnailImage() else{
@@ -79,16 +79,32 @@ class ImageProcessor: NSObject{
           self.onNext()
           return
         }
+        self.emitProgress();
         let mapLabels = self.packagingLabels(listLabels: labels)
         let imageMatching = ImageMatching(filters: self.listFilters, labels: mapLabels)
         if (imageMatching.isMatching()){
           self.emitterImageData(labels: mapLabels)
-          print("@@@ End process \(self.currentBufferIndex)    \(self.listGalleryAssets!.count)")
         }
+          print("@@@ End process \(self.currentBufferIndex)    \(self.listGalleryAssets!.count)")
         self.onNext()
       }
     }
     stopProcessing()
+    emitProgress()
+    emitStopSignal()
+  }
+  
+  private func emitProgress(){
+    let responseToJS = JSONSafeObject()
+    responseToJS.setValueSafely(field: "currentIndex", value: self.currentBufferIndex)
+    responseToJS.setValueSafely(field: "total", value: self.listGalleryAssets?.count ?? 0)
+    responseToJS.setValueSafely(field: "percent", value: self.currentBufferIndex * 100 / (self.listGalleryAssets?.count ?? 1))
+    self.emitter(responseToJS, "onProgress")
+  }
+  
+  private func emitStopSignal(){
+    let responseToJS = JSONSafeObject()
+    self.emitter(responseToJS, "onFinish")
   }
   
   private func emitterImageData(labels: JSONSafeObject){
