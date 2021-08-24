@@ -55,7 +55,7 @@ const useLabelmages = () => {
 
     const grantPermission = callback => {
         ImageLabeling.grantPermission?.().then(status => {
-            console.log(status);
+            console.log('[permission status]: ', status);
             status === 'blocked' && ImageLabeling?.openSettings?.(); //add additional popup here
             status === 'granted' && callback?.();
         });

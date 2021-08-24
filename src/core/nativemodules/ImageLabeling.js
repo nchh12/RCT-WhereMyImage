@@ -10,7 +10,7 @@ const {
     grantPermission,
 } = ImageLabelingModule;
 
-const { openSettings } = PermissionModule;
+const { openSettings } = PermissionModule || {};
 
 const LISTENER_KEY = 'IMAGE_LABELING_LISTENER_KEY';
 const listen = callback => {

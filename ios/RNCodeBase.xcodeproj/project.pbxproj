@@ -19,7 +19,10 @@
 		8919A6D626C0124D00234633 /* ImageMatching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8919A6D526C0124D00234633 /* ImageMatching.swift */; };
 		8919A6DE26C0E6FF00234633 /* PHAsset+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8919A6DD26C0E6FF00234633 /* PHAsset+Extension.swift */; };
 		898DE81926C825D9001243B1 /* ImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898DE81826C825D9001243B1 /* ImageProcessor.swift */; };
-		89A92D9F26BE777000A6714F /* PermissionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A92D9E26BE777000A6714F /* PermissionRequest.swift */; };
+		899F09C926D543A900190158 /* PermissionModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899F09C826D543A900190158 /* PermissionModule.swift */; };
+		899F09CB26D543C600190158 /* PermissionModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 899F09CA26D543C600190158 /* PermissionModule.m */; };
+		899F09CE26D556C600190158 /* PermissionConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899F09CD26D556C600190158 /* PermissionConstants.swift */; };
+		89A92D9F26BE777000A6714F /* PermissionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A92D9E26BE777000A6714F /* PermissionHelper.swift */; };
 		89A92DA626BE79A500A6714F /* ImageLabelingModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A92DA526BE79A500A6714F /* ImageLabelingModule.m */; };
 		89A92DAA26BE79CF00A6714F /* ImageLabelingModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A92DA926BE79CF00A6714F /* ImageLabelingModule.swift */; };
 		89A92DB426BE99E700A6714F /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A92DB326BE99E700A6714F /* Date+Extension.swift */; };
@@ -57,7 +60,10 @@
 		8919A6D526C0124D00234633 /* ImageMatching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMatching.swift; sourceTree = "<group>"; };
 		8919A6DD26C0E6FF00234633 /* PHAsset+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PHAsset+Extension.swift"; sourceTree = "<group>"; };
 		898DE81826C825D9001243B1 /* ImageProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProcessor.swift; sourceTree = "<group>"; };
-		89A92D9E26BE777000A6714F /* PermissionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionRequest.swift; sourceTree = "<group>"; };
+		899F09C826D543A900190158 /* PermissionModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionModule.swift; sourceTree = "<group>"; };
+		899F09CA26D543C600190158 /* PermissionModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PermissionModule.m; sourceTree = "<group>"; };
+		899F09CD26D556C600190158 /* PermissionConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionConstants.swift; sourceTree = "<group>"; };
+		89A92D9E26BE777000A6714F /* PermissionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionHelper.swift; sourceTree = "<group>"; };
 		89A92DA526BE79A500A6714F /* ImageLabelingModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageLabelingModule.m; sourceTree = "<group>"; };
 		89A92DA926BE79CF00A6714F /* ImageLabelingModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLabelingModule.swift; sourceTree = "<group>"; };
 		89A92DB326BE99E700A6714F /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
@@ -179,10 +185,29 @@
 			path = Modules;
 			sourceTree = "<group>";
 		};
+		899F09C726D5438800190158 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				899F09C826D543A900190158 /* PermissionModule.swift */,
+				899F09CA26D543C600190158 /* PermissionModule.m */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		899F09CC26D5515A00190158 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				89A92D9E26BE777000A6714F /* PermissionHelper.swift */,
+				899F09CD26D556C600190158 /* PermissionConstants.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		89A92D9D26BE773300A6714F /* Permissions */ = {
 			isa = PBXGroup;
 			children = (
-				89A92D9E26BE777000A6714F /* PermissionRequest.swift */,
+				899F09CC26D5515A00190158 /* Utils */,
+				899F09C726D5438800190158 /* Modules */,
 			);
 			path = Permissions;
 			sourceTree = "<group>";
@@ -256,9 +281,9 @@
 			productReference = 00E356EE1AD99517003FC87E /* RNCodeBaseTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* RNCodeBase */ = {
+		13B07F861A680F5B00A75B9A /* Where my Images */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "RNCodeBase" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Where my Images" */;
 			buildPhases = (
 				10BD489AD7C8A9B301D2D5EC /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
@@ -272,7 +297,7 @@
 			);
 			dependencies = (
 			);
-			name = RNCodeBase;
+			name = "Where my Images";
 			productName = RNCodeBase;
 			productReference = 13B07F961A680F5B00A75B9A /* RNCodeBase.app */;
 			productType = "com.apple.product-type.application";
@@ -308,7 +333,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* RNCodeBase */,
+				13B07F861A680F5B00A75B9A /* Where my Images */,
 				00E356ED1AD99517003FC87E /* RNCodeBaseTests */,
 			);
 		};
@@ -428,12 +453,15 @@
 				89B9EC8D26B97F7B000B8677 /* TestModule.m in Sources */,
 				8919A6D626C0124D00234633 /* ImageMatching.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				899F09CE26D556C600190158 /* PermissionConstants.swift in Sources */,
 				898DE81926C825D9001243B1 /* ImageProcessor.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				899F09C926D543A900190158 /* PermissionModule.swift in Sources */,
 				89B9EC9426B98311000B8677 /* TestModule.swift in Sources */,
 				89B9ECED26B9A131000B8677 /* ImageUtils.swift in Sources */,
 				8919A6DE26C0E6FF00234633 /* PHAsset+Extension.swift in Sources */,
-				89A92D9F26BE777000A6714F /* PermissionRequest.swift in Sources */,
+				899F09CB26D543C600190158 /* PermissionModule.m in Sources */,
+				89A92D9F26BE777000A6714F /* PermissionHelper.swift in Sources */,
 				89A92DA626BE79A500A6714F /* ImageLabelingModule.m in Sources */,
 				8919A6D126C0100500234633 /* JSONSafeObject.swift in Sources */,
 			);
@@ -444,7 +472,7 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* RNCodeBase */;
+			target = 13B07F861A680F5B00A75B9A /* Where my Images */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -528,7 +556,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.wheremyimages;
 				PRODUCT_NAME = RNCodeBase;
 				SWIFT_OBJC_BRIDGING_HEADER = "RNCodeBase-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -557,7 +585,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.wheremyimages;
 				PRODUCT_NAME = RNCodeBase;
 				SWIFT_OBJC_BRIDGING_HEADER = "RNCodeBase-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -700,7 +728,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "RNCodeBase" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Where my Images" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
