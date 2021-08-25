@@ -4,7 +4,7 @@ import Strings from '@utils/Strings';
 import { CustomizedText, CustomizedContainer, FilterItem } from '@components';
 import { deepMemo } from 'use-hook-kits';
 import { DefaultSize } from '@utils/Constants';
-import { useFilters, useLabelmages } from '@hooks';
+import { useFilters } from '@hooks';
 import Colors from '@utils/Colors';
 import { refAppOverlay } from '@navigation/AppOverlay';
 import DeviceConfigs from '@utils/DeviceConfigs';
@@ -30,13 +30,14 @@ const ImageDetail = ({ item }) => {
             style={styles.container_img}
             showsVerticalScrollIndicator={true}
         >
-            <Image source={{ uri }} style={[styles.item_img, { aspectRatio }]} />
+            <Image source={{ uri }} style={[{ aspectRatio }, styles.item_img]} />
         </ScrollView>
     );
 
     const _renderListFilters = () => (
         <FlatList
             data={listLabels}
+            style={styles.container_filter}
             keyExtractor={(item, index) => `key_filter_${uri}_${item?.label}_${index}`}
             renderItem={({ item }) => {
                 const { label, percent } = item;
@@ -57,11 +58,10 @@ const ImageDetail = ({ item }) => {
 
     const _renderCtaShare = () => (
         <TouchableOpacity
+            style={styles.cta}
             activeOpacity={0.7}
             onPress={() => {
                 Share.open({
-                    message: 'React Native | A framework for building native apps using React',
-                    title: 'this is test title',
                     url: uri,
                 })
                     .then(res => {
@@ -72,19 +72,17 @@ const ImageDetail = ({ item }) => {
                     });
             }}
         >
-            <CustomizedContainer type={'peach'} containerStyle={styles.cta}>
-                <CustomizedText type="item">{Strings.share}</CustomizedText>
-            </CustomizedContainer>
+            <CustomizedText type="item">{Strings.share}</CustomizedText>
         </TouchableOpacity>
     );
 
     const _renderCtaCancel = () => (
         <TouchableOpacity
+            style={styles.cta_cancel}
             activeOpacity={0.7}
             onPress={() => {
                 refAppOverlay.current?.hide();
             }}
-            style={styles.cta_cancel}
         >
             <CustomizedText type="place_holder">{Strings.cancel}</CustomizedText>
         </TouchableOpacity>
@@ -94,8 +92,10 @@ const ImageDetail = ({ item }) => {
         <View style={styles.container}>
             {_renderScrollImage()}
             {_renderListFilters()}
-            {_renderCtaShare()}
-            {_renderCtaCancel()}
+            <>
+                {_renderCtaShare()}
+                {_renderCtaCancel()}
+            </>
         </View>
     );
 };
@@ -104,32 +104,39 @@ const styles = StyleSheet.create({
     container: {
         width: '90%',
         height: 'auto',
-        maxHeight: DeviceConfigs.height * 0.9,
+        justifyContent: 'space-between',
+        maxHeight: DeviceConfigs.height * 0.8,
         borderRadius: DefaultSize.M,
         backgroundColor: Colors.white,
         paddingBottom: DefaultSize.L,
     },
-    container_img: { maxHeight: '70%' },
+    container_img: {
+        maxHeight: '70%',
+        height: 'auto',
+    },
+    container_filter: {},
     cta: {
-        width: '90%',
-        alignSelf: 'center',
+        marginTop: DefaultSize.XL,
+        alignItems: 'center',
+        marginHorizontal: DefaultSize.XL,
         paddingHorizontal: DefaultSize.XL,
         paddingVertical: DefaultSize.M,
         borderRadius: DefaultSize.S,
+        backgroundColor: Colors.base_2,
     },
     cta_cancel: {
-        width: '90%',
         alignSelf: 'center',
+        marginHorizontal: DefaultSize.XL,
         paddingHorizontal: DefaultSize.XL,
         paddingVertical: DefaultSize.M,
         borderRadius: DefaultSize.S,
-        backgroundColor: ['transparent', 'transparent'],
+        backgroundColor: 'transparent',
     },
     item_img: {
         alignSelf: 'center',
         width: '100%',
         height: 'auto',
-        resizeMode: 'stretch',
+        resizeMode: 'cover',
         borderTopLeftRadius: DefaultSize.M,
         borderTopRightRadius: DefaultSize.M,
     },

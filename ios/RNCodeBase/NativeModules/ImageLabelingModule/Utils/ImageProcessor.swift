@@ -85,7 +85,7 @@ class ImageProcessor: NSObject{
         if (imageMatching.isMatching()){
           self.emitterImageData(labels: mapLabels)
         }
-          print("@@@ End process \(self.currentBufferIndex)    \(self.listGalleryAssets!.count)")
+        print("@@@ End process \(self.currentBufferIndex)    \(self.listGalleryAssets!.count)")
         self.onNext()
       }
     }
@@ -108,11 +108,13 @@ class ImageProcessor: NSObject{
   }
   
   private func emitterImageData(labels: JSONSafeObject){
+    let pixelHeight = self.currentBufferAsset?.pixelHeight ?? 1 //cache for reset bufferAssets
+    let pixelWidth = self.currentBufferAsset?.pixelWidth ?? 1
     self.currentBufferAsset?.getFullImageUri(){ imageUri in
       let responseToJS = JSONSafeObject()
       responseToJS.setValueSafely(field: "uri", value: imageUri)
-      responseToJS.setValueSafely(field: "pixelHeight", value: self.currentBufferAsset?.pixelHeight ?? 1)
-      responseToJS.setValueSafely(field: "pixelWidth", value: self.currentBufferAsset?.pixelWidth ?? 1)
+      responseToJS.setValueSafely(field: "pixelHeight", value: pixelHeight)
+      responseToJS.setValueSafely(field: "pixelWidth", value: pixelWidth)
       responseToJS.setValueSafely(field: "labels", value: labels.getInstance())
       self.emitter(responseToJS, "onResponse")
     }
