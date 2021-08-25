@@ -35,6 +35,8 @@ const styles = StyleSheet.create({
         height: 'auto',
     },
     cta: {
+        width: '80%',
+        alignSelf: 'center',
         paddingHorizontal: DefaultSize.XL,
         paddingVertical: DefaultSize.M,
         borderRadius: DefaultSize.S,

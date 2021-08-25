@@ -5,12 +5,12 @@ import { useFilters, useLabelmages } from '@hooks';
 import LottieView from 'lottie-react-native';
 import Strings from '@utils/Strings';
 import assets from '@assets';
-import { CustomizedText, FilterItem } from '@components';
+import { CustomizedText, FilterItem, ImageDetail } from '@components';
 import SharedStyles from '@utils/SharedStyles';
 import { DefaultSize, TextSize } from '@utils/Constants';
 import Colors from '@utils/Colors';
 import { deepMemo } from 'use-hook-kits';
-import { getNameFromPath } from '@utils/StringUtils';
+import { refAppOverlay } from '@navigation/AppOverlay';
 
 const ListResults = () => {
     const {
@@ -132,11 +132,9 @@ const ItemResult = deepMemo(({ item, index }) => {
     );
 
     const onPressItem = () => {
-        // refAppOverlay.current?.show({
-        //     component: () => {
-        //         return <ItemResult item={item} />;
-        //     },
-        // });
+        refAppOverlay.current?.show({
+            component: <ImageDetail item={item} />,
+        });
     };
 
     return (
@@ -239,7 +237,7 @@ const mock = [
         pixelHeight: 4160,
         pixelWidth: 3120,
         status: 'onResponse',
-        uri: 'file:///storage/9016-4EF8/DCIM/Camera/IMG_20190913_105255.jpg',
+        uri: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
     },
     {
         labels: {
@@ -258,7 +256,7 @@ const mock = [
         pixelHeight: 1280,
         pixelWidth: 720,
         status: 'onResponse',
-        uri: 'file:///storage/emulated/0/DCIM/Screenshots/Screenshot_2021-05-27-00-48-47-566_com.facebook.katana.png',
+        uri: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
     },
     {
         labels: {

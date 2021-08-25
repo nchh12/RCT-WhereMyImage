@@ -16,7 +16,7 @@ const DURATION = 500;
 
 const AppOverlay = forwardRef((props, ref) => {
     const [pageState, setPageState] = useState(null);
-    const opacityAnimated = useRef(new Animated.Value(0));
+    const valueAnimated = useRef(new Animated.Value(0));
 
     useLayoutEffect(() => {
         const backHandler = BackHandler.addEventListener('hardwareBackPress', _onBackPress);
@@ -36,18 +36,20 @@ const AppOverlay = forwardRef((props, ref) => {
             component,
             cancelHandler,
         });
-        Animated.timing(opacityAnimated.current, {
+        Animated.spring(valueAnimated.current, {
             toValue: 1,
             duration: DURATION,
             useNativeDriver: true,
+            friction: 7,
         }).start();
     };
 
     const hide = () => {
-        Animated.timing(opacityAnimated.current, {
+        Animated.spring(valueAnimated.current, {
             toValue: 0,
             duration: DURATION,
             useNativeDriver: true,
+            friction: 7,
         }).start(() => {
             pageState?.cancelHandler?.();
             setPageState(null);
@@ -62,9 +64,22 @@ const AppOverlay = forwardRef((props, ref) => {
     if (!pageState?.component) return null;
 
     return (
-        <Animated.View style={styles.container} opacity={opacityAnimated.current}>
+        <Animated.View style={styles.container} opacity={valueAnimated.current}>
             <TouchableOpacity style={styles.touch_area} onPress={hide} />
-            {pageState?.component}
+            <Animated.View
+                style={{
+                    transform: [
+                        {
+                            translateY: valueAnimated.current?.interpolate({
+                                inputRange: [0, 1],
+                                outputRange: [100, 0],
+                            }),
+                        },
+                    ],
+                }}
+            >
+                {pageState?.component}
+            </Animated.View>
         </Animated.View>
     );
 });

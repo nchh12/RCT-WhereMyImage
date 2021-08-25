@@ -1,5 +1,6 @@
 export default {
     cancel: 'Cancel',
+    share: 'Share',
     footer: 'You reached the end, man',
     add_filter: 'Add filter',
     title_input: 'Your photos contain:',
