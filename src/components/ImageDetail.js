@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-    StyleSheet,
-    TouchableOpacity,
-    View,
-    Image,
-    FlatList,
-    ScrollView,
-    Share,
-} from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Image, FlatList, ScrollView } from 'react-native';
 import Strings from '@utils/Strings';
 import { CustomizedText, CustomizedContainer, FilterItem } from '@components';
 import { deepMemo } from 'use-hook-kits';
@@ -16,6 +8,7 @@ import { useFilters, useLabelmages } from '@hooks';
 import Colors from '@utils/Colors';
 import { refAppOverlay } from '@navigation/AppOverlay';
 import DeviceConfigs from '@utils/DeviceConfigs';
+import Share from 'react-native-share';
 
 const ImageDetail = ({ item }) => {
     console.log(JSON.stringify(item, null, 2));
@@ -66,11 +59,17 @@ const ImageDetail = ({ item }) => {
         <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => {
-                Share.share({
+                Share.open({
                     message: 'React Native | A framework for building native apps using React',
                     title: 'this is test title',
                     url: uri,
-                });
+                })
+                    .then(res => {
+                        console.log('res', res);
+                    })
+                    .catch(error => {
+                        console.log('error', error);
+                    });
             }}
         >
             <CustomizedContainer type={'peach'} containerStyle={styles.cta}>
