@@ -53,6 +53,14 @@ const useLabelmages = () => {
         });
     };
 
+    const grantPermission = callback => {
+        ImageLabeling.grantPermission?.().then(status => {
+            console.log('[permission status]: ', status);
+            status === 'blocked' && ImageLabeling?.openSettings?.(); //add additional popup here
+            status === 'granted' && callback?.();
+        });
+    };
+
     const removeListenerEmitting = () => {
         ImageLabeling.stopScanning();
         listener.current?.remove();
@@ -66,6 +74,7 @@ const useLabelmages = () => {
     return {
         clearResults,
         startScaning,
+        grantPermission,
         getImagesEmitted,
         getProgressEmitted,
         addListenerEmitting,

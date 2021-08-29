@@ -75,7 +75,7 @@ public class ImageProcessor {
 
         }
         stopProcessing();
-        emitProgress();
+        emitProgress(true);
         emitStopSignal();
     }
 
@@ -86,7 +86,7 @@ public class ImageProcessor {
     private void onLabelSuccess(List<ImageLabel> listLabels) {
         WritableMap mapLabels = packagingLabels(listLabels);
 //        Log.d("@@@ end process", this.currentBufferIndex + " " + this.listGalleryImagesUrls.size());
-        emitProgress();
+        emitProgress(false);
         if (isMatching(mapLabels)) {
             emitterImageData(mapLabels);
         }
@@ -107,8 +107,8 @@ public class ImageProcessor {
         imageEmitter.emitToJs(map, "onFinish");
     }
 
-    private void emitProgress() {
-        if (this.currentBufferIndex % 10 != 0) {
+    private void emitProgress(Boolean isEnd) {
+        if (this.currentBufferIndex % 10 != 0 && !isEnd) {
             return;
         }
         WritableMap map = Arguments.createMap();

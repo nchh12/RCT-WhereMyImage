@@ -10,6 +10,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.wheremyimages.nativemodules.imagelabeling.modules.ImageLabelingPackage;
+import com.wheremyimages.nativemodules.permission.modules.PermissionPackage;
 import com.wheremyimages.nativemodules.splash.SplashPackage;
 import com.wheremyimages.nativemodules.test.TestPackage;
 
@@ -34,6 +35,7 @@ public class MainApplication extends Application implements ReactApplication {
                     packages.add(new TestPackage());
                     packages.add(new ImageLabelingPackage());
                     packages.add(new SplashPackage());
+                    packages.add(new PermissionPackage());
                     return packages;
                 }
 

@@ -9,24 +9,13 @@ import android.provider.MediaStore;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.wheremyimages.nativemodules.permission.utils.PermissionHelper;
+
 import java.util.ArrayList;
 
 public class GalleryHelper {
-    public static final int READ_EXTERNAL_STORAGE_PERMISSION = 123;
-
-    public static boolean checkPermission(final Activity activity) {
-        int permissionCheck = ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE);
-        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, READ_EXTERNAL_STORAGE_PERMISSION);
-            return false;
-        } else {
-            return true;
-        }
-
-    }
-
     public static ArrayList<String> fetchGalleryImages(final Activity activity) {
-        if (!checkPermission(activity)){
+        if (!PermissionHelper.isGranted(activity, Manifest.permission.READ_EXTERNAL_STORAGE)){
             return new ArrayList<>();
         }
 

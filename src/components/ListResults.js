@@ -14,9 +14,9 @@ import { refAppOverlay } from '@navigation/AppOverlay';
 
 const ListResults = () => {
     const {
-        getImagesEmitted,
         removeListenerEmitting,
         addListenerEmitting,
+        getImagesEmitted,
         startScaning,
         clearResults,
     } = useLabelmages();
