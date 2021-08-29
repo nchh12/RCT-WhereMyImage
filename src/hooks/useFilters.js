@@ -1,6 +1,9 @@
 import { useLayoutEffect } from 'react';
 import { useSelector, keySelector, useDispatch, actions } from '@context';
 import assets from '@assets';
+const keyword_extractor = require('keyword-extractor');
+const synonyms = require('synonyms');
+const pluralize = require('pluralize');
 
 const useFilters = () => {
     const listFilters = useSelector(keySelector.listFilters);
@@ -51,8 +54,31 @@ const useFilters = () => {
         _setListFilters(list);
     };
 
+    const extractKeywords = sentence => {
+        return keyword_extractor.extract(sentence, {
+            language: 'english',
+            remove_digits: true,
+            return_changed_case: true,
+            remove_duplicates: true,
+        });
+    };
+
     const getListLabels = () => {
-        return listFilters.filter(item => !item?.disable).map(item => item?.label.toLowerCase());
+        const listString = listFilters
+            .filter(item => !item?.disable) //remove list suggested
+            .map(item => item?.label.toLowerCase()) // to lowercase
+            .map(word => pluralize.singular(word)); // singularize
+
+        const res = [];
+        listString.forEach(word => {
+            const synonymsObj = synonyms(word) || {};
+            const synonymsList = Object.values(synonymsObj).reduce(
+                (accumulator = [], value = []) => [...accumulator, ...value],
+                []
+            );
+            res.push(...synonymsList);
+        });
+        return res;
     };
 
     const isInEnableLabels = label => {
