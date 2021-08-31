@@ -1,4 +1,6 @@
 const state = {
+    //
+    textDesc: '',
     listFilters: [],
 
     //emit result
@@ -7,6 +9,7 @@ const state = {
 };
 
 const keySelector = {
+    textDesc: 'textDesc',
     listFilters: 'listFilters',
     imagesEmitted: 'imagesEmitted',
     progressEmitted: 'progressEmitted',

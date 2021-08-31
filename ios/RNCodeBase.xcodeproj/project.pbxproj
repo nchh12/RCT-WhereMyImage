@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* RNCodeBaseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* RNCodeBaseTests.m */; };
+		03F303675A6A4E4B5C928ADA /* libPods-Where my Images.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85F514E36735C366E26467EC /* libPods-Where my Images.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		60C7D7B7264BE6F600C1F006 /* swiftWebKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C7D7B6264BE6F600C1F006 /* swiftWebKit.swift */; };
 		60C7D7B8264BE6F600C1F006 /* swiftWebKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C7D7B6264BE6F600C1F006 /* swiftWebKit.swift */; };
-		7E9CA9793DD333BB9ACFC837 /* libPods-RNCodeBase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F083E8BB56AA3930CFFC1AC6 /* libPods-RNCodeBase.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8919A6D126C0100500234633 /* JSONSafeObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8919A6D026C0100500234633 /* JSONSafeObject.swift */; };
 		8919A6D626C0124D00234633 /* ImageMatching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8919A6D526C0124D00234633 /* ImageMatching.swift */; };
@@ -53,9 +53,12 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		22BC34C388866D7B671C94CA /* Pods-RNCodeBase.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNCodeBase.debug.xcconfig"; path = "Target Support Files/Pods-RNCodeBase/Pods-RNCodeBase.debug.xcconfig"; sourceTree = "<group>"; };
 		414889F643109C53DE48A6C6 /* Pods-RNCodeBase.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNCodeBase.release.xcconfig"; path = "Target Support Files/Pods-RNCodeBase/Pods-RNCodeBase.release.xcconfig"; sourceTree = "<group>"; };
+		46A3E39E502FFAA6A3A226C7 /* Pods-Where my Images.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Where my Images.release.xcconfig"; path = "Target Support Files/Pods-Where my Images/Pods-Where my Images.release.xcconfig"; sourceTree = "<group>"; };
+		5EB95322F749DF8F71FD1994 /* Pods-Where my Images.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Where my Images.debug.xcconfig"; path = "Target Support Files/Pods-Where my Images/Pods-Where my Images.debug.xcconfig"; sourceTree = "<group>"; };
 		60C7D7AE264BE64800C1F006 /* RNCodeBase-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RNCodeBase-Bridging-Header.h"; sourceTree = "<group>"; };
 		60C7D7B6264BE6F600C1F006 /* swiftWebKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swiftWebKit.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		85F514E36735C366E26467EC /* libPods-Where my Images.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Where my Images.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8919A6D026C0100500234633 /* JSONSafeObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONSafeObject.swift; sourceTree = "<group>"; };
 		8919A6D526C0124D00234633 /* ImageMatching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMatching.swift; sourceTree = "<group>"; };
 		8919A6DD26C0E6FF00234633 /* PHAsset+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PHAsset+Extension.swift"; sourceTree = "<group>"; };
@@ -71,7 +74,6 @@
 		89B9EC9326B98311000B8677 /* TestModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModule.swift; sourceTree = "<group>"; };
 		89B9ECEC26B9A131000B8677 /* ImageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtils.swift; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		F083E8BB56AA3930CFFC1AC6 /* libPods-RNCodeBase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RNCodeBase.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,7 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E9CA9793DD333BB9ACFC837 /* libPods-RNCodeBase.a in Frameworks */,
+				03F303675A6A4E4B5C928ADA /* libPods-Where my Images.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -129,7 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				F083E8BB56AA3930CFFC1AC6 /* libPods-RNCodeBase.a */,
+				85F514E36735C366E26467EC /* libPods-Where my Images.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -256,6 +258,8 @@
 			children = (
 				22BC34C388866D7B671C94CA /* Pods-RNCodeBase.debug.xcconfig */,
 				414889F643109C53DE48A6C6 /* Pods-RNCodeBase.release.xcconfig */,
+				5EB95322F749DF8F71FD1994 /* Pods-Where my Images.debug.xcconfig */,
+				46A3E39E502FFAA6A3A226C7 /* Pods-Where my Images.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -388,7 +392,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-RNCodeBase-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Where my Images-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -401,15 +405,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RNCodeBase/Pods-RNCodeBase-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Where my Images/Pods-Where my Images-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RNCodeBase/Pods-RNCodeBase-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Where my Images/Pods-Where my Images-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RNCodeBase/Pods-RNCodeBase-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Where my Images/Pods-Where my Images-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -538,7 +542,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 22BC34C388866D7B671C94CA /* Pods-RNCodeBase.debug.xcconfig */;
+			baseConfigurationReference = 5EB95322F749DF8F71FD1994 /* Pods-Where my Images.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -569,7 +573,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 414889F643109C53DE48A6C6 /* Pods-RNCodeBase.release.xcconfig */;
+			baseConfigurationReference = 46A3E39E502FFAA6A3A226C7 /* Pods-Where my Images.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

@@ -7,7 +7,8 @@ export default {
     foundNImages: 'Found %n image',
     wannaContinue: 'Wanna continue?',
     header_filter: 'What do your images have?',
+    desc_place_holder: 'Type description here...',
     start_processing: 'Start processing...',
     processing_header: 'Label-processing',
-    input_filter_placeholder: 'Input filter here...',
+    input_filter_placeholder: 'Type labels here...',
 };

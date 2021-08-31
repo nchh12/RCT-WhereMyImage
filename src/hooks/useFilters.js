@@ -63,14 +63,14 @@ const useFilters = () => {
         });
     };
 
-    const getListLabels = () => {
-        const listString = listFilters
-            .filter(item => !item?.disable) //remove list suggested
-            .map(item => item?.label.toLowerCase()) // to lowercase
-            .map(word => pluralize.singular(word)); // singularize
+    const getListFromDesc = () => {
+        const listFromDesc = extractKeywords(getTextDesc());
+        return listFromDesc;
+    };
 
+    const extendBySynonyms = (list = []) => {
         const res = [];
-        listString.forEach(word => {
+        list.forEach(word => {
             const synonymsObj = synonyms(word) || {};
             const synonymsList = Object.values(synonymsObj).reduce(
                 (accumulator = [], value = []) => [...accumulator, ...value],
@@ -81,17 +81,45 @@ const useFilters = () => {
         return res;
     };
 
+    const getlistAddedLabels = () => {
+        return listFilters
+            .filter(item => !item?.disable) //remove list suggested
+            .map(item => item?.label) // get label
+            .map(word => pluralize.singular(word.toLowerCase())); // singularize
+    };
+
+    const getListLabels = () => {
+        const listFromDesc = getListFromDesc();
+        const listAdded = getlistAddedLabels();
+        console.log('listFromDesc', listFromDesc);
+
+        return extendBySynonyms(listFromDesc?.length ? listFromDesc : listAdded || []);
+    };
+
     const isInEnableLabels = label => {
         const list = getListLabels();
         return list.includes(label);
     };
 
+    const getTextDesc = () => {
+        return useSelector(keySelector.textDesc);
+    };
+
+    const setTextDesc = (payload = '') => {
+        actions.setTextDesc({ dispatch, payload });
+    };
+
     return {
+        getlistAddedLabels,
         isInEnableLabels,
+        extendBySynonyms,
+        getListFromDesc,
         getListFilters,
         getListLabels,
         enableFilter,
         removeFilter,
+        getTextDesc,
+        setTextDesc,
         addFilter,
     };
 };
