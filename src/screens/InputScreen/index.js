@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { View, TextInput, FlatList, TouchableOpacity } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { View, TextInput, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
 import LottieView from 'lottie-react-native';
 import Colors from '@utils/Colors';
 import SharedStyles from '@utils/SharedStyles';
@@ -7,11 +7,11 @@ import { CustomizedText, CustomizedContainer, FilterItem } from '@components';
 import Strings from '@utils/Strings';
 import assets from '@assets';
 import { DefaultSize } from '@utils/Constants';
-import { useFilters, useLabelmages } from '@hooks';
-
+import { useFilters } from '@hooks';
 import { push } from '@navigation/AppNavigation';
 import { deepMemo } from 'use-hook-kits';
 import styles from './styles';
+import debounce from 'lodash/debounce';
 const ScrollableTabView = require('react-native-scrollable-tab-view');
 
 const InputScreen = ({ navigation }) => {
@@ -37,8 +37,8 @@ const InputScreen = ({ navigation }) => {
                     tabBarActiveTextColor={Colors.dark}
                     tabBarInactiveTextColor={Colors.black_12}
                 >
-                    <DescriptionPage tabLabel="Description" key={`tab_view_0`} />
-                    <FilterPage tabLabel="Labels" key={`tab_view_1`} />
+                    <FilterPage tabLabel="Labels" key={`tab_view_00`} />
+                    <DescriptionPage tabLabel="Description" key={`tab_view_01`} />
                 </ScrollableTabView>
                 <StartButton navigation={navigation} />
             </View>
@@ -47,20 +47,33 @@ const InputScreen = ({ navigation }) => {
 };
 
 const StartButton = ({ navigation }) => {
-    const { grantPermission } = useLabelmages();
+    const { startParsing } = useFilters()?.parseLabels();
+    const [isLoading, setLoading] = useState(false);
+    const refTimeout = useRef(null);
+    const DELAY_NAVIGATION = 300;
+
     const onPressStart = () => {
-        grantPermission(() => {
-            push({ screen: 'ResultScreen', navigation });
+        setLoading(false);
+        startParsing().then(() => {
+            refTimeout.current && clearTimeout(refTimeout.current);
+            refTimeout.current = setTimeout(() => {
+                push({ screen: 'ResultScreen', navigation });
+                setLoading(false);
+            }, DELAY_NAVIGATION);
         });
     };
 
     return (
         <View style={[styles.container_bar, styles.container_start]}>
-            <TouchableOpacity activeOpacity={0.7} onPress={onPressStart}>
+            <TouchableOpacity activeOpacity={0.7} onPress={isLoading ? null : onPressStart}>
                 <CustomizedContainer type="peach" containerStyle={SharedStyles.bar}>
-                    <CustomizedText type="item" size={16}>
-                        {Strings.start_processing}
-                    </CustomizedText>
+                    {isLoading ? (
+                        <ActivityIndicator color={Colors.white} />
+                    ) : (
+                        <CustomizedText type="item" size={16}>
+                            {Strings.start_processing}
+                        </CustomizedText>
+                    )}
                 </CustomizedContainer>
             </TouchableOpacity>
         </View>
@@ -68,11 +81,16 @@ const StartButton = ({ navigation }) => {
 };
 
 const DescriptionPage = deepMemo(() => {
-    const { getTextDesc, setTextDesc } = useFilters();
+    const { setTextDesc } = useFilters();
 
-    const onChangeText = text => {
-        setTextDesc(text);
-    };
+    const onChangeText = debounce(
+        text => {
+            setTextDesc(text);
+        },
+        500,
+        { leading: true }
+    );
+
     return (
         <TextInput
             style={styles.caption}
@@ -80,6 +98,7 @@ const DescriptionPage = deepMemo(() => {
             placeholder={Strings.desc_place_holder}
             multiline={true}
             keyboardType={'default'}
+            autoCapitalize={'sentences'}
         />
     );
 });

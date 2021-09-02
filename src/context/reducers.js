@@ -7,6 +7,8 @@ const reducer = (state, action) => {
             return { ...state, listFilters: payload };
         case types.SET_TEXT_DESC:
             return { ...state, textDesc: payload };
+        case types.SET_PARSE_LABELS:
+            return { ...state, parseLabels: payload };
         case types.SET_IMAGES_EMITTED:
             return { ...state, imagesEmitted: payload };
         case types.ADD_IMAGES_EMITTED:

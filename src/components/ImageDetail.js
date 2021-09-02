@@ -11,10 +11,10 @@ import DeviceConfigs from '@utils/DeviceConfigs';
 import Share from 'react-native-share';
 
 const ImageDetail = ({ item }) => {
-    console.log(JSON.stringify(item, null, 2));
     const { uri = '', pixelWidth = 0, pixelHeight = 0, labels = {} } = item || {};
     const aspectRatio = (pixelWidth + 0.1) / (pixelHeight + 0.1);
-    const { isInEnableLabels } = useFilters();
+    const { checkLabels } = useFilters();
+    const { isEnableLabels } = checkLabels();
     const listLabels = Object.keys(labels)
         .map(key => {
             return {
@@ -45,7 +45,7 @@ const ImageDetail = ({ item }) => {
                     <View>
                         <FilterItem
                             text={`#${label?.toLowerCase()}: ${percent}%`}
-                            disable={!isInEnableLabels(label.toLowerCase())}
+                            disable={!isEnableLabels(label.toLowerCase())}
                         />
                     </View>
                 );

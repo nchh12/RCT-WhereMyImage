@@ -17,23 +17,32 @@ const ListResults = () => {
         removeListenerEmitting,
         addListenerEmitting,
         getImagesEmitted,
+        grantPermission,
         startScaning,
         clearResults,
     } = useLabelmages();
 
-    const { getListLabels } = useFilters();
-    const [endIndex, setEndIndex] = useState(3);
-    const listLabels = useRef(getListLabels() || []); //*NEED OPTIMIZE
+    const { getParseLabels, setParseLabels } = useFilters();
+    const listParseLabels = getParseLabels();
 
+    const [endIndex, setEndIndex] = useState(3);
     const imagesEmitted = getImagesEmitted();
     // const imagesEmitted = require('./mock');
 
     useEffect(() => {
         addListenerEmitting();
-        startScaning(listLabels.current);
         return () => {
             removeListenerEmitting();
+        };
+    }, []);
+
+    useEffect(() => {
+        grantPermission(() => {
+            startScaning(listParseLabels);
+        });
+        return () => {
             clearResults();
+            setParseLabels([]);
         };
     }, []);
 
@@ -68,7 +77,7 @@ const ListResults = () => {
     const _renderHeader = () => (
         <TouchableOpacity
             onPress={() => {
-                startScaning(listLabels.current);
+                startScaning(listParseLabels);
             }}
         >
             <CustomizedText type="header" textStyle={styles.result_text}>
@@ -112,7 +121,8 @@ const ListResults = () => {
 
 const ItemResult = deepMemo(({ item, index }) => {
     const { uri = '', pixelWidth = 0, pixelHeight = 1, labels = {} } = item || {};
-    const { isInEnableLabels } = useFilters();
+    const { checkLabels } = useFilters();
+    const { isEnableLabels } = checkLabels();
     const aspectRatio = 1; //Math.max(0.8, pixelWidth / pixelHeight);
     const listLabels = Object.keys(labels)
         .map(key => {
@@ -152,7 +162,7 @@ const ItemResult = deepMemo(({ item, index }) => {
                             <View style={styles.item_filter}>
                                 <FilterItem
                                     text={`#${label?.toLowerCase()}: ${percent}%`}
-                                    // disable={!isInEnableLabels(label.toLowerCase())}
+                                    disable={!isEnableLabels(label.toLowerCase())}
                                 />
                             </View>
                         );

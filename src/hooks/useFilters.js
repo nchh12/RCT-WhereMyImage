@@ -70,35 +70,55 @@ const useFilters = () => {
 
     const extendBySynonyms = (list = []) => {
         const res = [];
-        list.forEach(word => {
-            const synonymsObj = synonyms(word) || {};
-            const synonymsList = Object.values(synonymsObj).reduce(
-                (accumulator = [], value = []) => [...accumulator, ...value],
-                []
-            );
-            res.push(...synonymsList);
-        });
+        list.map(word => pluralize.singular(word.toLowerCase())) // singularize
+            .forEach(word => {
+                const synonymsObj = synonyms(word) || {};
+                const synonymsList = Object.values(synonymsObj).reduce(
+                    (accumulator = [], value = []) => [...accumulator, ...value],
+                    []
+                );
+                res.push(...synonymsList);
+            });
         return res;
     };
 
     const getlistAddedLabels = () => {
         return listFilters
             .filter(item => !item?.disable) //remove list suggested
-            .map(item => item?.label) // get label
-            .map(word => pluralize.singular(word.toLowerCase())); // singularize
+            .map(item => item?.label); // get label
     };
 
-    const getListLabels = () => {
-        const listFromDesc = getListFromDesc();
+    const parseLabels = () => {
+        const descText = getTextDesc();
         const listAdded = getlistAddedLabels();
-        console.log('listFromDesc', listFromDesc);
 
-        return extendBySynonyms(listFromDesc?.length ? listFromDesc : listAdded || []);
+        return {
+            startParsing: () =>
+                new Promise((resolve, reject) => {
+                    try {
+                        const listFromDesc = extractKeywords(descText);
+                        console.log(
+                            'extendBySynonyms(listFromDesc?.length ? listFromDesc : listAdded || []',
+                            extendBySynonyms(listFromDesc?.length ? listFromDesc : listAdded || [])
+                        );
+                        setParseLabels(
+                            extendBySynonyms(listFromDesc?.length ? listFromDesc : listAdded || [])
+                        );
+                        resolve();
+                    } catch (e) {
+                        reject(e);
+                    }
+                }),
+        };
     };
 
-    const isInEnableLabels = label => {
-        const list = getListLabels();
-        return list.includes(label);
+    const checkLabels = () => {
+        const list = getParseLabels();
+        return {
+            isEnableLabels: label => {
+                return list.includes(label);
+            },
+        };
     };
 
     const getTextDesc = () => {
@@ -109,15 +129,25 @@ const useFilters = () => {
         actions.setTextDesc({ dispatch, payload });
     };
 
+    const setParseLabels = (payload = []) => {
+        actions.setParseLabels({ dispatch, payload });
+    };
+
+    const getParseLabels = () => {
+        return useSelector(keySelector.parseLabels);
+    };
+
     return {
         getlistAddedLabels,
-        isInEnableLabels,
         extendBySynonyms,
         getListFromDesc,
         getListFilters,
-        getListLabels,
+        getParseLabels,
+        setParseLabels,
         enableFilter,
         removeFilter,
+        checkLabels,
+        parseLabels,
         getTextDesc,
         setTextDesc,
         addFilter,
