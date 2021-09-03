@@ -114,7 +114,9 @@ const styles = StyleSheet.create({
         maxHeight: '70%',
         height: 'auto',
     },
-    container_filter: {},
+    container_filter: {
+        paddingHorizontal: DefaultSize.XL,
+    },
     cta: {
         marginTop: DefaultSize.XL,
         alignItems: 'center',

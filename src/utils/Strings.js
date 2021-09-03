@@ -3,7 +3,7 @@ export default {
     share: 'Share',
     footer: 'You reached the end, man',
     add_filter: 'Add filter',
-    title_input: 'Your photos contain:',
+    title_input: 'Your photos have:',
     foundNImages: 'Found %n image',
     wannaContinue: 'Wanna continue?',
     header_filter: 'What do your images have?',
