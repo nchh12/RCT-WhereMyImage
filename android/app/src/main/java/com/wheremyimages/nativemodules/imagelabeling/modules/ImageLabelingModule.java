@@ -45,13 +45,13 @@ public class ImageLabelingModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void startScaningWithFilter(ReadableArray inputFilters) {
+    public void startScaningWithFilter(ReadableArray inputFilters, @Nullable Boolean isReset) {
         List<String> listFilters = new ArrayList<>();
         for (int i = 0; i < inputFilters.size(); i++) {
             listFilters.add(inputFilters.getString(i));
         }
         imageProcessor.addFilters(listFilters);
-        imageProcessor.startProcessing(RCTContext.getCurrentActivity(), true);
+        imageProcessor.startProcessing(RCTContext.getCurrentActivity(), isReset == null ? true : isReset);
     }
 
     @ReactMethod

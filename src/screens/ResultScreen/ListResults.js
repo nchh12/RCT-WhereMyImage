@@ -16,6 +16,7 @@ const ListResults = () => {
     const {
         removeListenerEmitting,
         addListenerEmitting,
+        getProgressEmitted,
         getImagesEmitted,
         grantPermission,
         startScaning,
@@ -27,7 +28,8 @@ const ListResults = () => {
 
     const [endIndex, setEndIndex] = useState(3);
     const imagesEmitted = getImagesEmitted();
-    // const imagesEmitted = require('./mock');
+    // const imagesEmitted = require('./mock').default;
+    const isDone = getProgressEmitted() >= 100;
 
     useEffect(() => {
         addListenerEmitting();
@@ -71,13 +73,13 @@ const ListResults = () => {
             Strings.foundNImages.replace(`%n`, `${imagesEmitted?.length || 0}`) +
             (imagesEmitted?.length > 1 ? 's' : '');
 
-        return textResult + '\n' + Strings.wannaContinue;
+        return textResult + (!isDone ? `\n${Strings.wannaContinue}` : '');
     };
 
     const _renderHeader = () => (
         <TouchableOpacity
             onPress={() => {
-                startScaning(listParseLabels);
+                !isDone && startScaning(listParseLabels, false);
             }}
         >
             <CustomizedText type="header" textStyle={styles.result_text}>

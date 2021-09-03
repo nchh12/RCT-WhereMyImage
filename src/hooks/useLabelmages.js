@@ -28,8 +28,8 @@ const useLabelmages = () => {
         return useSelector(keySelector.imagesEmitted);
     };
 
-    const startScaning = listFilters => {
-        ImageLabeling.startScaningWithFilter(listFilters || []);
+    const startScaning = (listFilters = [], isReset = true) => {
+        ImageLabeling.startScaningWithFilter(listFilters, isReset);
         refAppOverlay.current?.show({
             component: <EmitImagesLoading />,
             cancelHandler: ImageLabeling.stopScanning,
