@@ -1,6 +1,7 @@
 package com.wheremyimages.nativemodules.imagelabeling.modules;
 
 import android.Manifest;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -79,7 +80,7 @@ public class ImageLabelingModule extends ReactContextBaseJavaModule {
                 Manifest.permission.READ_EXTERNAL_STORAGE
         );
         if (result != PermissionConstants.GRANTED) {
-            PopupView permissionView = new PopupView(getReactApplicationContext(), new OnHandleClickCta() {
+            PopupView permissionView = new PopupView(getCurrentActivity(), new OnHandleClickCta() {
                 @Override
                 public void onClickCta() {
                     PermissionHelper.requestPermission(getCurrentActivity(), Manifest.permission.READ_EXTERNAL_STORAGE, promise);

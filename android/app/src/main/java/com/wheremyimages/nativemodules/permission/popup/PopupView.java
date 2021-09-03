@@ -1,5 +1,6 @@
 package com.wheremyimages.nativemodules.permission.popup;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -29,8 +30,8 @@ public class PopupView extends Dialog implements View.OnClickListener {
         super(context);
     }
 
-    public PopupView(@NonNull Context context, OnHandleClickCta handleClickCta) {
-        super(context);
+    public PopupView(@NonNull Activity activity, OnHandleClickCta handleClickCta) {
+        super(activity);
         this.handleClickCta = handleClickCta;
     }
 

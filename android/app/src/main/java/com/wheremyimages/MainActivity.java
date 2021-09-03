@@ -21,7 +21,5 @@ public class MainActivity extends ReactActivity {
     super.onCreate(savedInstanceState);
 
     SplashInstance.getInstance(this).show();
-    PopupView pv = new PopupView(this);
-    pv.show();
-  }
+ }
 }
