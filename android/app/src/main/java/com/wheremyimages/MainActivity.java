@@ -3,10 +3,10 @@ package com.wheremyimages;
 import android.os.Bundle;
 
 import com.facebook.react.ReactActivity;
+import com.wheremyimages.nativemodules.permission.popup.PopupView;
 import com.wheremyimages.nativemodules.splash.SplashInstance;
 
 public class MainActivity extends ReactActivity {
-
   /**
    * Returns the name of the main component registered from JavaScript. This is used to schedule
    * rendering of the component.
@@ -21,5 +21,7 @@ public class MainActivity extends ReactActivity {
     super.onCreate(savedInstanceState);
 
     SplashInstance.getInstance(this).show();
+    PopupView pv = new PopupView(this);
+    pv.show();
   }
 }

@@ -14,6 +14,8 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.wheremyimages.nativemodules.imagelabeling.utils.EmitterInterface;
 import com.wheremyimages.nativemodules.imagelabeling.utils.ImageProcessor;
+import com.wheremyimages.nativemodules.permission.popup.OnHandleClickCta;
+import com.wheremyimages.nativemodules.permission.popup.PopupView;
 import com.wheremyimages.nativemodules.permission.utils.PermissionConstants;
 import com.wheremyimages.nativemodules.permission.utils.PermissionHelper;
 
@@ -77,7 +79,13 @@ public class ImageLabelingModule extends ReactContextBaseJavaModule {
                 Manifest.permission.READ_EXTERNAL_STORAGE
         );
         if (result != PermissionConstants.GRANTED) {
-            PermissionHelper.requestPermission(getCurrentActivity(), Manifest.permission.READ_EXTERNAL_STORAGE, promise);
+            PopupView permissionView = new PopupView(getReactApplicationContext(), new OnHandleClickCta() {
+                @Override
+                public void onClickCta() {
+                    PermissionHelper.requestPermission(getCurrentActivity(), Manifest.permission.READ_EXTERNAL_STORAGE, promise);
+                }
+            });
+            permissionView.show();
         } else {
             promise.resolve(result);
         }
