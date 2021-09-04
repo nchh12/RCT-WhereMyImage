@@ -37,9 +37,6 @@ class ImageProcessor: NSObject{
   
   public func stopProcessing(){
     self.isCanceling = true
-    //emit
-    let responseToJS = JSONSafeObject()
-    self.emitter(responseToJS, "onFinish")
   }
 
   public func startProcessing(isReset: Bool){
@@ -67,6 +64,9 @@ class ImageProcessor: NSObject{
         continue
       }
       print("@@@ start process \(self.currentBufferIndex)     \(self.listGalleryAssets!.count)")
+      guard !isInterruptedProgress() else{
+        break
+      }
       self.currentBufferAsset = listGalleryAssets?.object(at: self.currentBufferIndex)
       
       guard let thumnailImage = self.currentBufferAsset?.getThumnailImage() else{
@@ -79,24 +79,42 @@ class ImageProcessor: NSObject{
           self.onNext()
           return
         }
+        self.emitProgress();
         let mapLabels = self.packagingLabels(listLabels: labels)
         let imageMatching = ImageMatching(filters: self.listFilters, labels: mapLabels)
         if (imageMatching.isMatching()){
           self.emitterImageData(labels: mapLabels)
-          print("@@@ End process \(self.currentBufferIndex)    \(self.listGalleryAssets!.count)")
         }
+        print("@@@ End process \(self.currentBufferIndex)    \(self.listGalleryAssets!.count)")
         self.onNext()
       }
     }
     stopProcessing()
+    emitProgress()
+    emitStopSignal()
+  }
+  
+  private func emitProgress(){
+    let responseToJS = JSONSafeObject()
+    responseToJS.setValueSafely(field: "currentIndex", value: self.currentBufferIndex)
+    responseToJS.setValueSafely(field: "total", value: self.listGalleryAssets?.count ?? 0)
+    responseToJS.setValueSafely(field: "percent", value: (self.currentBufferIndex) * 100 / (max((self.listGalleryAssets?.count ?? 0), 1)))
+    self.emitter(responseToJS, "onProgress")
+  }
+  
+  private func emitStopSignal(){
+    let responseToJS = JSONSafeObject()
+    self.emitter(responseToJS, "onFinish")
   }
   
   private func emitterImageData(labels: JSONSafeObject){
+    let pixelHeight = self.currentBufferAsset?.pixelHeight ?? 1 //cache for reset bufferAssets
+    let pixelWidth = self.currentBufferAsset?.pixelWidth ?? 1
     self.currentBufferAsset?.getFullImageUri(){ imageUri in
       let responseToJS = JSONSafeObject()
       responseToJS.setValueSafely(field: "uri", value: imageUri)
-      responseToJS.setValueSafely(field: "pixelHeight", value: self.currentBufferAsset?.pixelHeight ?? 1)
-      responseToJS.setValueSafely(field: "pixelWidth", value: self.currentBufferAsset?.pixelWidth ?? 1)
+      responseToJS.setValueSafely(field: "pixelHeight", value: pixelHeight)
+      responseToJS.setValueSafely(field: "pixelWidth", value: pixelWidth)
       responseToJS.setValueSafely(field: "labels", value: labels.getInstance())
       self.emitter(responseToJS, "onResponse")
     }

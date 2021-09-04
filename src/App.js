@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { AppNavigation } from '@navigation';
 import { AppProvider } from '@context';
 import AppOverlay, { refAppOverlay } from '@navigation/AppOverlay';

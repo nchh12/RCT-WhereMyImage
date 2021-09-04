@@ -15,5 +15,8 @@ RCT_EXTERN_METHOD(startScaningWithFilter: (NSArray*)filters)
 
 RCT_EXTERN_METHOD(stopScanning)
 
+RCT_EXTERN_METHOD(grantPermission: (RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+
 @end
 

@@ -8,6 +8,7 @@ const DefaultSize = {
 };
 
 const TextSize = {
+    H0: 48,
     H1: 32,
     H2: 24,
     H3: 20,

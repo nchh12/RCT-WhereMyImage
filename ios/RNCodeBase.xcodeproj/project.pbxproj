@@ -8,18 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* RNCodeBaseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* RNCodeBaseTests.m */; };
+		03F303675A6A4E4B5C928ADA /* libPods-Where my Images.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85F514E36735C366E26467EC /* libPods-Where my Images.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		60C7D7B7264BE6F600C1F006 /* swiftWebKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C7D7B6264BE6F600C1F006 /* swiftWebKit.swift */; };
 		60C7D7B8264BE6F600C1F006 /* swiftWebKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C7D7B6264BE6F600C1F006 /* swiftWebKit.swift */; };
-		7E9CA9793DD333BB9ACFC837 /* libPods-RNCodeBase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F083E8BB56AA3930CFFC1AC6 /* libPods-RNCodeBase.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8919A6D126C0100500234633 /* JSONSafeObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8919A6D026C0100500234633 /* JSONSafeObject.swift */; };
 		8919A6D626C0124D00234633 /* ImageMatching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8919A6D526C0124D00234633 /* ImageMatching.swift */; };
 		8919A6DE26C0E6FF00234633 /* PHAsset+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8919A6DD26C0E6FF00234633 /* PHAsset+Extension.swift */; };
 		898DE81926C825D9001243B1 /* ImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898DE81826C825D9001243B1 /* ImageProcessor.swift */; };
-		89A92D9F26BE777000A6714F /* PermissionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A92D9E26BE777000A6714F /* PermissionRequest.swift */; };
+		899F09C926D543A900190158 /* PermissionModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899F09C826D543A900190158 /* PermissionModule.swift */; };
+		899F09CB26D543C600190158 /* PermissionModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 899F09CA26D543C600190158 /* PermissionModule.m */; };
+		899F09CE26D556C600190158 /* PermissionConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899F09CD26D556C600190158 /* PermissionConstants.swift */; };
+		89A92D9F26BE777000A6714F /* PermissionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A92D9E26BE777000A6714F /* PermissionHelper.swift */; };
 		89A92DA626BE79A500A6714F /* ImageLabelingModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A92DA526BE79A500A6714F /* ImageLabelingModule.m */; };
 		89A92DAA26BE79CF00A6714F /* ImageLabelingModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A92DA926BE79CF00A6714F /* ImageLabelingModule.swift */; };
 		89A92DB426BE99E700A6714F /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A92DB326BE99E700A6714F /* Date+Extension.swift */; };
@@ -50,14 +53,20 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		22BC34C388866D7B671C94CA /* Pods-RNCodeBase.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNCodeBase.debug.xcconfig"; path = "Target Support Files/Pods-RNCodeBase/Pods-RNCodeBase.debug.xcconfig"; sourceTree = "<group>"; };
 		414889F643109C53DE48A6C6 /* Pods-RNCodeBase.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNCodeBase.release.xcconfig"; path = "Target Support Files/Pods-RNCodeBase/Pods-RNCodeBase.release.xcconfig"; sourceTree = "<group>"; };
+		46A3E39E502FFAA6A3A226C7 /* Pods-Where my Images.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Where my Images.release.xcconfig"; path = "Target Support Files/Pods-Where my Images/Pods-Where my Images.release.xcconfig"; sourceTree = "<group>"; };
+		5EB95322F749DF8F71FD1994 /* Pods-Where my Images.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Where my Images.debug.xcconfig"; path = "Target Support Files/Pods-Where my Images/Pods-Where my Images.debug.xcconfig"; sourceTree = "<group>"; };
 		60C7D7AE264BE64800C1F006 /* RNCodeBase-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RNCodeBase-Bridging-Header.h"; sourceTree = "<group>"; };
 		60C7D7B6264BE6F600C1F006 /* swiftWebKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swiftWebKit.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		85F514E36735C366E26467EC /* libPods-Where my Images.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Where my Images.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8919A6D026C0100500234633 /* JSONSafeObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONSafeObject.swift; sourceTree = "<group>"; };
 		8919A6D526C0124D00234633 /* ImageMatching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMatching.swift; sourceTree = "<group>"; };
 		8919A6DD26C0E6FF00234633 /* PHAsset+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PHAsset+Extension.swift"; sourceTree = "<group>"; };
 		898DE81826C825D9001243B1 /* ImageProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProcessor.swift; sourceTree = "<group>"; };
-		89A92D9E26BE777000A6714F /* PermissionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionRequest.swift; sourceTree = "<group>"; };
+		899F09C826D543A900190158 /* PermissionModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionModule.swift; sourceTree = "<group>"; };
+		899F09CA26D543C600190158 /* PermissionModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PermissionModule.m; sourceTree = "<group>"; };
+		899F09CD26D556C600190158 /* PermissionConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionConstants.swift; sourceTree = "<group>"; };
+		89A92D9E26BE777000A6714F /* PermissionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionHelper.swift; sourceTree = "<group>"; };
 		89A92DA526BE79A500A6714F /* ImageLabelingModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageLabelingModule.m; sourceTree = "<group>"; };
 		89A92DA926BE79CF00A6714F /* ImageLabelingModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLabelingModule.swift; sourceTree = "<group>"; };
 		89A92DB326BE99E700A6714F /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
@@ -65,7 +74,6 @@
 		89B9EC9326B98311000B8677 /* TestModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModule.swift; sourceTree = "<group>"; };
 		89B9ECEC26B9A131000B8677 /* ImageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtils.swift; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		F083E8BB56AA3930CFFC1AC6 /* libPods-RNCodeBase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RNCodeBase.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,7 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E9CA9793DD333BB9ACFC837 /* libPods-RNCodeBase.a in Frameworks */,
+				03F303675A6A4E4B5C928ADA /* libPods-Where my Images.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,7 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				F083E8BB56AA3930CFFC1AC6 /* libPods-RNCodeBase.a */,
+				85F514E36735C366E26467EC /* libPods-Where my Images.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -179,10 +187,29 @@
 			path = Modules;
 			sourceTree = "<group>";
 		};
+		899F09C726D5438800190158 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				899F09C826D543A900190158 /* PermissionModule.swift */,
+				899F09CA26D543C600190158 /* PermissionModule.m */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		899F09CC26D5515A00190158 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				89A92D9E26BE777000A6714F /* PermissionHelper.swift */,
+				899F09CD26D556C600190158 /* PermissionConstants.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		89A92D9D26BE773300A6714F /* Permissions */ = {
 			isa = PBXGroup;
 			children = (
-				89A92D9E26BE777000A6714F /* PermissionRequest.swift */,
+				899F09CC26D5515A00190158 /* Utils */,
+				899F09C726D5438800190158 /* Modules */,
 			);
 			path = Permissions;
 			sourceTree = "<group>";
@@ -231,6 +258,8 @@
 			children = (
 				22BC34C388866D7B671C94CA /* Pods-RNCodeBase.debug.xcconfig */,
 				414889F643109C53DE48A6C6 /* Pods-RNCodeBase.release.xcconfig */,
+				5EB95322F749DF8F71FD1994 /* Pods-Where my Images.debug.xcconfig */,
+				46A3E39E502FFAA6A3A226C7 /* Pods-Where my Images.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -256,9 +285,9 @@
 			productReference = 00E356EE1AD99517003FC87E /* RNCodeBaseTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* RNCodeBase */ = {
+		13B07F861A680F5B00A75B9A /* Where my Images */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "RNCodeBase" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Where my Images" */;
 			buildPhases = (
 				10BD489AD7C8A9B301D2D5EC /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
@@ -272,7 +301,7 @@
 			);
 			dependencies = (
 			);
-			name = RNCodeBase;
+			name = "Where my Images";
 			productName = RNCodeBase;
 			productReference = 13B07F961A680F5B00A75B9A /* RNCodeBase.app */;
 			productType = "com.apple.product-type.application";
@@ -308,7 +337,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* RNCodeBase */,
+				13B07F861A680F5B00A75B9A /* Where my Images */,
 				00E356ED1AD99517003FC87E /* RNCodeBaseTests */,
 			);
 		};
@@ -363,7 +392,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-RNCodeBase-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Where my Images-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -376,15 +405,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RNCodeBase/Pods-RNCodeBase-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Where my Images/Pods-Where my Images-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RNCodeBase/Pods-RNCodeBase-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Where my Images/Pods-Where my Images-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RNCodeBase/Pods-RNCodeBase-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Where my Images/Pods-Where my Images-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -428,12 +457,15 @@
 				89B9EC8D26B97F7B000B8677 /* TestModule.m in Sources */,
 				8919A6D626C0124D00234633 /* ImageMatching.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				899F09CE26D556C600190158 /* PermissionConstants.swift in Sources */,
 				898DE81926C825D9001243B1 /* ImageProcessor.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				899F09C926D543A900190158 /* PermissionModule.swift in Sources */,
 				89B9EC9426B98311000B8677 /* TestModule.swift in Sources */,
 				89B9ECED26B9A131000B8677 /* ImageUtils.swift in Sources */,
 				8919A6DE26C0E6FF00234633 /* PHAsset+Extension.swift in Sources */,
-				89A92D9F26BE777000A6714F /* PermissionRequest.swift in Sources */,
+				899F09CB26D543C600190158 /* PermissionModule.m in Sources */,
+				89A92D9F26BE777000A6714F /* PermissionHelper.swift in Sources */,
 				89A92DA626BE79A500A6714F /* ImageLabelingModule.m in Sources */,
 				8919A6D126C0100500234633 /* JSONSafeObject.swift in Sources */,
 			);
@@ -444,7 +476,7 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* RNCodeBase */;
+			target = 13B07F861A680F5B00A75B9A /* Where my Images */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -510,11 +542,14 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 22BC34C388866D7B671C94CA /* Pods-RNCodeBase.debug.xcconfig */;
+			baseConfigurationReference = 5EB95322F749DF8F71FD1994 /* Pods-Where my Images.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W658279988;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = RNCodeBase/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -526,8 +561,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = lamnguyen5464.com.WhereMyImages;
 				PRODUCT_NAME = RNCodeBase;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "RNCodeBase-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -537,11 +573,14 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 414889F643109C53DE48A6C6 /* Pods-RNCodeBase.release.xcconfig */;
+			baseConfigurationReference = 46A3E39E502FFAA6A3A226C7 /* Pods-Where my Images.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W658279988;
 				INFOPLIST_FILE = RNCodeBase/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -552,7 +591,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = lamnguyen5464.com.WhereMyImages;
 				PRODUCT_NAME = RNCodeBase;
 				SWIFT_OBJC_BRIDGING_HEADER = "RNCodeBase-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -695,7 +734,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "RNCodeBase" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Where my Images" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,

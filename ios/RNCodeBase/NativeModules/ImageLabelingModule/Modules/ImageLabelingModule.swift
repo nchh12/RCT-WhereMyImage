@@ -44,4 +44,9 @@ class ImageLabelingModule: RCTEventEmitter{
   @objc func stopScanning(){
     self.imageProcessor?.stopProcessing()
   }
+  
+  @objc func grantPermission(_ resolve: RCTPromiseResolveBlock,rejecter reject: RCTPromiseRejectBlock){
+    PermissionHelper.requestPHPhotoLibrary()
+    resolve(PermissionConstants.GRANTED)
+  }
 }

@@ -1,40 +1,58 @@
-import React, { useEffect, memo, forwardRef, useImperativeHandle, useState, useRef } from 'react';
-import { BackHandler, StyleSheet, Animated } from 'react-native';
+import React, {
+    useLayoutEffect,
+    forwardRef,
+    useImperativeHandle,
+    useState,
+    useRef,
+    useCallback,
+} from 'react';
+import { StyleSheet, Animated, BackHandler, TouchableOpacity } from 'react-native';
 import Colors from '@utils/Colors';
+import { deepMemo } from 'use-hook-kits';
 
 export const refAppOverlay = React.createRef(null);
 
 const DURATION = 500;
 
 const AppOverlay = forwardRef((props, ref) => {
-    const [component, setComponent] = useState(false);
-    const opacityAnimated = useRef(new Animated.Value(0));
+    const [pageState, setPageState] = useState(null);
+    const valueAnimated = useRef(new Animated.Value(0));
 
-    useEffect(() => {
-        const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-            hide();
-        });
+    useLayoutEffect(() => {
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', _onBackPress);
         return () => {
             backHandler?.remove?.();
         };
-    }, []);
+    }, [pageState?.component]);
 
-    const show = ({ component }) => {
-        setComponent(component);
-        Animated.timing(opacityAnimated.current, {
+    const _onBackPress = useCallback(() => {
+        const isShowing = !!pageState?.component;
+        isShowing && hide();
+        return isShowing; //disable back of navigation
+    }, [pageState?.component]);
+
+    const show = ({ component, cancelHandler }) => {
+        setPageState({
+            component,
+            cancelHandler,
+        });
+        Animated.spring(valueAnimated.current, {
             toValue: 1,
             duration: DURATION,
             useNativeDriver: true,
+            friction: 7,
         }).start();
     };
 
     const hide = () => {
-        Animated.timing(opacityAnimated.current, {
+        Animated.spring(valueAnimated.current, {
             toValue: 0,
             duration: DURATION,
             useNativeDriver: true,
+            friction: 7,
         }).start(() => {
-            setComponent(null);
+            pageState?.cancelHandler?.();
+            setPageState(null);
         });
     };
 
@@ -43,11 +61,25 @@ const AppOverlay = forwardRef((props, ref) => {
         hide,
     }));
 
-    if (!component) return null;
+    if (!pageState?.component) return null;
 
     return (
-        <Animated.View style={styles.container} opacity={opacityAnimated.current}>
-            {component}
+        <Animated.View style={styles.container} opacity={valueAnimated.current}>
+            <TouchableOpacity style={styles.touch_area} onPress={hide} />
+            <Animated.View
+                style={{
+                    transform: [
+                        {
+                            translateY: valueAnimated.current?.interpolate({
+                                inputRange: [0, 1],
+                                outputRange: [100, 0],
+                            }),
+                        },
+                    ],
+                }}
+            >
+                {pageState?.component}
+            </Animated.View>
         </Animated.View>
     );
 });
@@ -61,6 +93,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: Colors.background_dark,
     },
+    touch_area: {
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
+    },
 });
 
-export default memo(AppOverlay);
+export default deepMemo(AppOverlay);

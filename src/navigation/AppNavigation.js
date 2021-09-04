@@ -5,13 +5,43 @@ import * as SCREENS from '@screens';
 
 const Stack = createStackNavigator();
 
+const STACK_SCREEN = {
+    RootApp: {
+        component: SCREENS?.RootApp,
+    },
+    InputScreen: {
+        component: SCREENS?.InputScreen,
+    },
+    ResultScreen: {
+        component: SCREENS?.ResultScreen,
+        options: { headerShown: true, headerBackground: null },
+    },
+};
+
+export const push = ({ navigation = null, screen = '' }) => {
+    if (getRoute(screen)) {
+        navigation?.push(screen);
+    } else {
+        console.warn('@@@ Cannot navigate to this screen');
+    }
+};
+
+export const getRoute = (screen = '') => {
+    return STACK_SCREEN[screen]?.component;
+};
+
 const StackNavigator = () => {
     const getStackScreens = () =>
-        Object.keys(SCREENS)?.map(key => (
-            <Stack.Screen key={`${key}Screen`} name={key} component={SCREENS?.[key]} />
+        Object.keys(STACK_SCREEN).map(key => (
+            <Stack.Screen
+                key={`key_screen_${key}`}
+                name={key}
+                options={{ headerShown: false }}
+                {...STACK_SCREEN[key]}
+            />
         ));
 
-    return <Stack.Navigator>{getStackScreens()}</Stack.Navigator>;
+    return <Stack.Navigator initialRouteName={'RootApp'}>{getStackScreens()}</Stack.Navigator>;
 };
 
 const AppNavigation = () => {

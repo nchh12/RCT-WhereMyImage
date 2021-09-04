@@ -1,8 +1,16 @@
 import { NativeModules, NativeEventEmitter } from 'react-native';
 
-const { ImageLabelingModule } = NativeModules || {};
+const { ImageLabelingModule, PermissionModule } = NativeModules || {};
 const ImageLabelingEmitter = new NativeEventEmitter(ImageLabelingModule);
-const { startScaningWithFilter, stopScanning } = ImageLabelingModule;
+const {
+    startScaningWithFilter,
+    stopScanning,
+    checkPermission,
+    requestPermission,
+    grantPermission,
+} = ImageLabelingModule;
+
+const { openSettings } = PermissionModule || {};
 
 const LISTENER_KEY = 'IMAGE_LABELING_LISTENER_KEY';
 const listen = callback => {
@@ -13,6 +21,10 @@ const listen = callback => {
 
 export default {
     startScaningWithFilter,
+    requestPermission,
+    checkPermission,
+    grantPermission,
+    openSettings,
     stopScanning,
     listen,
 };

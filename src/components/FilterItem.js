@@ -6,6 +6,7 @@ import { DefaultSize } from '@utils/Constants';
 import CustomizedContainer from './CustomizedContainer';
 import CustomizedText from './CustomizedText';
 import assets from '@assets';
+import { deepMemo } from 'use-hook-kits';
 
 const FilterItem = ({ text = '', disable = false, onPress = null }) => {
     return (
@@ -52,4 +53,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default React.memo(FilterItem);
+export default deepMemo(FilterItem);
