@@ -87,10 +87,10 @@ public class PopupView extends Dialog implements View.OnClickListener {
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.btnPopupDeny:
-                Log.d("@@@", "Permission denied");
+//                Log.d("@@@", "Permission denied");
                 break;
             case R.id.btnPopupAllow:
-                Log.d("@@@", "Permission granted");
+//                Log.d("@@@", "Permission granted");
                 handleClickCta.onClickCta();
                 break;
             default:

@@ -102,6 +102,7 @@ const ImageDetail = ({ item }) => {
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         width: '90%',
         height: 'auto',
         justifyContent: 'space-between',
@@ -114,9 +115,7 @@ const styles = StyleSheet.create({
         maxHeight: '70%',
         height: 'auto',
     },
-    container_filter: {
-        paddingHorizontal: DefaultSize.XL,
-    },
+    container_filter: {},
     cta: {
         marginTop: DefaultSize.XL,
         alignItems: 'center',
