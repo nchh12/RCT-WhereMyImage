@@ -42,7 +42,7 @@ public class PopupView extends Dialog implements View.OnClickListener {
     private void setIconColor(ImageView imageView){
         DrawableCompat.setTint(
                 DrawableCompat.wrap(imageView.getDrawable()),
-                ContextCompat.getColor(getContext(), R.color.base_3)
+                ContextCompat.getColor(getContext(), R.color.base_2)
         );
     }
 

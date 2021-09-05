@@ -1,7 +1,7 @@
 <resources>
    <string name="app_name">Where my Images</string>
    <string name="popup_mainText">Allow access</string>
-   <string name="popup_descText"><b>WhereMyImages?</b> would like to access your photos to find images corresponding to your tags and to share them with your friends.\nTap \"Allow\" to grant us permission.\nOr:\n</string>
+   <string name="popup_descText"><b>WhereMyImages?</b> would like to access your photos to find images corresponding to your tags and share them with your friends.\nTap \"Allow\" to grant us permission.\nOr:</string>
    <string name="pop_AltTextStepOne"> 1. Go to Settings</string>
    <string name="pop_AltTextStepTwo"> 2. Find <b>WhereMyImages?</b> icon</string>
    <string name="pop_AltTextStepThree"> 3. Turn on Gallery Access</string>
