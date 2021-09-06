@@ -1,11 +1,10 @@
-import React, { useState, useRef, memo, useLayoutEffect } from 'react';
-import { View, FlatList, Animated, Modal } from 'react-native';
+import React, { useState, useRef, useLayoutEffect, memo } from 'react';
+import { View, Text, FlatList, Animated, Modal, TouchableOpacity } from 'react-native';
 import styles from './styles';
 import slides from './slides';
 import OnboardingItem from './OnboardingItem';
 import Paginator from './Paginator';
-import NextButton from './NextButton';
-import { KEY_STORAGE, getItem } from '@utils/StorageUtils';
+import { KEY_STORAGE, getItem, setItem } from '@utils/StorageUtils';
 
 const OnboardingScreen = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -24,15 +23,22 @@ const OnboardingScreen = () => {
         });
     }, []);
 
+    const _hideOnboarding = () => {
+        setVisible(false);
+        setItem(KEY_STORAGE.ONBOARDING_SHOW, 'showed');
+    };
+
     const scrollTo = () => {
         if (currentIndex < slides.length - 1) {
             slidesRef.current.scrollToIndex({ index: currentIndex + 1 });
         } else {
-            setVisible(false);
+            _hideOnboarding();
         }
     };
 
-    if (!visible) return null;
+    const skip = () => {
+        slidesRef.current.scrollToIndex({ index: slides.length - 1 });
+    };
 
     return (
         <Modal animationType={'slide'} visible={visible} transparent={true}>
@@ -58,12 +64,16 @@ const OnboardingScreen = () => {
                         ref={slidesRef}
                     />
                 </View>
-
                 <Paginator data={slides} scrollX={scrollX} />
-                <NextButton
-                    scrollTo={scrollTo}
-                    percentage={(currentIndex + 1) * (100 / slides.length)}
-                />
+            </View>
+
+            <View style={styles.buttons}>
+                <TouchableOpacity onPress={skip}>
+                    <Text style={styles.skip_text}>{slides?.[currentIndex]?.ctaLeft}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={scrollTo}>
+                    <Text style={styles.next_text}>{slides?.[currentIndex]?.ctaRight}</Text>
+                </TouchableOpacity>
             </View>
         </Modal>
     );
