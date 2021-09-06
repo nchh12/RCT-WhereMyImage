@@ -48,7 +48,7 @@ public class PermissionHelper {
             return;
         }
         PermissionAwareActivity permissionAwareActivity = ((PermissionAwareActivity) activity);
-        if (!permissionAwareActivity.shouldShowRequestPermissionRationale(permission)){
+        if (permissionAwareActivity.shouldShowRequestPermissionRationale(permission)){
             //when user clicked "do not show again"
             promise.resolve(PermissionConstants.BLOCKED);
             return;
