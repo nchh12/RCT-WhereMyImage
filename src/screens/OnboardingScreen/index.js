@@ -1,10 +1,11 @@
 import React, { useState, useRef } from 'react';
-import { View, Text, FlatList, Animated } from 'react-native';
+import { View, Text, FlatList, Animated, Button } from 'react-native';
 import styles from './styles';
 import slides from './slides';
 import OnboardingItem from './OnboardingItem';
 import Paginator from './Paginator';
-import NextButton from './NextButton';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const OnboardingScreen = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -22,6 +23,10 @@ const OnboardingScreen = () => {
         } else {
             console.log('Last item');
         }
+    };
+
+    const skip = () => {
+        slidesRef.current.scrollToIndex({ index: slides.length - 1 });
     };
 
     return (
@@ -46,10 +51,14 @@ const OnboardingScreen = () => {
             </View>
 
             <Paginator data={slides} scrollX={scrollX} />
-            <NextButton
-                scrollTo={scrollTo}
-                percentage={(currentIndex + 1) * (100 / slides.length)}
-            />
+            <View style={styles.buttons}>
+                <TouchableOpacity onPress={skip}>
+                    <Text style={styles.skip_text}> Skip</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={scrollTo}>
+                    <Text style={styles.next_text}> Next</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 };
