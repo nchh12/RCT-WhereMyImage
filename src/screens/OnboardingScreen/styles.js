@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import Colors from '@utils/Colors';
 
 export default StyleSheet.create({
     container: {

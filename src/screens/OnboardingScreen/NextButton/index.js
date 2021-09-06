@@ -1,9 +1,7 @@
 import React, { useEffect, useRef } from 'react';
-import { View, TouchableOpacity, Animated, Image } from 'react-native';
+import { View, TouchableOpacity, Animated, Image, Text } from 'react-native';
 import styles from './styles';
 import Svg, { G, Circle } from 'react-native-svg';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
-import Icon from 'react-native-vector-icons/AntDesign';
 
 const NextButton = ({ percentage, scrollTo }) => {
     const size = 96;
@@ -16,7 +14,7 @@ const NextButton = ({ percentage, scrollTo }) => {
     const progressRef = useRef(null);
 
     const animation = toValue => {
-        return Animated.timing(progressAnimation, {
+        Animated.timing(progressAnimation, {
             toValue,
             duration: 250,
             useNativeDriver: true,
@@ -28,18 +26,12 @@ const NextButton = ({ percentage, scrollTo }) => {
     }, [percentage]);
 
     useEffect(() => {
-        progressAnimation.addListener(
-            value => {
-                const strokeDaskoffset = circumference - (circumference * value.value) / 100;
-
-                if (progressRef?.current) {
-                    progressRef.current.setNativeProps({
-                        strokeDaskoffset,
-                    });
-                }
-            },
-            [percentage]
-        );
+        progressAnimation.addListener(value => {
+            const strokeDashoffset = circumference - (circumference * value.value) / 100;
+            progressRef.current?.setNativeProps({
+                strokeDashoffset,
+            });
+        });
 
         return () => {
             progressAnimation.removeAllListeners();
@@ -69,7 +61,7 @@ const NextButton = ({ percentage, scrollTo }) => {
                 </G>
             </Svg>
             <TouchableOpacity onPress={scrollTo} style={styles.button} activeOpacity={0.6}>
-                <Image source={Icon.getImageSource('arrowright', 32, '#fff')}></Image>
+                <Text>{'>'}</Text>
             </TouchableOpacity>
         </View>
     );

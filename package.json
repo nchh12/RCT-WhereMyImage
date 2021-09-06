@@ -16,6 +16,7 @@
         "visualize": "./node_modules/.bin/react-native-bundle-visualizer"
     },
     "dependencies": {
+        "@react-native-async-storage/async-storage": "^1.15.7",
         "@react-native-community/masked-view": "^0.1.11",
         "@react-native-community/viewpager": "^5.0.11",
         "@react-navigation/native": "^5.9.4",
@@ -34,7 +35,6 @@
         "react-native-scrollable-tab-view": "^1.0.0",
         "react-native-share": "^7.0.0",
         "react-native-svg": "^12.1.1",
-        "react-native-vector-icons": "^8.1.0",
         "synonyms": "^1.0.1",
         "use-hook-kits": "^0.0.30"
     },

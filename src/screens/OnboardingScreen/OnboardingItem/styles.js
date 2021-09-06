@@ -15,14 +15,13 @@ export default StyleSheet.create({
         justifyContent: 'center',
     },
     title: {
-        fontWeight: '800',
+        fontWeight: 'bold',
         fontSize: TextSize.H2,
         marginBottom: DefaultSize.M,
         color: Colors.base_2,
         textAlign: 'center',
     },
     description: {
-        fontWeight: '300',
         color: Colors.black,
         textAlign: 'center',
         paddingHorizontal: DefaultSize.XL * 2,

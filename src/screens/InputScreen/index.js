@@ -12,12 +12,10 @@ import { push } from '@navigation/AppNavigation';
 import { deepMemo } from 'use-hook-kits';
 import styles from './styles';
 import debounce from 'lodash/debounce';
-import OnboardingScreen from '../OnboardingScreen';
 const ScrollableTabView = require('react-native-scrollable-tab-view');
 
 const InputScreen = ({ navigation }) => {
     const { setTextDesc } = useFilters();
-    return <OnboardingScreen />;
     return (
         <CustomizedContainer type="main_screen">
             <LottieView
@@ -26,7 +24,6 @@ const InputScreen = ({ navigation }) => {
                 autoPlay={true}
                 loop={true}
             />
-            <OnboardingScreen />
             <View style={styles.container_overlay}>
                 <ScrollableTabView
                     onChangeTab={({ i }) => {
