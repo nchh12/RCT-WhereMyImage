@@ -16,7 +16,6 @@ const ScrollableTabView = require('react-native-scrollable-tab-view');
 
 const InputScreen = ({ navigation }) => {
     const { setTextDesc } = useFilters();
-
     return (
         <CustomizedContainer type="main_screen">
             <LottieView

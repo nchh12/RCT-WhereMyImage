@@ -78,6 +78,7 @@ const useFilters = () => {
                     []
                 );
                 res.push(...synonymsList);
+                res.push(word);
             });
         return res;
     };

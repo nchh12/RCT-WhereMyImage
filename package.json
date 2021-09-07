@@ -9,13 +9,15 @@
         "pod": "cd ios && pod install && cd ..",
         "test": "jest",
         "lint": "eslint .",
-        "all": "watchman watch-del-all && rm -rf package-lock.json && rm -rf node_modules/ && rm -fr $TMPDIR/metro* && npm install ; cd ios && rm -rf Pods ; rm -rf Podfile.lock ; pod install ; cd .. ; yarn start --reset-cache && rm -fr $TMPDIR/metro*",
-        "start": "qrcode-terminal \"max://?action=startFeature&args=[{\\\"config\\\":\\\"{\\\\\\\"debugHost\\\\\\\":\\\\\\\"http://$(ipconfig getifaddr en0):8081\\\\\\\",\\\\\\\"development\\\\\\\":true}\\\",\\\"param\\\":\\\"{}\\\",\\\"appId\\\":\\\"vn.momo.demo\\\"},{}]\" && react-native start --port=8081",
+        "all_window": "rm -rf package-lock.json && rm -rf node_modules/ && rm -fr $TMPDIR/metro* && npm install && yarn start",
+        "all": "watchman watch-del-all ; rm -rf package-lock.json && rm -rf node_modules/ && rm -fr $TMPDIR/metro* && npm install ; cd ios && rm -rf Pods ; rm -rf Podfile.lock ; pod install ; cd .. ; yarn start && rm -fr $TMPDIR/metro*",
+        "start": "react-native start --reset-cache --port=8081",
         "parseLabels": "node scripts/parseLabels.js",
         "adb": "adb reverse tcp:8081 tcp:8081 && adb reverse tcp:8181 tcp:8181",
         "visualize": "./node_modules/.bin/react-native-bundle-visualizer"
     },
     "dependencies": {
+        "@react-native-async-storage/async-storage": "^1.15.7",
         "@react-native-community/masked-view": "^0.1.11",
         "@react-native-community/viewpager": "^5.0.11",
         "@react-navigation/native": "^5.9.4",
@@ -46,6 +48,7 @@
         "eslint-config-prettier": "^8.2.0",
         "metro-react-native-babel-preset": "^0.64.0",
         "qrcode-terminal": "^0.12.0",
+        "react-native-bundle-visualizer": "^3.0.0",
         "react-scripts": "^4.0.3",
         "react-test-renderer": "17.0.1"
     },
