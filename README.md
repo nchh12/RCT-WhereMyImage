@@ -1,4 +1,5 @@
-# CAPTION-BASED IMAGE GALLERY SEARCH APPLICATION
+# Where my Images
+Caption-based images gallery search Application
 
 ## Usage
 
