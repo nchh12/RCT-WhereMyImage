@@ -1,3 +1,6 @@
+# Note
+This is the second project in which I had the pleasure to work with my friend Lam Nguyen, who is an already skilled mobile developer. I worked on developing and designing the interface for the Onboarding screen and some app permissions request popups, which allows me to dabble with some React Native and also with LottieFiles for easy-integrated animations.
+
 # Where my Images
 Caption-based images gallery search Application
 
